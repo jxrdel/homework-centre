@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
+use App\Models\TimeSlot;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 
@@ -32,6 +33,14 @@ class Controller
             ->get();
 
         return response()->json($appointments);
+    }
+
+    public function getTimeSlots(){
+
+        $timeslots = TimeSlot::select('TimeSlotID as id', 'Title as title', 'StartTime as start', 'EndTime as end')
+            ->get();
+
+        return response()->json($timeslots);
     }
 
 

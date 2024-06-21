@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [Controller::class, 'index'])->name('/');
 Route::get('/myappointments', [Controller::class, 'getMyAppointments'])->name('myappointments');
+Route::get('/gettimeslots', [Controller::class, 'getTimeSlots'])->name('gettimeslots');
 Route::get('/getappointmentcount', [Controller::class, 'getAppointmentCount'])->name('getappointmentcount');
 
 Route::get('/Admin', [Controller::class, 'admin'])->name('admin');

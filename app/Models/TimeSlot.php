@@ -14,6 +14,7 @@ class TimeSlot extends Model
     protected $primaryKey = 'TimeSlotID';
 
     protected $fillable = [
+        'Title',
         'StartTime',
         'EndTime',
         'MaxEnrollments',

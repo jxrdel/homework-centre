@@ -19,7 +19,7 @@
 
 @section('content')
 
-        @livewire('date-appointments')
+        @livewire('create-timeslot-modal')
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Admin</h1>
@@ -42,37 +42,31 @@
 
 <script>
 
-        document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
             var myCalendar = document.getElementById('calendar');
 
-            // Fetch appointment counts from the backend
-            axios.get('/getappointmentcount').then(response => {
-                const appointmentCounts = response.data;
-
+            function initializeCalendar() {
                 var calendar = new FullCalendar.Calendar(myCalendar, {
-                    initialView: 'dayGridMonth',
+                    initialView: 'timeGridWeek',
                     editable: true,
                     selectable: true,
+                    headerToolbar: {
+                        left: 'prev,next',
+                        center: 'title',
+                        right: 'timeGridWeek,timeGridDay,dayGridMonth' // user can switch between the two
+                    },
+                    events: '/gettimeslots', // Fetch events from the specified route
                     select: function(info) {
                         // Ensure only single dates are selectable
                         var startDate = moment(info.startStr);
-                        var endDate = moment(info.endStr).subtract(1, 'days');
+                        var endDate = moment(info.endStr);
 
                         if (startDate.isSame(endDate, 'day')) {
                             console.log('Selected date: ' + info.startStr);
-                            Livewire.dispatch('show-appointments', { date: info.startStr });
+                            Livewire.dispatch('create-timeslot', { starttime: info.startStr, endtime: info.endStr });
                         } else {
                             calendar.unselect();
                         }
-                    },
-                    dayCellClassNames: function(arg) {
-                        const dateStr = arg.date.toISOString().split('T')[0];
-                        if (appointmentCounts[dateStr] && appointmentCounts[dateStr] >= 3) {
-                            return 'max-appointments';
-                        } else if (appointmentCounts[dateStr] && appointmentCounts[dateStr] > 0) {
-                            return 'appointment-day';
-                        }
-                        return '';
                     }
                 });
 
@@ -82,19 +76,19 @@
                 window.addEventListener('refresh-calendar', event => {
                     calendar.refetchEvents();
                 });
-            }).catch(error => {
-                console.error('Error fetching appointment counts:', error);
-            });
+            }
+
+            initializeCalendar();
         });
 
 
 
-    window.addEventListener('display-appointments-modal', event => {
-            $('#dateAppointmentModal').modal('show');
+    window.addEventListener('display-create-modal', event => {
+            $('#createTimeslotModal').modal('show');
         })
 
-    window.addEventListener('close-appointments-modal', event => {
-            $('#dateAppointmentModal').modal('hide');
+    window.addEventListener('close-create-modal', event => {
+            $('#createTimeslotModal').modal('hide');
         })
 
 

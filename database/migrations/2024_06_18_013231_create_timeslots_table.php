@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('timeslots', function (Blueprint $table) {
             $table->id('TimeSlotID');
+            $table->string('Title');
             $table->datetime('StartTime');
             $table->datetime('EndTime');
             $table->integer('MaxEnrollments');
