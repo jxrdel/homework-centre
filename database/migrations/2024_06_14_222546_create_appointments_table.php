@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->bigIncrements('AppointmentID'); // Primary Key
             $table->string('Title'); // Title of the appointment
-            $table->date('StartDate'); // Start date of the appointment
-            $table->date('EndDate'); // End date of the appointment
+            $table->datetime('StartDate'); // Start date of the appointment
+            $table->datetime('EndDate'); // End date of the appointment
             $table->unsignedBigInteger('StudentID'); // Foreign key to students table
 
             $table->timestamps(); // Created_at and updated_at timestamps

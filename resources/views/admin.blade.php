@@ -42,7 +42,11 @@
 
 <script>
 
-document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function() {
+            //Set active link
+            var adminlink = document.getElementById('adminlink');
+            adminlink.classList.add('active');
+
             var myCalendar = document.getElementById('calendar');
 
             function initializeCalendar() {

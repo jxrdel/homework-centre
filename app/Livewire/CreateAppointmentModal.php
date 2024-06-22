@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Appointment;
+use App\Models\Student;
 use Carbon\Carbon;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -12,11 +13,16 @@ class CreateAppointmentModal extends Component
     public $title;
     public $startdate;
     public $enddate;
-    public $enddateplusone;
+    public $student;
+    public $students;
 
     public function render()
     {
         return view('livewire.create-appointment-modal');
+    }
+
+    public function mount(){
+        $this->students = Student::all();
     }
 
     #[On('create-appointment')]
@@ -36,20 +42,26 @@ class CreateAppointmentModal extends Component
     }
 
     public function createAppointment(){
-        // dd($this->enddate);
+        // dd($this->student);
         $startdate = Carbon::parse($this->startdate);
         $startdate = $startdate->format('Y-m-d H:i:s');
         $enddate = Carbon::parse($this->enddate);
         $enddate = $enddate->format('Y-m-d H:i:s');
 
+        $selectedStudent = Student::find($this->student);
+        $studentName = $selectedStudent->StudentName;
+        $this->title = 'Appointment - ' .  $studentName;
+        // dd($this->title);
+
         Appointment::create([
             'Title' => $this->title,
             'StartDate' => $startdate,
             'EndDate' => $enddate,
-            'StudentID' => 1,
+            'StudentID' => $this->student,
         ]);
 
         $this->dispatch('close-create-modal');
+        $this->dispatch('show-message', message: 'Appointment booked successfully');
         $this->dispatch('refresh-calendar');
     }
 }

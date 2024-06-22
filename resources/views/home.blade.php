@@ -35,63 +35,71 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src='https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js'></script>
 
-<script>document.addEventListener('DOMContentLoaded', function() {
-    var calendarElement = document.getElementById('calendar');
+<script>
+document.addEventListener('DOMContentLoaded', function() {
 
-    // Fetch appointment counts from the backend
-    axios.get('/getappointmentcount').then(response => {
-        const appointmentCounts = response.data;
+    var dashboardLink = document.getElementById('dashboardlink');
+    dashboardLink.classList.add('active');
 
-        // Fetch available timeslots from the backend
-        axios.get('/gettimeslots').then(timeslotResponse => {
-            const timeslots = timeslotResponse.data;
+    var calendarEl = document.getElementById('calendar');
 
-            var calendar = new FullCalendar.Calendar(calendarElement, {
-                initialView: 'timeGridWeek',
-                events: '{{ route('myappointments') }}',
-                headerToolbar: {
-                    left: 'prev,next',
-                    center: 'title',
-                    right: 'timeGridWeek,timeGridDay,dayGridMonth' // user can switch between the two
-                },
-                editable: true,
-                selectable: true,
-                select: function(info) {
-                    // Display the selected range in the console
-                    console.log('Selected range:', info.startStr, 'to', info.endStr);
-                    Livewire.dispatch('create-appointment', { startdate: info.startStr, enddate: info.endStr });
-                },
-                eventClick: function(info) {
-                    // Display event information in the console
-                    console.log('Event ID:', info.event.id);
-                },
-                slotClassNames: function(arg) {
-                    const slotStart = arg.date;
-                    const slotEnd = new Date(slotStart);
-                    slotEnd.setMinutes(slotStart.getMinutes() + calendar.getOption('slotDuration').minutes);
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        events: '{{ route('myappointments') }}',
+        headerToolbar: {
+            left: 'prev,next',
+            center: 'title',
+            right: 'timeGridWeek,timeGridDay,dayGridMonth' // user can switch between the two
+        },
+        editable: true,
+        selectable: true,
+        select: function(info) {
+            // Display the selected range in the console
+            var startDate = moment(info.startStr);
+            var endDate = moment(info.endStr);
 
-                    const slotStr = slotStart.toISOString().split('T')[1].substring(0, 5); // "HH:MM"
-
-                    // Check if the timeslot is available
-                    if (timeslots.includes(slotStr)) {
-                        return 'available-timeslot';
-                    }
-                    return '';
-                }
-            });
-
-            calendar.render();
-
-            // Refresh calendar events
-            window.addEventListener('refresh-calendar', event => {
-                calendar.refetchEvents();
-            });
-        }).catch(error => {
-            console.error('Error fetching timeslots:', error);
-        });
-    }).catch(error => {
-        console.error('Error fetching appointment counts:', error);
+            if (startDate.isSame(endDate, 'day')) {
+                console.log('Selected range:', info.startStr, 'to', info.endStr);
+                Livewire.dispatch('create-appointment', { startdate: info.startStr, enddate: info.endStr });
+            } else {
+                calendar.unselect();
+            }
+        },
+        eventDidMount: function(info) {
+            // Check if the event is a timeslot and set the background color
+            if (info.event.extendedProps.isTimeslot) {
+                info.el.style.backgroundColor = 'green';
+            }
+        },
     });
+
+    calendar.render();
+
+    // Custom event listener to refresh the calendar
+    document.addEventListener('refresh-calendar', function() {
+        calendar.refetchEvents();
+    });
+
+    // Fetch and render timeslots with green background
+    fetchTimeslotsAndRender();
+
+    function fetchTimeslotsAndRender() {
+        fetch('{{ route('gettimeslots') }}')
+            .then(response => response.json())
+            .then(timeslots => {
+                timeslots.forEach(timeslot => {
+                    calendar.addEvent({
+                        start: timeslot.start,
+                        end: timeslot.end,
+                        display: 'background',
+                        extendedProps: {
+                            isTimeslot: true
+                        }
+                    });
+                });
+            })
+            .catch(error => console.error('Error fetching timeslots:', error));
+    }
 });
 
 

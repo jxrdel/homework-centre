@@ -55,14 +55,14 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item" id="dashboardlink">
                 <a class="nav-link" href="{{ route('/') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item" id="adminlink">
                 <a class="nav-link" href="{{ route('admin') }}">
                     <i class="fa-solid fa-user-tie"></i>
                     <span>Admin</span></a>
@@ -142,144 +142,6 @@
             @endauth
 
 
-            @auth
-                @if (auth()->user()->hasHeader('MOH Organisation'))
-                    <!-- Nav Item - Utilities Collapse Menu -->
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#orgCollapse"
-                            aria-expanded="true" aria-controls="orgCollapse">
-                            <i class="bi bi-building-fill"></i>
-                            <span>MOH Organisation</span>
-                        </a>
-                        <div id="orgCollapse" class="collapse" aria-labelledby="headingUtilities"
-                            data-parent="#accordionSidebar">
-                            <div class="bg-white py-2 collapse-inner rounded">
-
-                                <a class="collapse-item" href="#" data-toggle="collapse" id="deptheader"
-                                data-target="#DeptCollapse" aria-expanded="true" aria-controls="DeptCollapse">Departments</a>
-
-                                <div id="DeptCollapse" class="collapse" aria-labelledby="headingThree" data-parent="#orgCollapse">
-                                    <div class="bg-white py-2 collapse-inner rounded">
-                                        <a id="listdepartmentslink" class="collapse-item" href="{{ route('listdepartments') }}">List Departments</a>
-
-                                        @if (auth()->user()->hasPermission('BusinessGroup : Create : Screen'))
-                                        <a id="createdepartmentlink" class="collapse-item" href="{{route('newdept')}}">Create Department</a>
-                                        @endif
-                                    </div>
-                                </div>
-
-
-                                <a class="collapse-item" href="#" data-toggle="collapse" id="mohpositionsheader"
-                                data-target="#PositionCollapse" aria-expanded="true" aria-controls="PositionCollapse">MOH Positions</a>
-
-                                <div id="PositionCollapse" class="collapse" aria-labelledby="headingThree" data-parent="#orgCollapse">
-                                    <div class="bg-white py-2 collapse-inner rounded">
-                                        <a id="listmohroleslink" class="collapse-item" href="{{route('listmohroles')}}">List MOH Roles</a>
-                                    </div>
-                                </div>
-
-
-                                <a class="collapse-item" href="#" data-toggle="collapse" id="mohemployeesheader"
-                                data-target="#EmpCollapse" aria-expanded="true" aria-controls="EmpCollapse">MOH Employees</a>
-
-                                <div id="EmpCollapse" class="collapse" aria-labelledby="headingThree" data-parent="#orgCollapse">
-                                    <div class="bg-white py-2 collapse-inner rounded">
-                                        <a id="listiclink" class="collapse-item" href="{{ route('listinternalcontacts') }}">List MOH Contacts</a>
-
-                                        @if (auth()->user()->hasPermission('InternalContact : Create : Screen'))
-                                        <a id="createiclink" class="collapse-item" href="{{ route('newinternalcontact') }}">Create MOH Contact</a>
-                                        @endif
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </li>
-                @endif
-            @endauth
-
-
-            @auth
-                @if (auth()->user()->hasHeader('External Entities'))
-
-                    <!-- Nav Item - Utilities Collapse Menu -->
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#entityCollapse"
-                            aria-expanded="true" aria-controls="entityCollapse">
-                            <i class="bi bi-person-video2"></i>
-                            <span>External Entities</span>
-                        </a>
-                        <div id="entityCollapse" class="collapse" aria-labelledby="headingEntities"
-                            data-parent="#accordionSidebar">
-                            <div class="bg-white py-2 collapse-inner rounded">
-
-                                <a class="collapse-item" data-toggle="#" href="{{ route('externalcompanies') }}" id="eclink"
-                                data-target="#" aria-expanded="true" aria-controls="#">External Companies</a>
-
-                                <a class="collapse-item" data-toggle="#" href="{{ route('externalpersons') }}" id="eplink"
-                                data-target="#" aria-expanded="true" aria-controls="#">External Persons</a>
-
-                            </div>
-                        </div>
-                    </li>
-
-                @endif
-            @endauth
-
-
-            @auth
-                @if (auth()->user()->hasHeader('Purchases'))
-
-                    <li class="nav-item">
-                        <a class="nav-link" id="purchaselink" href="{{ route('purchases') }}">
-                            <i id="purchaseicon" class="bi bi-newspaper"></i>
-                            <span>Purchases</span></a>
-                    </li>
-
-                @endif
-            @endauth
-
-
-            @auth
-                @if (auth()->user()->hasHeader('Contracts'))
-
-                    <!-- Nav Item - Utilities Collapse Menu -->
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#contractCollapse"
-                            aria-expanded="true" aria-controls="contractCollapse">
-                            <i class="bi bi-person-video2"></i>
-                            <span>Contracts</span>
-                        </a>
-                        <div id="contractCollapse" class="collapse" aria-labelledby="headingContracts"
-                            data-parent="#accordionSidebar">
-                            <div class="bg-white py-2 collapse-inner rounded">
-
-                                <a class="collapse-item" data-toggle="#" href="{{ route('purchasecontracts') }}" id="pcontractlink"
-                                data-target="#" aria-expanded="true" aria-controls="#">Purchase Contracts</a>
-
-                                <a class="collapse-item" data-toggle="#" href="{{ route('employeecontracts') }}" id="econtractlink"
-                                data-target="#" aria-expanded="true" aria-controls="#">Employee Contracts</a>
-
-                            </div>
-                        </div>
-                    </li>
-
-                @endif
-            @endauth
-
-
-            @auth
-                @if (auth()->user()->hasHeader('Notifications'))
-
-                    <li class="nav-item">
-                        <a class="nav-link" id="notilink" href="{{ route('notifications') }}">
-                            <i id="notificationicon" class="bi bi-bell-fill"></i>
-                            <span>Notifications</span></a>
-                    </li>
-
-                @endif
-            @endauth
-
 
 
 
@@ -313,57 +175,6 @@
                     <ul class="navbar-nav ml-auto">
 
 
-{{--
-                        <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li> --}}
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -476,6 +287,16 @@
 <script>
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+    
+    window.addEventListener('show-message', event => {
+                
+                toastr.options = {
+                    "progressBar" : true,
+                    "closeButton" : true,
+                }
+                toastr.success(event.detail.message,'' , {timeOut:3000});
+            })
 </script>
 @yield('scripts')
 

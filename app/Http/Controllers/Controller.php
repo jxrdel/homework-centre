@@ -72,4 +72,12 @@ class Controller
     public function admin(){
         return view('admin');
     }
+
+    public function login(){
+        return view('login');
+    }
+
+    public function register(){
+        return view('register');
+    }
 }

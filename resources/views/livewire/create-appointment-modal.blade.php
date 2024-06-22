@@ -20,11 +20,19 @@
 
                 <div class="row" style="margin-top: 30px">
                     <div class="col-3">
-                        <label style="margin-top: 5px" for="title">Title: &nbsp;</label>
+                        <label style="margin-top: 5px" for="title">Student: &nbsp;</label>
                     </div>
 
                     <div class="col">
-                        <input type="text" wire:model="title" class="form-control" aria-label="Start Date" autocomplete="off" required>
+                        
+                    <select class="form-control" wire:model="student" required>
+                        
+                        <option value="">Select a Student</option>
+                        @foreach ($students as $student)
+                        <option value="{{ $student->StudentID }}">{{ $student->StudentName }}</option>
+                        @endforeach
+    
+                    </select>
                     </div>
 
                 </div>
