@@ -6,6 +6,7 @@ use App\Models\Appointment;
 use App\Models\Student;
 use App\Models\TimeSlot;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -23,7 +24,7 @@ class CreateAppointmentModal extends Component
     }
 
     public function mount(){
-        $this->students = Student::all();
+        $this->students = Auth::user()->students;
     }
 
     #[On('create-appointment')]

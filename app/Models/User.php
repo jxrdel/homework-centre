@@ -31,4 +31,9 @@ class User extends Authenticatable
     {
         return self::where('Username', $username)->exists();
     }
+
+    public function students()
+    {
+        return $this->belongsToMany(Student::class, 'UserStudent', 'UserID', 'StudentID');
+    }
 }

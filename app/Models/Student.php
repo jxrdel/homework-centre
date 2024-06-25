@@ -22,4 +22,10 @@ class Student extends Model
     {
         return $this->hasMany(Appointment::class, 'StudentID');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'UserStudent', 'StudentID', 'UserID');
+    }
+
 }
