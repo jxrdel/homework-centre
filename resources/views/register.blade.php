@@ -22,6 +22,13 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/app.min.css') }}" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body #toast-container > div {
+            opacity: 1;
+        }
+    </style>
+
 </head>
 
 <body class="bg-gradient-light">
@@ -39,9 +46,6 @@
                         <div class="row">
                             <div class="col">
                                 <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4"><i class="fa-solid fa-file-lines fa-lg"></i> &nbsp;Parent Registration Form</h1>
-                                    </div>
                                         @livewire('registration-form')
                                 </div>
                             </div>
@@ -64,6 +68,18 @@
 
 <!-- Custom scripts for all pages-->
 <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+
+    window.addEventListener('show-message', event => {
+
+                toastr.options = {
+                    "progressBar" : true,
+                    "closeButton" : true,
+                }
+                toastr.success(event.detail.message,'' , {timeOut:3000});
+            })
+</script>
 
 </body>
 

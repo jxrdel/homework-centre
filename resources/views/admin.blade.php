@@ -22,7 +22,7 @@
         @livewire('create-timeslot-modal')
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Admin</h1>
+            <h1 class="h3 mb-0 text-gray-800" style="margin: auto"><i class="fa-solid fa-user-tie"></i> &nbsp; Admin</h1>
         </div>
 
         <!-- Content Row -->

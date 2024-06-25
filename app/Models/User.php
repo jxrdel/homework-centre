@@ -26,4 +26,9 @@ class User extends Authenticatable
         'IsParent',
         'IsAdmin',
     ];
+
+    public static function usernameExists($username)
+    {
+        return self::where('Username', $username)->exists();
+    }
 }

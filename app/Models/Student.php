@@ -12,7 +12,8 @@ class Student extends Model
     protected $primaryKey = 'StudentID'; // Primary key column name
 
     protected $fillable = [
-        'StudentName',
+        'FirstName',
+        'LastName',
         'DOB',
     ];
 

@@ -48,7 +48,7 @@
                 <div class="sidebar-brand-icon">
                     <i class="fas fa-file-contract fa-lg"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">IPM</div>
+                <div class="sidebar-brand-text mx-3">Daycare</div>
             </a>
 
             <!-- Divider -->
@@ -62,11 +62,22 @@
             </li>
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item" id="adminlink">
-                <a class="nav-link" href="{{ route('admin') }}">
-                    <i class="fa-solid fa-user-tie"></i>
-                    <span>Admin</span></a>
+            <li class="nav-item" id="childrenlink">
+                <a class="nav-link" href="{{ route('mychildren') }}">
+                    <i class="fa-solid fa-baby"></i>
+                    <span>My Children</span></a>
             </li>
+
+            @auth
+                @if (Auth::user()->IsAdmin)
+                    <!-- Nav Item - Dashboard -->
+                    <li class="nav-item" id="adminlink">
+                        <a class="nav-link" href="{{ route('admin') }}">
+                            <i class="fa-solid fa-user-tie"></i>
+                            <span>Admin</span></a>
+                    </li>
+                @endif
+            @endauth
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -75,73 +86,6 @@
             <div class="sidebar-heading">
                 Interface
             </div>
-
-
-            @auth
-                @if (auth()->user()->hasHeader('User Control'))
-                    <!-- Nav Item - Pages Collapse Menu -->
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#UserControlCollapse"
-                            aria-expanded="true" aria-controls="UserControlCollapse">
-                            <i class="bi bi-person-fill-gear"></i>
-                            <span>User Control</span>
-                        </a>
-                        <div id="UserControlCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                            <div class="bg-white py-2 collapse-inner rounded">
-                                <a class="collapse-item" id="useraccheader" href="#" data-toggle="collapse"
-                                data-target="#UserAccCollapse" aria-expanded="true" aria-controls="UserAccCollapse">User Accounts</a>
-
-                                <div id="UserAccCollapse" class="collapse" aria-labelledby="headingThree" data-parent="#UserControlCollapse">
-                                    <div class="bg-white py-2 collapse-inner rounded">
-                                        <a id="listuserslink" class="collapse-item" href="{{ route('listusers') }}">List Users</a>
-
-                                        @if (auth()->user()->hasPermission('User : Create : Screen'))
-                                        <a id="createuserlink" class="collapse-item" href="{{ route('newuser') }}">Create User</a>
-                                        @endif
-
-                                    </div>
-                                </div>
-
-
-                                <a class="collapse-item" href="#" data-toggle="collapse"
-                                data-target="#RolesCollapse" aria-expanded="true" aria-controls="RolesCollapse">Roles</a>
-
-                                <div id="RolesCollapse" class="collapse" aria-labelledby="headingThree" data-parent="#UserControlCollapse">
-                                    <div class="bg-white py-2 collapse-inner rounded">
-                                        <a class="collapse-item" href="#">List Roles</a>
-                                        <a class="collapse-item" href="#">Create Roles</a>
-                                    </div>
-                                </div>
-
-
-                                <a class="collapse-item" href="#" data-toggle="collapse"
-                                data-target="#PGCollapse" aria-expanded="true" aria-controls="PGCollapse">Permission Groups</a>
-
-                                <div id="PGCollapse" class="collapse" aria-labelledby="headingThree" data-parent="#UserControlCollapse">
-                                    <div class="bg-white py-2 collapse-inner rounded">
-                                        <a class="collapse-item" href="#">List Perm. Groups</a>
-                                        <a class="collapse-item" href="#">Create Perm. Groups</a>
-                                    </div>
-                                </div>
-
-
-                                <a class="collapse-item" href="#" data-toggle="collapse"
-                                data-target="#PermCollapse" aria-expanded="true" aria-controls="PermCollapse">Permissions</a>
-
-                                <div id="PermCollapse" class="collapse" aria-labelledby="headingThree" data-parent="#UserControlCollapse">
-                                    <div class="bg-white py-2 collapse-inner rounded">
-                                        <a class="collapse-item" href="#">List Permissions</a>
-                                        <a class="collapse-item" href="#">Permissions</a>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </li>
-                @endif
-            @endauth
-
-
 
 
 
@@ -185,7 +129,7 @@
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 ">
                                     {{-- Display User Name --}}
                                     @auth
-                                        {{ Auth::user()->internalcontact->FirstName }} {{ Auth::user()->internalcontact->LastName }}
+                                        {{ Auth::user()->FirstName }} {{ Auth::user()->LastName }}
                                     @else
                                         Guest user
                                     @endauth
@@ -288,9 +232,9 @@
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
-    
+
     window.addEventListener('show-message', event => {
-                
+
                 toastr.options = {
                     "progressBar" : true,
                     "closeButton" : true,

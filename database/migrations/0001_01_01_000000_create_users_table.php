@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('FirstName');
             $table->string('LastName');
             $table->string('Username')->unique();
-            $table->string('Email');
-            $table->string('CellNo');
+            $table->string('Email')->nullable();
+            $table->string('CellNo')->nullable();
             $table->string('HomeNo')->nullable();
             $table->boolean('IsParent');
             $table->boolean('IsAdmin');

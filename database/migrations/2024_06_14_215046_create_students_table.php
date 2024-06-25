@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->bigIncrements('StudentID'); // Primary Key
-            $table->string('StudentName'); // Student name
+            $table->string('FirstName'); // Student name
+            $table->string('LastName'); // Student name
             $table->date('DOB'); // Date of birth
 
             $table->timestamps(); // Created_at and updated_at timestamps

@@ -80,4 +80,8 @@ class Controller
     public function register(){
         return view('register');
     }
+
+    public function myChildren(){
+        return view('mychildren');
+    }
 }

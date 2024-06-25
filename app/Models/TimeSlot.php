@@ -19,4 +19,11 @@ class TimeSlot extends Model
         'EndTime',
         'MaxEnrollments',
     ];
+
+    public static function timeslotExists($startTime, $endTime)
+    {
+        return self::where('StartTime', '<=', $startTime)
+                    ->where('EndTime', '>=', $endTime)
+                    ->exists();
+    }
 }
