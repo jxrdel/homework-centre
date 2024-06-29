@@ -26,7 +26,7 @@
 
                     <div class="col">
 
-                    <select class="form-control" wire:model="student" required>
+                    <select class="form-select" wire:model="student" required>
 
                         <option value="">Select a Student</option>
                         @foreach ($students as $student)

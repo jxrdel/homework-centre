@@ -3,24 +3,24 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="dateAppointmentModalLabel" style="color: black">Create Appointment</h1>
+          <h1 class="modal-title fs-5" id="dateAppointmentModalLabel" style="color: black">Appointment Information</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col" style="text-align: center">
-                        <label style="margin-top: 5px;" for="title">Appointments on {{$this->date}}: &nbsp;</label>
+                        <label style="margin-top: 5px;" for="title">Appointments on {{ $this->appointmentstart }} - {{ $this->appointmentend }}: &nbsp;</label>
                     </div>
                 </div>
 
-                <div class="row" style="margin-top: 30px">
+                <div class="row">
                     <div class="col">
-                        @if (count($studentnames) < 1)
+                        @if (count($appointments) < 1)
                             <p>No students have an appointment on this date</p>
                         @else
                             <ol>
-                                @foreach ($studentnames as $name)
-                                    <li>{{$name}}</li>
+                                @foreach ($appointments as $appointment)
+                                    <li>{{$appointment->student->FirstName}} {{$appointment->student->LastName}}:  {{ \Carbon\Carbon::parse($appointment->StartDate)->format('g:i A')}} - {{\Carbon\Carbon::parse($appointment->EndDate)->format('g:i A') }}</li>
                                 @endforeach
                             </ol>
                         @endif

@@ -15,7 +15,9 @@ return new class extends Migration
             $table->bigIncrements('StudentID'); // Primary Key
             $table->string('FirstName'); // Student name
             $table->string('LastName'); // Student name
+            $table->string('Sex'); // Student name
             $table->date('DOB'); // Date of birth
+            $table->string('picturepath')->nullable(); // Path for uploaded picture
 
             $table->timestamps(); // Created_at and updated_at timestamps
         });

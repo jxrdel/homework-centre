@@ -17,21 +17,19 @@ return new class extends Migration
             $table->string('LastName');
             $table->string('Username')->unique();
             $table->string('Email')->nullable();
-            $table->string('CellNo')->nullable();
+            $table->string('MobileNo')->nullable();
             $table->string('HomeNo')->nullable();
+            $table->string('WorkNo')->unique();
+            $table->string('Ministry')->nullable();
+            $table->string('Department')->nullable();
+            $table->string('ChildRelationship')->nullable();
+            $table->string('PicturePath')->nullable();
+            $table->string('Address')->nullable();
+            $table->string('CityTown')->nullable();
             $table->boolean('IsParent');
             $table->boolean('IsAdmin');
-            // $table->timestamp('email_verified_at')->nullable();
-            // $table->string('password');
-            // $table->rememberToken();
             $table->timestamps();
         });
-
-        // Schema::create('password_reset_tokens', function (Blueprint $table) {
-        //     $table->string('email')->primary();
-        //     $table->string('token');
-        //     $table->timestamp('created_at')->nullable();
-        // });
 
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();

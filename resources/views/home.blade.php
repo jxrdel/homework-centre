@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-    <title>Homework Centre | Dashboard</title>
+    <title>Appointments | Vacation Child Care</title>
 @endsection
 
 @section('styles')
@@ -18,13 +18,21 @@
         @livewire('create-appointment-modal')
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800" style="margin: auto"><i class="bi bi-speedometer2"></i> &nbsp; Dashboard</h1>
+            <h1 class="h3 mb-0 text-gray-800" style="margin: auto"><strong><i class="bi bi-journal-bookmark"></i> &nbsp; Appointments</strong></h1>
         </div>
 
         <!-- Content Row -->
         <div class="card">
             <div class="card-body">
-                <div id='calendar' style="max-height: 800px"></div>
+                <div class="row">
+                    <a type="button" data-bs-toggle="modal" data-bs-target="#createAppointmentModal" class="btn btn-primary btn-icon-split" style="width: 13rem;margin:auto">
+                        <span class="icon text-white-50">
+                            <i class="fa-solid fa-book-medical" style="color: white"></i>
+                        </span>
+                        <span class="text"  style="width: 200px">Book Appointment</span>
+                    </a>
+                </div>
+                <div id='calendar' style="max-height: 800px;margin-top:30px"></div>
             </div>
           </div>
 
@@ -51,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
             center: 'title',
             right: 'timeGridWeek,timeGridDay,dayGridMonth' // user can switch between the two
         },
-        editable: true,
+        editable: false,
         selectable: true,
         select: function(info) {
             // Display the selected range in the console

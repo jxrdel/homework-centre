@@ -46,7 +46,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
                 <div class="sidebar-brand-icon">
-                    <i class="fas fa-file-contract fa-lg"></i>
+                    <i style="font-size: 2rem" class="fas fa-person-breastfeeding"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">Daycare</div>
             </a>
@@ -57,16 +57,20 @@
             <!-- Nav Item - Dashboard -->
             <li class="nav-item" id="dashboardlink">
                 <a class="nav-link" href="{{ route('/') }}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <i class="fa-solid fa-book"></i>
+                    &nbsp;<span>Appointments</span></a>
             </li>
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item" id="childrenlink">
-                <a class="nav-link" href="{{ route('mychildren') }}">
-                    <i class="fa-solid fa-baby"></i>
-                    <span>My Children</span></a>
-            </li>
+            @auth
+                @if (Auth::user()->IsParent)
+                    <!-- Nav Item - Dashboard -->
+                    <li class="nav-item" id="childrenlink">
+                        <a class="nav-link" href="{{ route('mychildren') }}">
+                            <i class="fa-solid fa-baby"></i>
+                            &nbsp;<span>My Children</span></a>
+                    </li>
+                @endif
+            @endauth
 
             @auth
                 @if (Auth::user()->IsAdmin)
@@ -74,7 +78,7 @@
                     <li class="nav-item" id="adminlink">
                         <a class="nav-link" href="{{ route('admin') }}">
                             <i class="fa-solid fa-user-tie"></i>
-                            <span>Admin</span></a>
+                            &nbsp;<span>Admin</span></a>
                     </li>
                 @endif
             @endauth
@@ -143,16 +147,8 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
-                                </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="{{route('logout')}}">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>

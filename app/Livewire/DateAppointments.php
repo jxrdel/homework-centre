@@ -3,13 +3,18 @@
 namespace App\Livewire;
 
 use App\Models\Appointment;
+use App\Models\TimeSlot;
+use Carbon\Carbon;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
 class DateAppointments extends Component
 {
-    public $date;
-    public $studentnames = [];
+    public $appointmentstart;
+    public $appointmentend;
+    public $starttime;
+    public $endtime;
+    public $appointments = [];
 
     public function render()
     {
@@ -18,20 +23,29 @@ class DateAppointments extends Component
 
 
     #[On('show-appointments')]
-    public function displayModal($date)
+    public function displayModal($id, $starttime, $endtime)
     {
-        $this->date = $date;
+        $timeslot = TimeSlot::find($id);
+        $this->appointmentstart = Carbon::parse($timeslot->StartTime)->format('l jS F Y, g:i A');
+        $this->appointmentend = Carbon::parse($timeslot->EndTime)->format('g:i A');
 
-        $appointments = Appointment::whereDate('StartDate', '<=', $this->date)
-                                    ->whereDate('EndDate', '>=', $this->date)
+
+        $this->starttime = $starttime;
+        $this->endtime = $endtime;
+
+        $this->appointments = Appointment::whereDate('StartDate', '<=', $starttime)
+                                    ->whereDate('EndDate', '>=', $endtime)
                                     ->with('student') // Eager load the related student
                                     ->get();
 
-        $this->studentnames = collect($appointments->map(function($appointment) {
-            return $appointment->student->StudentName;
-        }));
+        // dd($appointments);
+
+        // $this->appointments = collect($appointments->map(function($appointment) {
+        //     return $appointment->student->StudentName;
+        // }));
 
         // dd($this->studentnames);
+        
         $this->dispatch('display-appointments-modal');
         // dd($startdate);
     }

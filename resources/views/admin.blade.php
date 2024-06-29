@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-    <title>Homework Centre | Admin</title>
+    <title>Admin | Vacation Child Care</title>
 @endsection
 
 @section('styles')
@@ -20,9 +20,10 @@
 @section('content')
 
         @livewire('create-timeslot-modal')
+        @livewire('date-appointments')
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800" style="margin: auto"><i class="fa-solid fa-user-tie"></i> &nbsp; Admin</h1>
+            <h1 class="h3 mb-0 text-gray-800" style="margin: auto"><strong><i class="fa-solid fa-user-tie"></i> &nbsp; Admin</strong></h1>
         </div>
 
         <!-- Content Row -->
@@ -52,7 +53,7 @@
             function initializeCalendar() {
                 var calendar = new FullCalendar.Calendar(myCalendar, {
                     initialView: 'timeGridWeek',
-                    editable: true,
+                    editable: false,
                     selectable: true,
                     headerToolbar: {
                         left: 'prev,next',
@@ -71,6 +72,10 @@
                         } else {
                             calendar.unselect();
                         }
+                    },
+                    eventClick: function(info) {
+                        // Log the event's start and end time
+                            Livewire.dispatch('show-appointments', { id:info.event.id, starttime: info.event.start, endtime: info.event.end });
                     }
                 });
 
@@ -95,6 +100,9 @@
             $('#createTimeslotModal').modal('hide');
         })
 
+    window.addEventListener('show-appointments', event => {
+        $('#dateAppointmentModal').modal('show');
+    })
 
     window.addEventListener('refresh-calendar', event => {
         calendar.refetchEvents();

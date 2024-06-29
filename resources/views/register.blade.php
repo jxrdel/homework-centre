@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <link rel="icon" type="image/x-icon" href="{{ asset('TTCOA.ico') }}">
 
-    <title>Homework Centre | Register</title>
+    <title>Register | Vacation Child Care</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('js/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -38,7 +38,7 @@
         <!-- Outer Row -->
         <div class="row justify-content-center">
 
-            <div class="col-xl-8">
+            <div class="col-xl-12">
 
                 <div class="card shadow-lg my-5">
                     <div class="card-body p-0">

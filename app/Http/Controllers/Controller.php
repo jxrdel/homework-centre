@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use App\Models\TimeSlot;
+use App\Models\User;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Controller
 {
@@ -29,7 +32,14 @@ class Controller
 
     public function getMyAppointments(){
 
-        $appointments = Appointment::select('AppointmentID as id', 'Title as title', 'StartDate as start', 'EndDate as end')
+        $user = User::find(Auth::user()->id);
+
+        $studentIds = $user->students->pluck('StudentID');
+
+        // Fetch appointments for the user's children
+        $appointments = DB::table('appointments')
+            ->whereIn('StudentID', $studentIds)
+            ->select('AppointmentID as id', 'Title as title', 'StartDate as start', 'EndDate as end')
             ->get();
 
         return response()->json($appointments);
@@ -75,6 +85,12 @@ class Controller
 
     public function login(){
         return view('login');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login');
     }
 
     public function register(){

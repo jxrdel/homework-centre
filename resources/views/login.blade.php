@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <link rel="icon" type="image/x-icon" href="{{ asset('TTCOA.ico') }}">
 
-    <title>Homework Centre | Login</title>
+    <title>Login | Vacation Child Care</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('js/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -40,7 +40,7 @@
                             <div class="col">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4"><i class="fa-solid fa-school"></i> &nbsp;Homework Centre Login</h1>
+                                        <h1 class="h4 text-gray-900 mb-4"><i style="font-size: 2.5rem" class="fas fa-person-breastfeeding"></i> &nbsp;Vacation Child Care System</h1>
                                     </div>
                                         @livewire('login-form')
                                 </div>

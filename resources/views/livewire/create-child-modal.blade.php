@@ -36,11 +36,38 @@
 
                 <div class="row" style="margin-top: 30px">
                     <div class="col-3">
+                        <label style="margin-top: 5px" for="title">Sex: &nbsp;</label>
+                    </div>
+
+                    <div class="col">
+
+                        <select wire:model="sex" class="form-select" required>
+                            <option value="">Select a sex</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="row" style="margin-top: 30px">
+                    <div class="col-3">
                         <label style="margin-top: 5px" for="title">Date of Birth: &nbsp;</label>
                     </div>
 
                     <div class="col">
                         <input type="date" wire:model="dob" class="form-control" aria-label="End Date" autocomplete="off" required>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 30px">
+                    <div class="col-3">
+                        <label style="margin-top: 5px" for="title">Picture: &nbsp;</label>
+                    </div>
+
+                    <div class="col">
+                        <input class="form-control" id="upload" type="file" wire:model="fileupload">
+                        <div style="color:red">@error('fileupload') {{ $message }} @enderror</div>
                     </div>
                 </div>
             </div>
