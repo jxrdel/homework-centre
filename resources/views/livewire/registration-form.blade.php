@@ -8,7 +8,7 @@
 
         <div class="row">
             <div class="" style="margin: auto">
-                <h5><strong>Parent/Guardian Information</strong></h5>
+                <h5 style="text-align: center"><strong>Parent/Guardian Information</strong></h5>
             </div>
         </div>
 
@@ -20,7 +20,7 @@
                             <label style="margin-top:5px;" for="title">First Name: &nbsp;</label>
                         </div>
                         <div class="col">
-                            <input class="form-control" wire:model="parentfirstname1" type="text" autocomplete="off" style="width: 100%;color:black;" required autofocus>
+                            <input class="form-control" wire:model="parentfirstname1" type="text" autocomplete="off" style="width: 100%;color:black;" autofocus>
                         </div>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                             <label style="margin-top:5px;" for="title">Last Name: &nbsp;</label>
                         </div>
                         <div class="col">
-                            <input class="form-control" wire:model="parentlastname1" type="text" autocomplete="off" style="width: 100%;color:black;" required>
+                            <input class="form-control" wire:model="parentlastname1" type="text" autocomplete="off" style="width: 100%;color:black;">
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                             <label style="margin-top:5px;" for="title">Mobile Phone: &nbsp;</label>
                         </div>
                         <div class="col">
-                            <input class="form-control" wire:model="parentmobileno1" type="text" autocomplete="off" style="width: 100%;color:black;" required>
+                            <input class="form-control" wire:model="parentmobileno1" type="text" autocomplete="off" style="width: 100%;color:black;">
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                             <label style="margin-top:5px;" for="title">Home Phone: &nbsp;</label>
                         </div>
                         <div class="col">
-                            <input class="form-control" wire:model="parenthomeno1" type="text" autocomplete="off" style="width: 100%;color:black;" required>
+                            <input class="form-control" wire:model="parenthomeno1" type="text" autocomplete="off" style="width: 100%;color:black;">
                         </div>
                     </div>
                 </div>
@@ -124,17 +124,18 @@
                             <label style="margin-top:5px;" for="title">Relationship to Child: &nbsp;</label>
                         </div>
                         <div class="col">
-                            <input class="form-control" wire:model="parentrelationship1" type="text" autocomplete="off" style="width: 100%;color:black;" required>
+                            <input class="form-control" wire:model="parentrelationship1" type="text" autocomplete="off" style="width: 100%;color:black;">
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="col" style="display: flex;">
                         <div class="col-4">
-                            <label style="margin-top:5px;" for="formFile" class="form-label">Picture: &nbsp;</label>
+                            <label style="margin-top:5px;" for="formFile" class="form-label">Photo: &nbsp;</label>
                         </div>
                         <div class="col">
-                            <input class="form-control" id="formFile" wire:model="parentpicture1" type="file" style="width: 100%;">
+                            <input class="form-control @error('parentpicture1')is-invalid @enderror" id="formFile" wire:model="parentpicture1" type="file" style="width: 100%;">
+                            <div style="color:red">@error('parentpicture1') {{ $message }} @enderror</div>
                         </div>
                     </div>
                 </div>
@@ -149,7 +150,7 @@
                             <label style="margin-top:5px;" for="title">Address: &nbsp;</label>
                         </div>
                         <div class="col">
-                            <input class="form-control" wire:model="parentaddress1" type="text" autocomplete="off" style="width: 100%;color:black;" required>
+                            <input class="form-control" wire:model="parentaddress1" type="text" autocomplete="off" style="width: 100%;color:black;">
                         </div>
                     </div>
                 </div>
@@ -170,7 +171,7 @@
                 </div>
 
             </div>
-            
+
             @if (!$this->multipleparents)
                 <div class="row" style="margin-top:10px">
                     <a type="button" wire:click="toggleMultipleParents" class="btn btn-primary btn-icon-split" style="width: 14rem;margin:auto">
@@ -194,7 +195,7 @@
             @if ($this->multipleparents)
             <div class="row" style="margin-top:20px">
                 <div class="" style="margin: auto">
-                    <h5><strong>Parent/Guardian #2</strong></h5>
+                    <h5 style="text-align: center"><strong>Parent/Guardian #2</strong></h5>
                 </div>
             </div>
                 <div class="row" style="margin-top:20px">
@@ -308,14 +309,14 @@
                                 <label style="margin-top:5px;" for="title">Relationship to Child: &nbsp;</label>
                             </div>
                             <div class="col">
-                                <input class="form-control" wire:model="email" type="parentrelationship2" style="width: 100%;color:black;" required>
+                                <input class="form-control" wire:model="email" type="parentrelationship2" style="width: 100%;color:black;">
                             </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="col" style="display: flex;">
                             <div class="col-4">
-                                <label style="margin-top:5px;" for="formFile" class="form-label">Picture: &nbsp;</label>
+                                <label style="margin-top:5px;" for="formFile" class="form-label">Photo: &nbsp;</label>
                             </div>
                             <div class="col">
                                 <input class="form-control" id="formFile" wire:model="parentpicture2" type="file" style="width: 100%;">
@@ -333,7 +334,7 @@
                                 <label style="margin-top:5px;" for="title">Address: &nbsp;</label>
                             </div>
                             <div class="col">
-                                <input class="form-control" wire:model="parentaddress2" type="text" autocomplete="off" style="width: 100%;color:black;" required>
+                                <input class="form-control" wire:model="parentaddress2" type="text" autocomplete="off" style="width: 100%;color:black;">
                             </div>
                         </div>
                     </div>
@@ -355,120 +356,193 @@
 
                 </div>
             @endif
-            
+
 
             <hr style="margin-top: 20px">
-            
-            <div class="row" style="margin-top:30px">
-                <div class="" style="margin: auto">
-                    <h5 style="text-align: center"><strong>Emergency Contact</strong></h5>
-                    <p>This contact must be different from parent/guardian</p>
-                </div>
-            </div>
 
-            <div class="row" style="margin-top:20px">
-                <div class="col">
-                    <div class="col" style="display: flex;">
-                        <div class="col-4">
-                            <label style="margin-top:5px;" for="title">First Name: &nbsp;</label>
-                        </div>
-                        <div class="col">
-                            <input class="form-control" wire:model="ecfirstname" type="text" autocomplete="off" style="width: 100%;color:black;" required>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="col" style="display: flex;">
-                        <div class="col-4">
-                            <label style="margin-top:5px;" for="title">Last Name: &nbsp;</label>
-                        </div>
-                        <div class="col">
-                            <input class="form-control" wire:model="eclastname" type="text" autocomplete="off" style="width: 100%;color:black;" required>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="row" style="margin-top:10px">
-
-                <div class="col">
-                    <div class="col" style="display: flex;">
-                        <div class="col-4">
-                            <label style="margin-top:5px;" for="title">Email: &nbsp;</label>
-                        </div>
-                        <div class="col">
-                            <input class="form-control" wire:model="ecemail" type="email" style="width: 100%;color:black;">
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="col" style="display: flex;">
-                        <div class="col-4">
-                            <label style="margin-top:5px;" for="title">Mobile Phone: &nbsp;</label>
-                        </div>
-                        <div class="col">
-                            <input class="form-control" wire:model="ecmobileno" type="text" autocomplete="off" style="width: 100%;color:black;" required>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div class="row" style="margin-top:10px">
-
-                <div class="col">
-                    <div class="col" style="display: flex;">
-                        <div class="col-4">
-                            <label style="margin-top:5px;" for="title">Home Phone: &nbsp;</label>
-                        </div>
-                        <div class="col">
-                            <input class="form-control" wire:model="echomeno" type="text" autocomplete="off" style="width: 100%;color:black;">
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="col" style="display: flex;">
-                        <div class="col-4">
-                            <label style="margin-top:5px;" for="title">Work Phone: &nbsp;</label>
-                        </div>
-                        <div class="col">
-                            <input class="form-control" wire:model="ecworkno" type="text" autocomplete="off" style="width: 100%;color:black;">
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="row" style="margin-top:10px">
-
-                <div class="col">
-                    <div class="col" style="display: flex;">
-                        <div class="col-4">
-                            <label style="margin-top:5px;" for="title">Relationship to Child: &nbsp;</label>
-                        </div>
-                        <div class="col">
-                            <input class="form-control" wire:model="ecrelationship" type="text" autocomplete="off" style="width: 100%;color:black;" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                </div>
-
-            </div>
-            
             <div class="d-flex justify-content-end">
-                <button class="btn btn-primary btn-block" style="font-size: 1rem;margin-top:30px;width:200px">
-                    Save & Continue <i class="fa-solid fa-circle-arrow-right"></i>
+                <button class="btn btn-primary btn-block" style="font-size: 1rem;margin-top:10px;width:200px">
+                    Next <i class="fa-solid fa-circle-arrow-right"></i>
                 </button>
             </div>
         </form>
     @endif
-    
-    @if (!$this->childform)
-                
+
+    @include('livewire.create-pickup')
+
+    @if ($this->emergencycontactform)
+
+    <form wire:submit.prevent="registerEmergencyContact">
+        <div class="row">
+            <div class="" style="margin: auto">
+                <h5 style="text-align: center"><strong>Emergency Contact</strong></h5>
+                <p style="text-align: center">This contact must be different from parent/guardian</p>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top:20px">
+            <div class="col">
+                <div class="col" style="display: flex;">
+                    <div class="col-4">
+                        <label style="margin-top:5px;" for="title">First Name: &nbsp;</label>
+                    </div>
+                    <div class="col">
+                        <input class="form-control" wire:model="ecfirstname" type="text" autocomplete="off" style="width: 100%;color:black;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="col" style="display: flex;">
+                    <div class="col-4">
+                        <label style="margin-top:5px;" for="title">Last Name: &nbsp;</label>
+                    </div>
+                    <div class="col">
+                        <input class="form-control" wire:model="eclastname" type="text" autocomplete="off" style="width: 100%;color:black;">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row" style="margin-top:10px">
+
+            <div class="col">
+                <div class="col" style="display: flex;">
+                    <div class="col-4">
+                        <label style="margin-top:5px;" for="title">Email: &nbsp;</label>
+                    </div>
+                    <div class="col">
+                        <input class="form-control" wire:model="ecemail" type="email" style="width: 100%;color:black;">
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="col" style="display: flex;">
+                    <div class="col-4">
+                        <label style="margin-top:5px;" for="title">Mobile Phone: &nbsp;</label>
+                    </div>
+                    <div class="col">
+                        <input class="form-control" wire:model="ecmobileno" type="text" autocomplete="off" style="width: 100%;color:black;">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row" style="margin-top:10px">
+
+            <div class="col">
+                <div class="col" style="display: flex;">
+                    <div class="col-4">
+                        <label style="margin-top:5px;" for="title">Home Phone: &nbsp;</label>
+                    </div>
+                    <div class="col">
+                        <input class="form-control" wire:model="echomeno" type="text" autocomplete="off" style="width: 100%;color:black;">
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="col" style="display: flex;">
+                    <div class="col-4">
+                        <label style="margin-top:5px;" for="title">Work Phone: &nbsp;</label>
+                    </div>
+                    <div class="col">
+                        <input class="form-control" wire:model="ecworkno" type="text" autocomplete="off" style="width: 100%;color:black;">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row" style="margin-top:10px">
+
+            <div class="col">
+                <div class="col" style="display: flex;">
+                    <div class="col-4">
+                        <label style="margin-top:5px;" for="title">Relationship to Child: &nbsp;</label>
+                    </div>
+                    <div class="col">
+                        <input class="form-control" wire:model="ecrelationship" type="text" autocomplete="off" style="width: 100%;color:black;">
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+            </div>
+
+        </div>
+
+        <hr style="margin-top: 10px">
+
+        <div class="row" style="margin-top: 10px">
+            <div class="" style="margin: auto">
+                <h5 style="text-align: center"><strong>Pickup Authorization</strong></h5>
+                <p style="text-align: justify">
+                    Your child will only be released to an authorized person listed on this form
+                    (parent/guardian and /or emergency Contact). In case of an unforeseen circumstance, please indicate the name,
+                    address and phone number of any other
+                    person/s who you authorized to pick up your child on your behalf.
+                    Click the button below to add an authorized pickup contact</p>
+            </div>
+        </div>
+
+        <div class="row" style="padding: 10px">
+            <a type="button" data-bs-toggle="modal" data-bs-target="#createPickupModal" class="btn btn-primary btn-icon-split" style="width: 14rem; margin:auto">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus" style="color: white"></i>
+                </span>
+                <span class="text"  style="width: 200px"> &nbsp; Add Pickup Contact</span>
+            </a>
+        </div>
+
+        <div class="row" style="margin-top: 10px">
+            <table id="pickupTable" class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th style="width: 100px; text-align:center">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($this->pickupcontacts as $index => $contact)
+                    <tr>
+                        <td>{{$contact['contactname']}}</td>
+                        <td>{{$contact['contactphoneno']}}</td>
+                        <td style="text-align: center"><button wire:click="removeContact({{$index}})" type="button" class="btn btn-outline-danger"><i class="bi bi-trash"></i></button></td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="3" style="text-align: center">No pickup contacts added</td>
+                    </tr>
+
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+        <hr style="margin-top: 20px">
+
+
+        <div class="row">
+            <div class="col">
+                <a href="#" wire:click="backBtnEmergencyContact" class="btn btn-primary btn-block" style="font-size: 1rem;margin-top:30px;width:200px">
+                    <i class="fa-solid fa-circle-arrow-left"></i> Back
+                </a>
+            </div>
+
+            <div class="col" style="display: flex;justify-content:end">
+                <button class="btn btn-primary btn-block" style="font-size: 1rem;margin-top:30px;width:200px">
+                    Next <i class="fa-solid fa-circle-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+    @endif
+
+    @if ($this->childform)
+
         <div class="row" style="margin-top:30px">
             <div class="" style="margin: auto">
                 <h5 style="text-align: center"><strong>Child Information</strong></h5>
@@ -483,25 +557,25 @@
                             <label style="margin-top:5px;" for="title">First Name: &nbsp;</label>
                         </div>
                         <div class="col">
-                            <input class="form-control" wire:model="childfirstname" type="text" autocomplete="off" style="width: 100%;color:black;" required>
+                            <input class="form-control" wire:model="childfirstname" type="text" autocomplete="off" style="width: 100%;color:black;">
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="col">
                     <div class="col" style="display: flex;">
                         <div class="col-4">
                             <label style="margin-top:5px;" for="title">Last Name: &nbsp;</label>
                         </div>
                         <div class="col">
-                            <input class="form-control" wire:model="childlastname" type="text" autocomplete="off" style="width: 100%;color:black;" required>
+                            <input class="form-control" wire:model="childlastname" type="text" autocomplete="off" style="width: 100%;color:black;">
                         </div>
                     </div>
                 </div>
-    
+
             </div>
-    
-    
+
+
             <div class="row" style="margin-top:20px">
                 <div class="col">
                     <div class="col" style="display: flex;">
@@ -513,21 +587,21 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="col">
                     <div class="col" style="display: flex;">
                         <div class="col-4">
                             <label style="margin-top:5px;" for="title">Date of Birth: &nbsp;</label>
                         </div>
                         <div class="col">
-                            <input class="form-control" wire:model="childdob" type="date" style="width: 100%;color:black;" required>
+                            <input class="form-control" wire:model="childdob" type="date" style="width: 100%;color:black;">
                         </div>
                     </div>
                 </div>
-    
+
             </div>
-    
-    
+
+
             <div class="row" style="margin-top:20px">
                 <div class="col">
                     <div class="col" style="display: flex;">
@@ -550,7 +624,7 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="col">
                     <div class="col" style="display: flex;">
                         <div class="col-4">
@@ -561,10 +635,10 @@
                         </div>
                     </div>
                 </div>
-    
+
             </div>
-    
-    
+
+
             <div class="row" style="margin-top:20px">
                 <div class="col">
                     <div class="col" style="display: flex;">
@@ -572,21 +646,21 @@
                             <label style="margin-top:5px;" for="title">Address: &nbsp;</label>
                         </div>
                         <div class="col">
-                            <input class="form-control" wire:model="childaddress" type="text" autocomplete="off" style="width: 100%;color:black;" required>
+                            <input class="form-control" wire:model="childaddress" type="text" autocomplete="off" style="width: 100%;color:black;">
                         </div>
                     </div>
                 </div>
-    
+
             </div>
-    
-            
+
+
             <div class="row" style="margin-top:30px">
                 <div class="" style="margin: auto">
                     <h5 style="text-align: center"><strong>Child's Medical Information</strong></h5>
                 </div>
             </div>
-    
-    
+
+
             <div class="row" style="margin-top:20px">
                 <div class="col">
                     <div class="col" style="display: flex;">
@@ -598,7 +672,7 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="col">
                     <div class="col" style="display: flex;">
                         <div class="col-4">
@@ -609,9 +683,9 @@
                         </div>
                     </div>
                 </div>
-    
+
             </div>
-    
+
             <div class="row" style="margin-top:20px">
                 <div class="col">
                     <div class="col" style="display: flex;">
@@ -623,9 +697,9 @@
                         </div>
                     </div>
                 </div>
-    
+
             </div>
-    
+
             <div class="row" style="margin-top:20px">
                 <div class="col">
                     <div class="col" style="display: flex;">
@@ -637,9 +711,9 @@
                         </div>
                     </div>
                 </div>
-    
+
             </div>
-    
+
             <div class="row">
                 <div class="col">
                     <div class="col" style="display: flex;">
@@ -651,9 +725,9 @@
                         </div>
                     </div>
                 </div>
-    
+
             </div>
-    
+
             <div class="row" style="margin-top:20px">
                 <div class="col">
                     <div class="col" style="display: flex;">
@@ -665,9 +739,9 @@
                         </div>
                     </div>
                 </div>
-    
+
             </div>
-            
+
             <div class="row">
                 <div class="col">
                     <div class="col" style="display: flex;">
@@ -679,7 +753,7 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="col">
                     <div class="col" style="display: flex;">
                         <div class="col-4">
@@ -690,9 +764,9 @@
                         </div>
                     </div>
                 </div>
-    
+
             </div>
-    
+
             <div class="row" style="margin-top:20px">
                 <div class="col">
                     <div class="col" style="display: flex;">
@@ -704,9 +778,9 @@
                         </div>
                     </div>
                 </div>
-    
+
             </div>
-    
+
             <div class="row" style="margin-top:20px">
                 <div class="col">
                     <div class="col" style="display: flex;">
@@ -718,18 +792,78 @@
                         </div>
                     </div>
                 </div>
-    
+
             </div>
-            
-            
-            <div class="d-flex justify-content-end">
-                <button class="btn btn-primary btn-block" style="font-size: 1rem;margin-top:30px;width:200px">
-                    Save & Continue <i class="fa-solid fa-circle-arrow-right"></i>
-                </button>
+
+
+            <div class="row">
+                <div class="col">
+                    <a href="#" wire:click="backBtnChildForm" class="btn btn-primary btn-block" style="font-size: 1rem;margin-top:30px;width:200px">
+                        <i class="fa-solid fa-circle-arrow-left"></i> Back
+                    </a>
+                </div>
+
+                <div class="col" style="display: flex;justify-content:end">
+                    <button class="btn btn-primary btn-block" style="font-size: 1rem;margin-top:30px;width:200px">
+                        Next <i class="fa-solid fa-circle-arrow-right"></i>
+                    </button>
+                </div>
             </div>
+            {{-- <div class="d-flex justify-content-end">
+            </div> --}}
         </form>
     @endif
-            
+
+    @if ($this->addchild)
+
+    <div class="text-center">
+        <h1 class="h4 text-gray-900 mb-4"><i class="fa-solid fa-circle-question"></i> &nbsp;Would you like to add another child?</h1>
+    </div>
+        <div class="row">
+            <div class="col">
+                <button  wire:click="addChild" class="btn btn-primary btn-block" style="font-size: 1rem;margin-top:30px;width:200px;margin:auto">
+                    Add Another Child <i class="fas fa-plus"></i>
+                </button>
+            </div>
+
+            <div class="col">
+                <button  wire:click="showTerms" class="btn btn-primary btn-block" style="font-size: 1rem;margin-top:30px;width:200px;margin:auto">
+                    Next <i class="fa-solid fa-circle-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    @endif
+
+    @if ($this->termsform)
+        <div class="row">
+            <p><a href="#">Click Here to view the terms and conditions</a></p>
+        </div>
+
+        <div class="row">
+            <div class="col-9">
+                <p>Please click "I Agree" as having understood and agreed with the terms and conditions of use</p>
+            </div>
+            <div class="col">
+                <div>
+
+                    <input wire:model.live="iagree" value=true type="radio" class="btn-check" name="options-edited" id="iagree" autocomplete="off">
+                    <label for="iagree">I Agree</label>&nbsp;&nbsp;
+
+                    <input wire:model.live="iagree" value=false type="radio" class="btn-check" name="options-edited" id="donotagree" autocomplete="off">
+                    <label for="donotagree">I Do Not Agree</label>
+
+                    {{-- <input wire:click="toggleAgreeTerms" type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheck1"><i class="fa-solid fa-check"></i></label> --}}
+                </div>
+            </div>
+        </div>
+
+        <div class="" style="margin-top:20px">
+            <button @disabled(!$this->iagree || $this->iagree == "false") wire:click="submitForm" class="btn btn-primary btn-block" style="font-size: 1rem;margin-top:30px;width:200px;margin:auto">
+                Submit
+            </button>
+        </div>
+    @endif
 
             {{-- <div class="row" style="margin-top:30px">
 

@@ -4,13 +4,20 @@ namespace App\Livewire;
 
 use App\Models\User;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class RegistrationForm extends Component
 {
+    use WithFileUploads;
+
     public $parentform = true;
+    public $emergencycontactform = false;
     public $childform = false;
+    public $addchild = false;
     public $registrationcomplete = false;
     public $multipleparents = false; //Displays second parent/guardian field if true
+    public $termsform = false;
+    public $iagree= false;
 
     // Parent/Guardian #1 Information
     public $parentfirstname1;
@@ -49,6 +56,9 @@ class RegistrationForm extends Component
     public $ecworkno;
     public $ecrelationship;
 
+    //Pickup Contact Modal
+    public $pickupcontacts = [];
+
     // Child Information
     public $childfirstname;
     public $childlastname;
@@ -76,8 +86,17 @@ class RegistrationForm extends Component
     }
 
     public function registerParent(){
+
+        $this->validate([
+            'parentpicture1' => 'nullable|file|mimes:png,jpg,pdf,jpeg|max:1024'
+        ]);
+
         $this->parentform = false;
-        $this->childform = true;
+        $this->addchild = false;
+        $this->termsform = false;
+        $this->childform = false;
+        $this->emergencycontactform = true;
+
         // dd("Hi");
         // $username = strtolower($this->parentfirstname1 . '.' . $this->parentlastname1);
         // // dd($username);
@@ -114,11 +133,92 @@ class RegistrationForm extends Component
 
     }
 
+    public function registerStudent(){
+        $this->parentform = false;
+        $this->childform = false;
+        $this->termsform = false;
+        $this->emergencycontactform = false;
+        $this->addchild = true;
+
+    }
+
+    public function registerEmergencyContact(){
+        $this->parentform = false;
+        $this->addchild = false;
+        $this->termsform = false;
+        $this->emergencycontactform = false;
+        $this->childform = true;
+
+    }
+
+    public function backBtnEmergencyContact(){
+        $this->childform = false;
+        $this->termsform = false;
+        $this->addchild = false;
+        $this->emergencycontactform = false;
+        $this->parentform = true;
+    }
+
+    public function backBtnChildForm(){
+        $this->childform = false;
+        $this->termsform = false;
+        $this->addchild = false;
+        $this->parentform = false;
+        $this->emergencycontactform = true;
+    }
+
+    public function addChild(){
+
+        //Clear inputs
+        $this->childfirstname = null;
+        $this->childlastname = null;
+        $this->childothernames = null;
+        $this->childdob = null;
+        $this->sexofchild = null;
+        $this->schoolname = null;
+        $this->childaddress = null;
+
+        $this->doctorname = null;
+        $this->doctorno = null;
+        $this->doctoraddress = null;
+        $this->doctorvtc = null;
+        $this->allergies = null;
+        $this->medicalproblems = null;
+        $this->disabilities = null;
+        $this->bloodtype = null;
+
+        //display child information form
+        $this->parentform = false;
+        $this->addchild = false;
+        $this->termsform = false;
+        $this->childform = true;
+
+    }
+
+    public function showTerms(){
+        $this->parentform = false;
+        $this->addchild = false;
+        $this->childform = false;
+        $this->termsform = true;
+    }
+
+    public function toggleAgreeTerms(){
+        if ($this->iagree){
+            $this->iagree = false;
+        }else{
+            $this->iagree = true;
+        }
+    }
+
     public function toggleMultipleParents(){
         if ($this->multipleparents){
             $this->multipleparents = false;
         }else{
             $this->multipleparents = true;
         }
+    }
+
+    public function submitForm(){
+        dd($this->iagree);
     }
 }
