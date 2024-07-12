@@ -23,7 +23,7 @@
         @livewire('date-appointments')
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800" style="margin: auto"><strong><i class="fa-solid fa-user-tie"></i> &nbsp; Admin</strong></h1>
+            <h1 class="h3 mb-0 text-gray-800" style="margin: auto"><strong><i class="fa-solid fa-school"></i> &nbsp; Classes</strong></h1>
         </div>
 
         <!-- Content Row -->
@@ -45,8 +45,6 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             //Set active link
-            var adminlink = document.getElementById('adminlink');
-            adminlink.classList.add('active');
 
             var myCalendar = document.getElementById('calendar');
 

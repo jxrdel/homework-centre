@@ -12,16 +12,25 @@ class Appointment extends Model
     protected $primaryKey = 'AppointmentID'; // Primary key column name
 
     protected $fillable = [
-        'AppointmentID',
-        'Title',
-        'StartDate',
-        'EndDate',
         'StudentID',
+        'TimeSlotID',
     ];
 
     // Define the relationship to the Student model
     public function student()
     {
-        return $this->belongsTo(Student::class, 'StudentID');
+        return $this->belongsTo(Student::class, 'StudentID', 'StudentID');
+    }
+
+    public function timeslot()
+    {
+        return $this->belongsTo(TimeSlot::class, 'TimeSlotID', 'TimeSlotID');
+    }
+    
+    public static function isDuplicate($studentid, $timeslotid)
+    {
+        return self::where('StudentID', '=', $studentid)
+                    ->where('TimeSlotID', '=', $timeslotid)
+                    ->exists();
     }
 }

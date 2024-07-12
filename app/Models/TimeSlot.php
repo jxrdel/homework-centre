@@ -26,4 +26,20 @@ class TimeSlot extends Model
                     ->where('EndTime', '>=', $endTime)
                     ->exists();
     }
+
+    public function students()
+    {
+        return $this->belongsToMany(Student::class, 'appointments', 'TimeSlotID', 'StudentID')
+                    ->withTimestamps();
+    }
+
+    // public function timeslot()
+    // {
+    //     return $this->belongsTo(TimeSlot::class, 'TimeSlotID', 'TimeSlotID');
+    // }
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class, 'TimeSlotID', 'TimeSlotID');
+    }
 }

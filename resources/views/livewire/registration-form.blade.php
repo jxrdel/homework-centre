@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <form class="user" wire:submit.prevent="registerParent">
+        <form class="user" wire:submit.prevent="validateParent">
             <div class="row" style="margin-top:20px">
                 <div class="col">
                     <div class="col" style="display: flex;">
@@ -79,7 +79,7 @@
                 <div class="col">
                     <div class="col" style="display: flex;">
                         <div class="col-4">
-                            <label style="margin-top:5px;" for="title">Work Phone: &nbsp;</label>
+                            <label style="margin-top:5px;" for="title">Extension: &nbsp;</label>
                         </div>
                         <div class="col">
                             <input class="form-control" wire:model="parentworkno1" type="text" autocomplete="off" style="width: 100%;color:black;">
@@ -319,7 +319,8 @@
                                 <label style="margin-top:5px;" for="formFile" class="form-label">Photo: &nbsp;</label>
                             </div>
                             <div class="col">
-                                <input class="form-control" id="formFile" wire:model="parentpicture2" type="file" style="width: 100%;">
+                                <input class="form-control @error('parentpicture2')is-invalid @enderror" id="formFile" wire:model="parentpicture2" type="file" style="width: 100%;">
+                                <div style="color:red">@error('parentpicture2') {{ $message }} @enderror</div>
                             </div>
                         </div>
                     </div>
@@ -361,7 +362,7 @@
             <hr style="margin-top: 20px">
 
             <div class="d-flex justify-content-end">
-                <button class="btn btn-primary btn-block" style="font-size: 1rem;margin-top:10px;width:200px">
+                <button wire:loading.attr="disabled" class="btn btn-primary btn-block" style="font-size: 1rem;margin-top:10px;width:200px">
                     Next <i class="fa-solid fa-circle-arrow-right"></i>
                 </button>
             </div>
@@ -372,7 +373,7 @@
 
     @if ($this->emergencycontactform)
 
-    <form wire:submit.prevent="registerEmergencyContact">
+    <form wire:submit.prevent="validateEmergencyContact">
         <div class="row">
             <div class="" style="margin: auto">
                 <h5 style="text-align: center"><strong>Emergency Contact</strong></h5>
@@ -469,6 +470,15 @@
                 </div>
             </div>
             <div class="col">
+                <div class="col" style="display: flex;">
+                    <div class="col-4">
+                        <label style="margin-top:5px;" for="title">Picture: &nbsp;</label>
+                    </div>
+                    <div class="col">
+                        <input class="form-control @error('ecpicture')is-invalid @enderror" id="formFile" wire:model="ecpicture" type="file" style="width: 100%;">
+                        <div style="color:red">@error('ecpicture') {{ $message }} @enderror</div>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -488,7 +498,11 @@
         </div>
 
         <div class="row" style="padding: 10px">
-            <a type="button" data-bs-toggle="modal" data-bs-target="#createPickupModal" class="btn btn-primary btn-icon-split" style="width: 14rem; margin:auto">
+            <a type="button" data-bs-toggle="modal" @if (count($this->pickupcontacts) < 3)
+                data-bs-target="#createPickupModal" class="btn btn-primary btn-icon-split" style="width: 14rem; margin:auto"
+            @else
+                class="btn btn-secondary btn-icon-split" style="width: 14rem; margin:auto;cursor: not-allowed"
+            @endif >
                 <span class="icon text-white-50">
                     <i class="fas fa-plus" style="color: white"></i>
                 </span>
@@ -508,9 +522,9 @@
                 <tbody>
                     @forelse ($this->pickupcontacts as $index => $contact)
                     <tr>
-                        <td>{{$contact['contactname']}}</td>
-                        <td>{{$contact['contactphoneno']}}</td>
-                        <td style="text-align: center"><button wire:click="removeContact({{$index}})" type="button" class="btn btn-outline-danger"><i class="bi bi-trash"></i></button></td>
+                        <td>{{$contact['FirstName']}} {{$contact['LastName']}}</td>
+                        <td>{{$contact['MobileNo']}}</td>
+                        <td style="text-align: center"><button wire:click="removePickupContact({{$index}})" type="button" class="btn btn-outline-danger"><i class="fa-regular fa-trash-can"></i></button></td>
                     </tr>
                     @empty
                     <tr>
@@ -533,7 +547,7 @@
             </div>
 
             <div class="col" style="display: flex;justify-content:end">
-                <button class="btn btn-primary btn-block" style="font-size: 1rem;margin-top:30px;width:200px">
+                <button wire:loading.attr="disabled" class="btn btn-primary btn-block" style="font-size: 1rem;margin-top:30px;width:200px">
                     Next <i class="fa-solid fa-circle-arrow-right"></i>
                 </button>
             </div>
@@ -549,7 +563,7 @@
             </div>
         </div>
 
-        <form wire:submit.prevent="registerStudent">
+        <form wire:submit.prevent="validateStudent">
             <div class="row" style="margin-top:20px">
                 <div class="col">
                     <div class="col" style="display: flex;">
@@ -609,18 +623,14 @@
                             <label style="margin-top:5px;" for="title">Sex: &nbsp;</label>
                         </div>
                         <div class="col">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="Male" wire:model="sexofchild">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                Male
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="Female" wire:model="sexofchild">
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                Female
-                                </label>
-                            </div>
+                            <p>
+                                
+                                <input required wire:model.live="sexofchild" value="Male" type="radio" class="btn-check" name="sexofchild" id="malechild" autocomplete="off">
+                                <label for="malechild">Male</label>&nbsp;&nbsp;
+
+                                <input wire:model.live="sexofchild" value="Female" type="radio" class="btn-check" name="sexofchild" id="femalechild" autocomplete="off">
+                                <label for="femalechild">Female</label>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -638,6 +648,22 @@
 
             </div>
 
+            <div class="row">
+                <div class="col">
+                    <div class="col" style="display: flex;">
+                        <div class="col-4">
+                            <label style="margin-top:5px;" for="formFile" class="form-label">Photo: &nbsp;</label>
+                        </div>
+                        <div class="col">
+                            <input class="form-control @error('childpicture')is-invalid @enderror" id="formFile" wire:model="childpicture" type="file" style="width: 100%;">
+                            <div style="color:red">@error('childpicture') {{ $message }} @enderror</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col"></div>
+
+            </div>
+
 
             <div class="row" style="margin-top:20px">
                 <div class="col">
@@ -652,6 +678,8 @@
                 </div>
 
             </div>
+
+
 
 
             <div class="row" style="margin-top:30px">
@@ -679,7 +707,7 @@
                             <label style="margin-top:5px;" for="title">Office Phone: &nbsp;</label>
                         </div>
                         <div class="col">
-                            <input class="form-control" wire:model="doctorno" type="text" autocomplete="off" style="width: 100%;color:black;">
+                            <input class="form-control" wire:model="doctorphone" type="text" autocomplete="off" style="width: 100%;color:black;">
                         </div>
                     </div>
                 </div>
@@ -774,7 +802,7 @@
                             <label style="margin-top:5px;" for="title">Additional Information: &nbsp;</label>
                         </div>
                         <div class="col">
-                            <input class="form-control" wire:model="allergies" type="text" autocomplete="off" style="width: 100%;color:black;" placeholder="Please indicate likes/dislikes, special interest, etc.">
+                            <input class="form-control" wire:model="additionalinfo" type="text" autocomplete="off" style="width: 100%;color:black;" placeholder="Please indicate likes/dislikes, special interest, etc.">
                         </div>
                     </div>
                 </div>
@@ -788,7 +816,7 @@
                             <label style="margin-top:5px;" for="title">Immunization Card: &nbsp;</label>
                         </div>
                         <div class="col">
-                            <input class="form-control" id="formFile" wire:model="parentpicture1" type="file" style="width: 100%;">
+                            <input class="form-control" id="formFile" wire:model="immunizationpicture" type="file" style="width: 100%;">
                         </div>
                     </div>
                 </div>
@@ -804,7 +832,7 @@
                 </div>
 
                 <div class="col" style="display: flex;justify-content:end">
-                    <button class="btn btn-primary btn-block" style="font-size: 1rem;margin-top:30px;width:200px">
+                    <button wire:loading.attr="disabled" class="btn btn-primary btn-block" style="font-size: 1rem;margin-top:30px;width:200px">
                         Next <i class="fa-solid fa-circle-arrow-right"></i>
                     </button>
                 </div>
@@ -827,16 +855,79 @@
             </div>
 
             <div class="col">
-                <button  wire:click="showTerms" class="btn btn-primary btn-block" style="font-size: 1rem;margin-top:30px;width:200px;margin:auto">
-                    Next <i class="fa-solid fa-circle-arrow-right"></i>
+                <button  wire:click="addChildNext" class="btn btn-primary btn-block" style="font-size: 1rem;margin-top:30px;width:200px;margin:auto">
+                    No, Continue <i class="fa-solid fa-circle-arrow-right"></i>
                 </button>
             </div>
         </div>
     @endif
 
     @if ($this->termsform)
+
+        <form wire:submit.prevent="finalRegistration">
         <div class="row">
-            <p><a href="#">Click Here to view the terms and conditions</a></p>
+            <div class="" style="margin: auto">
+                <h5 style="text-align: center"><strong>Media Release</strong></h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <p>I hereby 
+                    
+                    <input required wire:model.live="mediarelease" value=true type="radio" class="btn-check" name="media-release" id="iagree" autocomplete="off">
+                    <label for="iagree"><strong style="text-decoration: underline">Give</strong></label>&nbsp;&nbsp;
+
+                    <input wire:model.live="mediarelease" value=false type="radio" class="btn-check" name="media-release" id="donotagree" autocomplete="off">
+                    <label for="donotagree"><strong style="text-decoration: underline">Do Not Give</strong></label>
+
+                    permission for the Ministry of Health to use Pictures and videos of my child on social media, 
+                    newspapers and other promotional campaigns Related to the Ministry of Health.
+                </p>
+            </div>
+        </div>
+        
+        <hr style="margin-top: 10px">
+
+        <div class="row" style="margin-top:10px">
+            <div class="" style="margin: auto">
+                <h5 style="text-align: center"><strong>Emergency Consent</strong></h5>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col">
+                <p>It is our policy to notify a parent/guardian when a child is ill or needs medical attention.  Occasionally, we cannot contact a 
+                    parent/guardian and we need to get immediate help for the child.  Our procedure is not take the child to the nearest emergency service.
+                </p>
+                <p>Please sign below so that we can take appropriate action on behalf of your child.</p>
+                
+                <p>
+                    I hereby
+                    <input required wire:model.live="emergencyconsent" value=true type="radio" class="btn-check" name="emergency-consent" id="iagree" autocomplete="off">
+                    <label for="iagree"><strong style="text-decoration: underline">Give</strong></label>&nbsp;&nbsp;
+    
+                    <input wire:model.live="emergencyconsent" value=false type="radio" class="btn-check" name="emergency-consent" id="donotagree" autocomplete="off">
+                    <label for="donotagree"><strong style="text-decoration: underline">Do Not Give</strong></label>
+
+                    consent for my child(ren) when ill/injured, to be taken to the nearest emergency centre by the staff of my child’s vacation and after-school 
+                    centre when i/we cannot be contacted.  I consent to an ambulance being called to transport the child, if necessary.
+                </p>
+            </div>
+        </div>
+        
+        <hr style="margin-top: 10px">
+
+        <div class="row" style="margin-top:10px">
+            <div class="" style="margin: auto">
+                <h5 style="text-align: center"><strong>Terms & Conditions</strong></h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <p><a href="#">Click Here to view the terms and conditions</a></p>
+            </div>
         </div>
 
         <div class="row">
@@ -859,10 +950,11 @@
         </div>
 
         <div class="" style="margin-top:20px">
-            <button @disabled(!$this->iagree || $this->iagree == "false") wire:click="submitForm" class="btn btn-primary btn-block" style="font-size: 1rem;margin-top:30px;width:200px;margin:auto">
+            <button @disabled(!$this->iagree || $this->iagree == "false") class="btn btn-primary btn-block" style="font-size: 1rem;margin-top:30px;width:200px;margin:auto">
                 Submit
             </button>
         </div>
+    </form>
     @endif
 
             {{-- <div class="row" style="margin-top:30px">

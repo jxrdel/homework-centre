@@ -81,6 +81,10 @@
                 }
                 toastr.success(event.detail.message,'' , {timeOut:3000});
             })
+            
+    window.addEventListener('close-pickup-modal', event => {
+            $('#createPickupModal').modal('hide');
+        })
 </script>
 
 </body>

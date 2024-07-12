@@ -1,0 +1,58 @@
+
+@php
+use Carbon\Carbon;
+
+// Assuming $startdate is passed to the view in Ymd format (e.g., 20241230)
+$formattedDate = Carbon::createFromFormat('Ymd', $date)->format('F jS, Y');
+@endphp
+
+@extends('layout')
+
+@section('title')
+    <title>Book Appointment | Vacation Child Care</title>
+@endsection
+
+@section('styles')
+    
+@endsection
+
+@section('content')
+
+        @include('livewire.delete-record-modal')
+        @livewire('create-child-modal')
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800" style="margin: auto"><strong><i class="bi bi-journal-bookmark"></i> &nbsp; {{$formattedDate}}</strong></h1>
+        </div>
+
+        <!-- Content Row -->
+        {{-- <div class="card">
+            <div class="card-body"> --}}
+
+                @livewire('book-appointment', ['date' => $date])
+            {{-- </div>
+          </div> --}}
+
+@endsection
+
+@section('scripts')
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js'></script>
+
+<script>
+
+
+
+
+    window.addEventListener('close-create-modal', event => {
+            $('#createChildModal').modal('hide');
+        })
+
+
+    window.addEventListener('refresh-calendar', event => {
+        calendar.refetchEvents();
+    })
+
+  </script>
+@endsection

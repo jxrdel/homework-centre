@@ -21,6 +21,7 @@ class LoginForm extends Component
     public function login(){
 
         $user = User::find(1); //Gets user
+        // $user->pickupcontacts()->attach(2); //Attach pickup contacts to parent 1
         Auth::login($user);
         redirect()->route('/');
 

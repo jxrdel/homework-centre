@@ -48,50 +48,72 @@
                 <div class="sidebar-brand-icon">
                     <i style="font-size: 2rem" class="fas fa-person-breastfeeding"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Daycare</div>
+                <div class="sidebar-brand-text mx-3">VOCS</div>
             </a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item" id="dashboardlink">
+            <li @class(['nav-item', 'active' => request()->routeIs('/') || request()->routeIs('bookappointment')]) id="dashboardlink">
                 <a class="nav-link" href="{{ route('/') }}">
                     <i class="fa-solid fa-book"></i>
                     &nbsp;<span>Appointments</span></a>
             </li>
 
-            @auth
-                @if (Auth::user()->IsParent)
-                    <!-- Nav Item - Dashboard -->
-                    <li class="nav-item" id="childrenlink">
-                        <a class="nav-link" href="{{ route('mychildren') }}">
-                            <i class="fa-solid fa-baby"></i>
-                            &nbsp;<span>My Children</span></a>
-                    </li>
-                @endif
-            @endauth
+            @if (Auth::user()->IsParent)
+                <!-- Nav Item - Dashboard -->
+                <li @class(['nav-item', 'active' => request()->routeIs('mychildren')]) id="childrenlink">
+                    <a class="nav-link" href="{{ route('mychildren') }}">
+                        <i class="fa-solid fa-baby"></i>
+                        &nbsp;<span>My Children</span></a>
+                </li>
+            @endif
 
-            @auth
-                @if (Auth::user()->IsAdmin)
-                    <!-- Nav Item - Dashboard -->
-                    <li class="nav-item" id="adminlink">
-                        <a class="nav-link" href="{{ route('admin') }}">
-                            <i class="fa-solid fa-user-tie"></i>
-                            &nbsp;<span>Admin</span></a>
-                    </li>
-                @endif
-            @endauth
+            @if (Auth::user()->IsParent)
+                <li @class(['nav-item', 'active' => request()->routeIs('pickupcontacts') || request()->routeIs('emergencycontact') || request()->routeIs('myprofile')])>
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                        aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fa-solid fa-user"></i>&nbsp;
+                        <span>My Account</span>
+                    </a>
+                    <div id="collapseTwo" 
+                    @class(['collapse', 'show' => 
+                    request()->routeIs('pickupcontacts') 
+                    || request()->routeIs('emergencycontact') 
+                    || request()->routeIs('myprofile')]) 
+                    aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a @class(['collapse-item', 'active' => request()->routeIs('myprofile')]) href="{{ route('myprofile') }}">My Profile</a>
+                            <a @class(['collapse-item', 'active' => request()->routeIs('pickupcontacts')]) href="{{ route('pickupcontacts') }}">Pickup Contacts</a>
+                            <a @class(['collapse-item', 'active' => request()->routeIs('emergencycontact')]) href="{{route('emergencycontact')}}">Emergency Contact</a>
+                        </div>
+                    </div>
+                </li>
+            @endif
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
+            @if (Auth::user()->IsAdmin)
+                <li @class(['nav-item', 'active' => request()->routeIs('admin')])>
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#adminCollapse"
+                        aria-expanded="true" aria-controls="adminCollapse">
+                        <i class="fa-solid fa-user-tie"></i>&nbsp;
+                        <span>Admin</span>
+                    </a>
+                    <div id="adminCollapse" 
+                    @class(['collapse', 'show' => 
+                    request()->routeIs('admin')]) 
+                    aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
-
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a @class(['collapse-item', 'active' => request()->routeIs('admin')]) href="{{ route('admin') }}">Classes</a>
+                            <a @class(['collapse-item']) href="#">Students</a>
+                            <a @class(['collapse-item']) href="#">Reports</a>
+                            <a @class(['collapse-item']) href="#">Cirriculum</a>
+                        </div>
+                    </div>
+                </li>
+            @endif
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

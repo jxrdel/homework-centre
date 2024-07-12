@@ -19,16 +19,21 @@ return new class extends Migration
             $table->string('Email')->nullable();
             $table->string('MobileNo')->nullable();
             $table->string('HomeNo')->nullable();
-            $table->string('WorkNo')->unique();
+            $table->string('WorkNo')->nullable();
             $table->string('Ministry')->nullable();
             $table->string('Department')->nullable();
             $table->string('ChildRelationship')->nullable();
             $table->string('PicturePath')->nullable();
             $table->string('Address')->nullable();
             $table->string('CityTown')->nullable();
+            $table->boolean('MediaReleaseConsent');
+            $table->boolean('EmergencyConsent');
             $table->boolean('IsParent');
             $table->boolean('IsAdmin');
+            $table->unsignedBigInteger('EmergencyContactID');
             $table->timestamps();
+            
+            $table->foreign('EmergencyContactID')->references('EmergencyContactID')->on('emergency_contacts');
         });
 
         Schema::create('sessions', function (Blueprint $table) {

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
+use App\Models\PickupContact;
 use App\Models\TimeSlot;
 use App\Models\User;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class Controller
 {
@@ -51,6 +53,15 @@ class Controller
             ->get();
 
         return response()->json($timeslots);
+    }
+
+    public function getPickupContacts(){
+
+        $user = User::find(Auth::user()->id);
+
+        $query = $user->pickupContacts;
+
+        return DataTables::of($query)->make(true);
     }
 
 
@@ -99,5 +110,21 @@ class Controller
 
     public function myChildren(){
         return view('mychildren');
+    }
+
+    public function emergencyContact(){
+        return view('emergencycontact');
+    }
+
+    public function pickupContacts(){
+        return view('pickupcontacts');
+    }
+
+    public function myProfile(){
+        return view('myprofile');
+    }
+
+    public function bookAppointment($date){
+        return view('bookappointment', compact('date'));
     }
 }

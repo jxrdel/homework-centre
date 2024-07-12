@@ -4,15 +4,6 @@
     <title>My Children | Vacation Child Care</title>
 @endsection
 
-@section('styles')
-    <style>
-        .available-timeslot {
-            background-color: rgb(248, 145, 145) !important;
-            color: white !imporgb(223, 120, 120)nt;
-        }
-    </style>
-@endsection
-
 @section('content')
 
         @livewire('create-child-modal')
@@ -45,11 +36,6 @@
 <script src='https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js'></script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-
-    var childrenLink = document.getElementById('childrenlink');
-    childrenLink.classList.add('active');
-});
 
 
 

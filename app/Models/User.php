@@ -30,9 +30,28 @@ class User extends Authenticatable
         'PicturePath',
         'Address',
         'CityTown',
+        'MediaReleaseConsent',
+        'EmergencyConsent',
         'IsParent',
         'IsAdmin',
+        'EmergencyContactID'
     ];
+
+    public static function generateUniqueUsername($firstname, $lastname)
+    {
+        $username = strtolower(trim($firstname) . '.' . trim($lastname));
+        $baseUsername = $username;
+        $counter = 1;
+
+        // Check if the username already exists
+        while (self::where('Username', $username)->exists()) {
+            // Append the counter to the base username
+            $username = $baseUsername . $counter;
+            $counter++;
+        }
+
+        return $username;
+    }
 
     public static function usernameExists($username)
     {
@@ -42,5 +61,10 @@ class User extends Authenticatable
     public function students()
     {
         return $this->belongsToMany(Student::class, 'UserStudent', 'UserID', 'StudentID');
+    }
+
+    public function pickupcontacts()
+    {
+        return $this->belongsToMany(PickupContact::class, 'UserPickupcontact', 'UserID', 'PickupContactID');
     }
 }

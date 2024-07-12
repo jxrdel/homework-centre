@@ -34,7 +34,7 @@ class CreateChildModal extends Component
         ]);
 
         
-        dd('Hi');
+        // dd('Hi');
         $newstudent = Student::create([
             'FirstName' => $this->firstname,
             'LastName' => $this->lastname,
@@ -48,7 +48,7 @@ class CreateChildModal extends Component
             $filename = $this->firstname . $this->lastname . '-' . $this->fileupload->getClientOriginalName();
             $this->fileupload->storeAs('public/students', $filename);
             // $this->filepath = 'uploads/students/' . $filename;
-            $newstudent->picturepath = 'public/students/' . $filename;
+            $newstudent->PicturePath = 'public/students/' . $filename;
             $newstudent->save();
         }
 
