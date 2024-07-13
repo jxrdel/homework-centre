@@ -39,7 +39,7 @@ class Student extends Model
                     ->withTimestamps();
     }
 
-    public function users()
+    public function parents()
     {
         return $this->belongsToMany(User::class, 'UserStudent', 'StudentID', 'UserID');
     }
@@ -48,6 +48,6 @@ class Student extends Model
     {
         return $this->hasMany(Appointment::class, 'StudentID', 'StudentID');
     }
-    
+
 
 }

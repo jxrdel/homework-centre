@@ -19,15 +19,21 @@ class BookAppointment extends Component
     public $timeslots;
     public $classes = [];
     public $appointments = [];
+    public $isCurrent = true;
 
     public function mount($date){
+        $today = Carbon::now('AST')->startOfDay();
+        $requestDate = Carbon::parse($date);
+        if($requestDate->lessThan($today)){
+            $this->isCurrent = false;
+        }
         $this->date = $date;
         $this->user = User::find(Auth::user()->id);
         $this->children = $this->user->students;
-        
+
         $classes = TimeSlot::whereDate('StartTime', '=', $date)
                                     ->get();
-        
+
         //Initialize classes
         foreach($classes as $class){
             $this->classes [] = [
@@ -39,7 +45,21 @@ class BookAppointment extends Component
         }
 
         $parsedDate = Carbon::parse($date)->toDateString();
-        
+
+        $this->timeslots = TimeSlot::whereDate('StartTime', $parsedDate)
+                            ->with(['appointments' => function ($query) {
+                                $query->with('student'); // Eager load student information
+                            }])
+                            ->get();
+
+
+    }
+
+    public function render()
+    {
+        $parsedDate = Carbon::parse($this->date)->toDateString();
+
+
         //Get Student Appointment details
         $this->appointments = $this->user->students()->select('students.StudentID', 'FirstName', 'LastName', 'PicturePath')
                                     ->with(['appointments' => function($query) use ($parsedDate) {
@@ -54,17 +74,6 @@ class BookAppointment extends Component
             return $student->appointments->isNotEmpty();
         });
 
-        $this->timeslots = TimeSlot::whereDate('StartTime', $parsedDate)
-                            ->with(['appointments' => function ($query) {
-                                $query->with('student'); // Eager load student information
-                            }])
-                            ->get();
-
-
-    }
-
-    public function render()
-    {
         //Display Booking Availability
         $this->timeslots = $this->timeslots->map(function ($timeSlot) {
             $maxstudents = 5;
@@ -100,7 +109,7 @@ class BookAppointment extends Component
         // dd($this->classes);
         $student = Student::find($this->child);
 
-        
+
         if($this->checkDuplicateAppointments()){ //If there are duplicates, display error
             $this->resetValidation();
             $this->addError('child', $student->FirstName . ' ' . $student->LastName . ' is already registered for 1 or more of the selected classes');
@@ -111,7 +120,7 @@ class BookAppointment extends Component
                     $student->timeslots()->attach($appointment['TimeSlotID']);
                 }
             }
-            
+
             $this->refreshPage();
             $this->resetValidation();
             $this->dispatch('show-message', message: 'Appointment booked successfully');
@@ -130,17 +139,23 @@ class BookAppointment extends Component
     public function refreshPage(){
 
         $this->child = null;
-        
+
         //Resets the classes array
         $this->classes = array_map(function ($class) {
             $class['Selected'] = true;
             return $class;
         }, $this->classes);
-        
+
+
+        $parsedDate = Carbon::parse($this->date)->toDateString();
+
         //Refreshes appointments
-        $this->appointments = $this->user->students()->select('students.StudentID', 'FirstName', 'LastName', 'PicturePath')
-                        ->with(['appointments' => function($query) {
-                            $query->with('timeslot');
-                        }])->get();
+        // $this->appointments = $this->user->students()->select('students.StudentID', 'FirstName', 'LastName', 'PicturePath')
+        //                             ->with(['appointments' => function($query) use ($parsedDate) {
+        //                                 $query->whereHas('timeslot', function ($query) use ($parsedDate) {
+        //                                     $query->whereDate('StartTime', $parsedDate);
+        //                                 })->with('timeSlot');
+        //                             }])
+        //                             ->get();
     }
 }

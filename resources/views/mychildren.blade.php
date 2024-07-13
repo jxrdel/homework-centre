@@ -35,6 +35,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src='https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js'></script>
 
+
+@if (Session::has('error'))
+
+<script>
+    toastr.options = {
+      "progressBar" : true,
+      "closeButton" : true,
+    }
+    toastr.error("{{ Session::get('error') }}",'' , {timeOut:4000});
+</script>
+
+@endif
+
 <script>
 
 

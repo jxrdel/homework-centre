@@ -77,11 +77,11 @@
                         <i class="fa-solid fa-user"></i>&nbsp;
                         <span>My Account</span>
                     </a>
-                    <div id="collapseTwo" 
-                    @class(['collapse', 'show' => 
-                    request()->routeIs('pickupcontacts') 
-                    || request()->routeIs('emergencycontact') 
-                    || request()->routeIs('myprofile')]) 
+                    <div id="collapseTwo"
+                    @class(['collapse', 'show' =>
+                    request()->routeIs('pickupcontacts')
+                    || request()->routeIs('emergencycontact')
+                    || request()->routeIs('myprofile')])
                     aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
                         <div class="bg-white py-2 collapse-inner rounded">
@@ -100,14 +100,14 @@
                         <i class="fa-solid fa-user-tie"></i>&nbsp;
                         <span>Admin</span>
                     </a>
-                    <div id="adminCollapse" 
-                    @class(['collapse', 'show' => 
-                    request()->routeIs('admin')]) 
+                    <div id="adminCollapse"
+                    @class(['collapse', 'show' =>
+                    request()->routeIs('admin')])
                     aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a @class(['collapse-item', 'active' => request()->routeIs('admin')]) href="{{ route('admin') }}">Classes</a>
-                            <a @class(['collapse-item']) href="#">Students</a>
+                            <a @class(['collapse-item']) href="{{ route('student.all') }}">Students</a>
                             <a @class(['collapse-item']) href="#">Reports</a>
                             <a @class(['collapse-item']) href="#">Cirriculum</a>
                         </div>

@@ -106,7 +106,7 @@ class RegistrationForm extends Component
     public $additionalinfo;
 
     //Terms & Conditions
-    
+
     public $iagree= false;
     public $mediarelease = null;
     public $emergencyconsent = null;
@@ -121,7 +121,7 @@ class RegistrationForm extends Component
 
     public function finalRegistration(){
         // dd($this->children);
-            
+
         if ($this->ecpicture) {
             $filename = $this->ecfirstname . $this->eclastname . '-' . $this->ecpicture->getClientOriginalName();
             $this->ecpicture->storeAs('public/emergency_contacts', $filename);
@@ -142,7 +142,7 @@ class RegistrationForm extends Component
 
         $username = User::generateUniqueUsername($this->parentfirstname1, $this->parentlastname1); //Generates a unique username
         // dd($username);
-            
+
         if ($this->parentpicture1) {
             $filename = $this->parentfirstname1 . $this->parentlastname1 . '-' . $this->parentpicture1->getClientOriginalName();
             $this->parentpicture1->storeAs('public/parents', $filename);
@@ -172,7 +172,7 @@ class RegistrationForm extends Component
         ]);
 
         if($this->multipleparents){
-            
+
         if ($this->parentpicture2) {
             $filename = $this->parentfirstname2 . $this->parentlastname2 . '-' . $this->parentpicture2->getClientOriginalName();
             $this->parentpicture2->storeAs('public/parents', $filename);
@@ -224,9 +224,9 @@ class RegistrationForm extends Component
                     'Address' => $contact['Address'],
                     'PicturePath' => $newpath,
                 ]);
-    
+
                 $this->parent1->pickupcontacts()->attach($pickupcontact->PickupContactID); //Attach pickup contacts to parent 1
-                
+
                 if($this->multipleparents){
                     $this->parent2->pickupcontacts()->attach($pickupcontact->PickupContactID); //Attach pickup contacts to parent 1
                 }
@@ -240,14 +240,14 @@ class RegistrationForm extends Component
             $uniqueFilename = (string) Str::uuid() . '.' . $extension; //Generate unique file name
             $newpicturepath = 'public/students/' . $uniqueFilename; //New path for picture
             Storage::move($tempfile, $newpicturepath);
-            
+
             $tempimmunization = 'public/' . $child['ImmunizationPath']; //Get path of temporary picture
             $extension = pathinfo($tempimmunization, PATHINFO_EXTENSION); //Get extension of file
             $uniqueFilename = (string) Str::uuid() . '.' . $extension; //Generate unique file name
             $newimmunizationpath = 'public/students/immunization/' . $uniqueFilename; //New path for picture
             Storage::move($tempimmunization, $newimmunizationpath);
 
-            
+
             $newchild = Student::create([
                 'FirstName' => $child['FirstName'],
                 'LastName' => $child['LastName'],
@@ -276,7 +276,7 @@ class RegistrationForm extends Component
                 $this->parent2->students()->attach($newchild->StudentID);
             }
         }
-        
+
             $this->newusername = $this->parent1->Username;
             $this->parentform = false;
             $this->addchild = false;
@@ -285,14 +285,14 @@ class RegistrationForm extends Component
             $this->emergencycontactform = false;
             $this->registrationcomplete = true;
             $this->dispatch('show-message', message: 'Account created successfully');
-        
+
     }
 
     public function validateParent(){
 
         $this->validate([
-            'parentpicture1' => 'nullable|file|mimes:png,jpg,pdf,jpeg,webp|max:1024',
-            'parentpicture2' => 'nullable|file|mimes:png,jpg,pdf,jpeg,webp|max:1024'
+            'parentpicture1' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:1024',
+            'parentpicture2' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:1024'
         ]);
 
         $this->parentform = false;
@@ -301,18 +301,18 @@ class RegistrationForm extends Component
         $this->emergencycontactform = false;
         $this->childform = true;
     }
-    
+
     public function validateStudent(){
-        
+
         $this->validate([
-            'childpicture' => 'nullable|file|mimes:png,jpg,pdf,jpeg,webp|max:1024',
-            'immunizationpicture' => 'nullable|file|mimes:png,jpg,pdf,jpeg,webp|max:2024'
+            'childpicture' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:1024',
+            'immunizationpicture' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:2024'
         ]);
 
         if ($this->childpicture) {
             $this->childpicturepath = $this->childpicture->store('temp', 'public');
         }
-        
+
         if ($this->immunizationpicture) {
             $this->immunizationpicturepath = $this->immunizationpicture->store('temp', 'public');
         }
@@ -346,7 +346,7 @@ class RegistrationForm extends Component
         $this->addchild = true;
 
     }
-    
+
     public function backBtnChildForm(){
         $this->childform = false;
         $this->termsform = false;
@@ -356,9 +356,9 @@ class RegistrationForm extends Component
     }
 
     public function validateEmergencyContact(){
-        
+
         $this->validate([
-            'ecpicture' => 'nullable|file|mimes:png,jpg,pdf,jpeg,webp|max:1024',
+            'ecpicture' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:1024',
         ]);
 
         $this->parentform = false;
@@ -371,7 +371,7 @@ class RegistrationForm extends Component
 
     public function createPickup(){
         // dd($this->pickupfirstname);
-        
+
         if ($this->pickuppicture) {
             $this->pickuppicturepath = $this->pickuppicture->store('temp', 'public');
         }
@@ -388,7 +388,7 @@ class RegistrationForm extends Component
             'Address' => $this->pickupaddress,
             'PicturePath' => $this->pickuppicturepath,
         ];
-        
+
         $this->pickupfirstname = null;
         $this->pickuplastname = null;
         $this->pickupemail = null;
@@ -401,7 +401,7 @@ class RegistrationForm extends Component
     }
 
     public function removePickupContact($index){
-        
+
         Storage::delete('public/'.$this->pickupcontacts[$index]['PicturePath']);
         unset($this->pickupcontacts[$index]);
 

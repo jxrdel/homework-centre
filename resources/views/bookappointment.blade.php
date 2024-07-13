@@ -13,7 +13,7 @@ $formattedDate = Carbon::createFromFormat('Ymd', $date)->format('F jS, Y');
 @endsection
 
 @section('styles')
-    
+
 @endsection
 
 @section('content')
@@ -22,7 +22,12 @@ $formattedDate = Carbon::createFromFormat('Ymd', $date)->format('F jS, Y');
         @livewire('create-child-modal')
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800" style="margin: auto"><strong><i class="bi bi-journal-bookmark"></i> &nbsp; {{$formattedDate}}</strong></h1>
+            <a href="/" class="btn btn-primary">
+                <i class="bi bi-arrow-left"></i> Back
+            </a>
+            <h1 class="h3 mb-0 text-gray-800" style="flex: 1; text-align: center;">
+                <strong style="margin-right: 90px"><i class="bi bi-journal-bookmark"></i> &nbsp; {{$formattedDate}}</strong>
+            </h1>
         </div>
 
         <!-- Content Row -->

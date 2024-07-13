@@ -7,7 +7,7 @@
 @section('styles')
     <style>
         .available-timeslot {
-            background-color: rgb(248, 145, 145) !important;
+            background-color: rgb(188, 228, 201) !important;
             color: white !imporgb(223, 120, 120)nt;
         }
     </style>
@@ -24,14 +24,6 @@
         <!-- Content Row -->
         <div class="card">
             <div class="card-body">
-                <div class="row">
-                    <a type="button" data-bs-toggle="modal" data-bs-target="#createAppointmentModal" class="btn btn-primary btn-icon-split" style="width: 13rem;margin:auto">
-                        <span class="icon text-white-50">
-                            <i class="fa-solid fa-book-medical" style="color: white"></i>
-                        </span>
-                        <span class="text"  style="width: 200px">Book Appointment</span>
-                    </a>
-                </div>
                 <div id='calendar' style="max-height: 800px;margin-top:30px"></div>
             </div>
           </div>
@@ -43,28 +35,51 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src='https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js'></script>
 
+@if (Session::has('error'))
+
+<script>
+    toastr.options = {
+      "progressBar" : true,
+      "closeButton" : true,
+    }
+    toastr.error("{{ Session::get('error') }}",'' , {timeOut:6000});
+</script>
+
+@endif
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-      var calendarEl = document.getElementById('calendar');
+        var calendarEl = document.getElementById('calendar');
 
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        selectable: true,
-        dateClick: function(info) {
-          // Format the date as YYYYMMDD
-          var formattedDate = info.dateStr.replace(/-/g, '');
-          // Redirect to the desired route with the formatted date
-          window.location.href = `/BookAppointment/${formattedDate}`;
-        }
-      });
+        // Fetch class dates using Axios
+        axios.get('/gettimeslotdates')
+            .then(response => {
+                const dates = response.data;
 
-      calendar.render();
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    selectable: true,
+                    dateClick: function(info) {
+                        // Format the date as YYYYMMDD
+                        var formattedDate = info.dateStr.replace(/-/g, '');
+                        // Redirect to the desired route with the formatted date
+                        window.location.href = `/BookAppointment/${formattedDate}`;
+                    },
+                    dayCellClassNames: function(arg) {
+                        // Add a custom class to days with classes
+                        if (dates.includes(arg.date.toISOString().split('T')[0])) {
+                            return ['available-timeslot'];
+                        }
+                        return [];
+                    }
+                });
 
-      // Log the start date when the calendar is clicked
-      calendarEl.addEventListener('click', function() {
-        var startDate = calendar.view.activeStart;
-        console.log('Start date of the view: ' + startDate.toISOString());
-      });
+                calendar.render();
+
+            })
+            .catch(error => {
+                console.error('There was an error fetching the class dates!', error);
+            });
     });
 
 

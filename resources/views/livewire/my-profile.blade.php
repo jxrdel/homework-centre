@@ -1,6 +1,6 @@
 <div>
-    
-    <form class="user" wire:submit.prevent="validate">
+
+    <form class="user" wire:submit.prevent="save">
         <div class="row" style="margin-top:20px">
             <div class="col">
                 <div class="col" style="display: flex;">
@@ -121,7 +121,7 @@
                     <div class="col-4">
                         <label style="margin-top:5px;" for="formFile" class="form-label">Photo: &nbsp;</label>
                     </div>
-                    
+
                     @if ($picturepath)
                     <div class="col-md-4">
                         <div class="" style="max-height: 180px;">
