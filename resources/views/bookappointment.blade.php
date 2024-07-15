@@ -51,7 +51,7 @@ $formattedDate = Carbon::createFromFormat('Ymd', $date)->format('F jS, Y');
 
 
     window.addEventListener('close-create-modal', event => {
-            $('#createChildModal').modal('hide');
+            $('#createAppointmentModal').modal('hide');
         })
 
 

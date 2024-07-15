@@ -123,6 +123,7 @@ class BookAppointment extends Component
 
             $this->refreshPage();
             $this->resetValidation();
+            $this->dispatch('close-create-modal');
             $this->dispatch('show-message', message: 'Appointment booked successfully');
         }
 

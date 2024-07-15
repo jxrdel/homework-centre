@@ -94,7 +94,7 @@
             @endif
 
             @if (Auth::user()->IsAdmin)
-                <li @class(['nav-item', 'active' => request()->routeIs('admin')])>
+                <li @class(['nav-item', 'active' => request()->routeIs('admin') || request()->routeIs('student.all')])>
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#adminCollapse"
                         aria-expanded="true" aria-controls="adminCollapse">
                         <i class="fa-solid fa-user-tie"></i>&nbsp;
@@ -102,12 +102,12 @@
                     </a>
                     <div id="adminCollapse"
                     @class(['collapse', 'show' =>
-                    request()->routeIs('admin')])
+                    request()->routeIs('admin') || request()->routeIs('student.all')])
                     aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a @class(['collapse-item', 'active' => request()->routeIs('admin')]) href="{{ route('admin') }}">Classes</a>
-                            <a @class(['collapse-item']) href="{{ route('student.all') }}">Students</a>
+                            <a @class(['collapse-item', 'active' => request()->routeIs('student.all')]) href="{{ route('student.all') }}">Students</a>
                             <a @class(['collapse-item']) href="#">Reports</a>
                             <a @class(['collapse-item']) href="#">Cirriculum</a>
                         </div>
@@ -165,7 +165,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{route('myprofile')}}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>

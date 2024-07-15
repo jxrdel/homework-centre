@@ -18,20 +18,8 @@ class Controller
 {
     public function index()
     {
-        $appointments = Appointment::all();
 
-        $events = [];
-
-        foreach ($appointments as $appointment){
-            $events[] = [
-                'id' => $appointment->AppointmentID,
-                'title' => $appointment->Title,
-                'start' => $appointment->StartDate,
-                'end' => $appointment->EndDate
-            ];
-        }
-
-        return view('home', compact('events'));
+        return view('home');
     }
 
     public function login(){

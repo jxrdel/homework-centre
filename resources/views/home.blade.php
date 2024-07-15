@@ -10,6 +10,23 @@
             background-color: rgb(188, 228, 201) !important;
             color: white !imporgb(223, 120, 120)nt;
         }
+        .spinner {
+            border: 8px solid #f3f3f3; /* Light grey */
+            border-top: 8px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            animation: spin 2s linear infinite;
+            position: absolute;
+            left: 47%;
+            transform: translate(-20%, -20%);
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 @endsection
 
@@ -22,8 +39,9 @@
         </div>
 
         <!-- Content Row -->
-        <div class="card">
-            <div class="card-body">
+        <div class="card" id="contentCard">
+            <div class="card-body" style="min-height: 100px;position:relative">
+                <div class="spinner" id="loadingSpinner"></div>
                 <div id='calendar' style="max-height: 800px;margin-top:30px"></div>
             </div>
           </div>
@@ -50,36 +68,51 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
+        var spinner = document.getElementById('loadingSpinner');
+        var card = document.getElementById('contentCard');
 
-        // Fetch class dates using Axios
-        axios.get('/gettimeslotdates')
-            .then(response => {
-                const dates = response.data;
+        // Show the loading spinner
+        spinner.style.display = 'block';
+        // card.style.display = 'none';
 
-                var calendar = new FullCalendar.Calendar(calendarEl, {
-                    initialView: 'dayGridMonth',
-                    selectable: true,
-                    dateClick: function(info) {
-                        // Format the date as YYYYMMDD
-                        var formattedDate = info.dateStr.replace(/-/g, '');
-                        // Redirect to the desired route with the formatted date
-                        window.location.href = `/BookAppointment/${formattedDate}`;
-                    },
-                    dayCellClassNames: function(arg) {
-                        // Add a custom class to days with classes
-                        if (dates.includes(arg.date.toISOString().split('T')[0])) {
-                            return ['available-timeslot'];
-                        }
-                        return [];
-                    }
-                });
+        // Fetch class dates and user appointments using Axios
+        axios.all([
+            axios.get('/gettimeslotdates'),
+            axios.get('/myappointments')
+        ])
+        .then(axios.spread((timeslotDatesResponse, userAppointmentsResponse) => {
+            const timeslotDates = timeslotDatesResponse.data;
+            const userAppointments = userAppointmentsResponse.data;
 
-                calendar.render();
-
-            })
-            .catch(error => {
-                console.error('There was an error fetching the class dates!', error);
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                selectable: true,
+                events: userAppointments,
+                dateClick: function(info) {
+                    // Format the date as YYYYMMDD
+                    var formattedDate = info.dateStr.replace(/-/g, '');
+                    // Redirect to the desired route with the formatted date
+                    window.location.href = `/BookAppointment/${formattedDate}`;
+                },
+                dayCellClassNames: function(arg) {
+                    // Add a custom class to days with classes
+                    const dateStr = arg.date.toISOString().split('T')[0];
+                    return timeslotDates.includes(dateStr) ? ['available-timeslot'] : [];
+                }
             });
+
+            // Hide the loading spinner
+            spinner.style.display = 'none';
+            // card.style.display = 'block';
+
+            calendar.render();
+        }))
+        .catch(error => {
+            console.error('There was an error fetching data!', error);
+
+            // Hide the loading spinner in case of error
+            spinner.style.display = 'none';
+        });
     });
 
 

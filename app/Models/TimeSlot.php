@@ -33,11 +33,6 @@ class TimeSlot extends Model
                     ->withTimestamps();
     }
 
-    // public function timeslot()
-    // {
-    //     return $this->belongsTo(TimeSlot::class, 'TimeSlotID', 'TimeSlotID');
-    // }
-
     public function appointments()
     {
         return $this->hasMany(Appointment::class, 'TimeSlotID', 'TimeSlotID');

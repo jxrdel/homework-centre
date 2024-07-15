@@ -49,10 +49,6 @@
 @endif
 
 <script>
-
-
-
-
     window.addEventListener('close-create-modal', event => {
             $('#createChildModal').modal('hide');
         })

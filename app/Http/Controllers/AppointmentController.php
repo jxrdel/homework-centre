@@ -16,17 +16,37 @@ class AppointmentController extends Controller
 
     public function getMyAppointments(){
 
-        $user = User::find(Auth::user()->id);
+        $user = Auth::user();
 
-        $studentIds = $user->students->pluck('StudentID');
+        // Fetch appointments for the authenticated user's children
+        $appointments = Appointment::whereHas('student', function ($query) use ($user) {
+                $query->whereHas('parents', function ($query) use ($user) {
+                    $query->where('UserID', $user->id);
+                });
+            })
+            ->with(['student', 'timeslot'])
+            ->get()
+            ->map(function ($appointment) {
+                $appointment->date = substr($appointment->timeslot->StartTime, 0, 10); // Extract date part from datetime
+                return $appointment;
+            });
 
-        // Fetch appointments for the user's children
-        $appointments = DB::table('appointments')
-            ->whereIn('StudentID', $studentIds)
-            ->select('AppointmentID as id', 'Title as title', 'StartDate as start', 'EndDate as end')
-            ->get();
+        // Group by date and student
+        $groupedAppointments = $appointments->groupBy(['date', 'student.StudentID']);
 
-        return response()->json($appointments);
+        // Format the appointments for FullCalendar
+        $events = $groupedAppointments->flatMap(function($appointmentsByStudent, $date) {
+            return $appointmentsByStudent->map(function($appointments, $studentId) use ($date) {
+                $student = $appointments->first()->student;
+                $title = $student->FirstName . ' ' . $student->LastName;
+                return [
+                    'title' => $title,
+                    'start' => $date, // Date without time
+                ];
+            });
+        })->values();
+
+        return response()->json($events);
     }
 
     public function getTimeSlots(){
