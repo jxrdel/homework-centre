@@ -6,6 +6,7 @@
 
 @section('content')
 
+        @livewire('edit-pickup-contact-modal')
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800" style="margin: auto"><strong><i class="fa-regular fa-address-card"></i> &nbsp; Pickup Contacts</strong></h1>
@@ -25,8 +26,8 @@
                 </div>
 
                 <div class="row" style="margin-top: 30px">
-                    
-                    <table id="notitable" class="table table-striped table-bordered">
+
+                    <table id="myTable" class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>First Name</th>
@@ -53,13 +54,13 @@
     <script>
 
 $(document).ready(function() {
-            $('#notitable').DataTable({
+            $('#myTable').DataTable({
                 "pageLength": 10,
                 // order: [[1, 'asc']],
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
-                    "url": "{{ route('getpickupcontacts') }}", 
+                    "url": "{{ route('getpickupcontacts') }}",
                     "type": "GET"
                 },
                 "columns": [
@@ -79,5 +80,20 @@ $(document).ready(function() {
             });
         });
 
+        window.addEventListener('refresh-table', event => {
+            $('#myTable').DataTable().ajax.reload();
+        })
+
+        function showEdit(id) {
+            Livewire.dispatch('show-edit-modal', { id: id });
+        }
+
+        window.addEventListener('display-edit-modal', event => {
+            $('#editPickupModal').modal('show');
+        })
+
+        window.addEventListener('close-edit-modal', event => {
+            $('#editPickupModal').modal('hide');
+        })
     </script>
 @endsection
