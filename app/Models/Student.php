@@ -49,5 +49,18 @@ class Student extends Model
         return $this->hasMany(Appointment::class, 'StudentID', 'StudentID');
     }
 
+    public function emergencyContact(): ?EmergencyContact
+    {
+        $parents = $this->parents()->get();
+
+        foreach ($parents as $parent) {
+            $emergencyContact = $parent->emergencyContact()->first();
+            if ($emergencyContact) {
+                return $emergencyContact;
+            }
+        }
+
+        return null;
+    }
 
 }

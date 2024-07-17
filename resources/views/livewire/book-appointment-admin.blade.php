@@ -23,7 +23,7 @@ $formattedDate = Carbon::createFromFormat('Ymd', $this->date)->format('F jS, Y')
         <div class="col">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 style="text-align: center" class="m-0 font-weight-bold text-primary">My Appointments - {{$formattedDate}}</h6>
+                    <h6 style="text-align: center" class="m-0 font-weight-bold text-primary">Appointments - {{$formattedDate}}</h6>
                 </div>
                 <div class="card-body">
                     @forelse ($appointments as $student)
@@ -34,7 +34,7 @@ $formattedDate = Carbon::createFromFormat('Ymd', $this->date)->format('F jS, Y')
                                 <div class="row g-0">
                                 <div class="col-md-4">
                                     <div class="" style="display: flex; justify-content: center; align-items: center;height: 180px;">
-                                        <img style="max-height: 180px;width:auto" src="{{ Storage::url($student->PicturePath) }}" width="150" height="150" class="img-fluid rounded-start" alt="...">
+                                        <img style="max-height: 180px;width:auto" src="{{ Storage::url($student->PicturePath) }}" width="150" height="150" class="img-fluid rounded" alt="...">
                                     </div>
                                 </div>
                                 <div class="col-md-8">

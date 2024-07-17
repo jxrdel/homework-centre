@@ -20,36 +20,36 @@ class LoginForm extends Component
 
     public function login(){
 
-        $user = User::find(1); //Gets user
-        // $user->pickupcontacts()->attach(2); //Attach pickup contacts to parent 1
-        Auth::login($user);
-        redirect()->route('/');
+        // $user = User::find(4); //Gets user
+        // Auth::login($user);
+        // redirect()->route('/');
 
-        // try{
+        try{
 
-        //     $connection = Container::getConnection('default');
-        //     $user = User::where('Username', $this->username)->first(); //Gets user
+            $connection = Container::getConnection('default');
+            $user = User::where('Username', $this->username)->first(); //Gets user
 
-        //     if ($user){ //If user is found..
-        //         $ADuser = $connection->query()->where('samaccountname', '=', $this->username)->first(); //Gets user from AD
-        //         // dd($ADuser);
-        //         if ($connection->auth()->attempt($ADuser['distinguishedname'][0], $this->password)){ //Authenticate User
-        //             // dd('Success');
-        //             Auth::login($user);
-        //             redirect()->route('/');
-        //         }else {
-        //             // dd('Error');
-        //             $this->resetValidation();
-        //             $this->addError('password', 'Incorrect password');
-        //             $this->password = null;
-        //         }
-        //     }
-        //     else{ //Display error if no user is found
-        //         $this->addError('username', 'User not found');
-        //     }
-        // }catch(Exception $e){
-        //     dd('Error: Please contact IT at ext 11124', $e->getMessage());
-        // }
+            if ($user){ //If user is found..
+                $ADuser = $connection->query()->where('samaccountname', '=', $this->username)->first(); //Gets user from AD
+                // dd($ADuser);
+                if ($connection->auth()->attempt($ADuser['distinguishedname'][0], $this->password)){ //Authenticate User
+                    // dd('Success');
+                    Auth::login($user);
+                    redirect()->route('/');
+                }else {
+                    // dd('Error');
+                    $this->resetValidation();
+                    $this->addError('password', 'Incorrect password');
+                    $this->password = null;
+                }
+            }
+            else{ //Display error if no user is found
+                $this->resetValidation();
+                $this->addError('username', 'User not found');
+            }
+        }catch(Exception $e){
+            dd('Error: Please contact IT at ext 11124', $e->getMessage());
+        }
 
     }
 }

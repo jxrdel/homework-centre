@@ -35,20 +35,4 @@ class Controller
     public function register(){
         return view('register');
     }
-
-    public function bookAppointment($date){
-        $today = Carbon::now('AST')->startOfDay();
-        $requestDate = Carbon::parse($date);
-        $latestDate = Carbon::now('AST')->startOfDay()->addDays(7);
-
-        if($requestDate->greaterThan($latestDate)){
-            return redirect()->route('/')->with('error', 'Parents are not authorized to book more than 7 days in advance');
-        }
-        // elseif($requestDate->lessThan($today)){
-        //     return redirect()->route('/')->with('error', 'Day has already passed');
-        // }
-        else{
-            return view('bookappointment', compact('date'));
-        }
-    }
 }

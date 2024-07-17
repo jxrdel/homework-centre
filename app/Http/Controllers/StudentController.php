@@ -28,20 +28,28 @@ class StudentController extends Controller
         return view('student-edit');
     }
 
-    public function allStudents(){
-        // Gate::authorize('view-all-students'); //Only allows parents and admins to edit children
+    public function viewStudent($id){
+        $student = Student::find($id);
+        
+        $parents = $student->parents()->get();
+        
+        $pickups = null;
+        foreach ($parents as $parent) {
+            $pickupcontacts = $parent->pickupcontacts()->get();
+            if ($pickupcontacts) {
+                $pickups = $pickupcontacts;
+            }
+        }
+        // dd($pickups);
+        $emergencycontact = $student->emergencyContact();
 
-        if (Gate::denies('view-all-students')) {
-            return Redirect::route('/')->with('error', 'You are not authorized to view this page');
+
+        if (Gate::denies('view', $student)) {
+            return Redirect::route('mychildren')->with('error', 'You are not authorized to edit this child');
         }
 
-        return view('students-all');
+        return view('student-view', compact('student', 'emergencycontact', 'pickups'));
+
     }
-
-    public function getAllStudents(){
-
-        $students = Student::all();
-
-        return DataTables::of($students)->make(true);
-    }
+    
 }

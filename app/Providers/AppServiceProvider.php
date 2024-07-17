@@ -27,5 +27,9 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('view-all-students', function (User $user) {
             return $user->IsAdmin;
         });
+        
+        Gate::define('view-all-parents', function (User $user) {
+            return $user->IsAdmin;
+        });
     }
 }

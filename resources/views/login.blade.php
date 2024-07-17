@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <link rel="icon" type="image/x-icon" href="{{ asset('TTCOA.ico') }}">
 
-    <title>Login | Vacation Child Care</title>
+    <title>Login | VOSC</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('js/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">

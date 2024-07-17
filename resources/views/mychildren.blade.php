@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-    <title>My Children | Vacation Child Care</title>
+    <title>My Children | VOSC</title>
 @endsection
 
 @section('content')
@@ -9,7 +9,7 @@
         @livewire('create-child-modal')
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800" style="margin: auto"><strong><i class="fa-solid fa-baby"></i> &nbsp; My Children</strong></h1>
+            <h1 class="h3 mb-0 text-gray-800" style="margin: auto"><strong><i class="fa-solid fa-baby"></i> &nbsp; My Child(ren)</strong></h1>
         </div>
 
         <!-- Content Row -->

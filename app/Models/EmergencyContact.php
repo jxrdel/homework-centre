@@ -23,4 +23,5 @@ class EmergencyContact extends Model
         'ChildRelationship', 
         'PicturePath'
     ];
+    
 }

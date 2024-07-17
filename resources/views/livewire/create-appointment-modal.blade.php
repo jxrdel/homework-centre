@@ -30,7 +30,7 @@
 
                         <option value="">Select a Student</option>
                         @foreach ($students as $student)
-                        <option value="{{ $student->StudentID }}">{{ $student->FirstName }} {{ $student->LastName }}</option>
+                        <option value="{{ $student->StudentID }}">{{ $student->FirstName }} {{ $student->LastName }} </option>
                         @endforeach
 
                     </select>

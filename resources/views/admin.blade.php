@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-    <title>Admin | Vacation Child Care</title>
+    <title>Admin | VOSC</title>
 @endsection
 
 @section('styles')

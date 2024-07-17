@@ -16,13 +16,17 @@ class StudentPolicy
     //     //
     // }
 
-    // /**
-    //  * Determine whether the user can view the model.
-    //  */
-    // public function view(User $user, Student $student): bool
-    // {
-    //     //
-    // }
+    /**
+     * Determine whether the user can view the model.
+     */
+    public function view(User $user, Student $student): bool
+    {
+        if ($user->IsAdmin) {
+            return true;
+        }
+
+        return $student->parents->contains($user);
+    }
 
     // /**
     //  * Determine whether the user can create models.
@@ -38,9 +42,9 @@ class StudentPolicy
     public function edit(User $user, Student $student): bool
     {
 
-        // if ($user->IsAdmin) {
-        //     return true;
-        // }
+        if ($user->IsAdmin) {
+            return true;
+        }
 
         return $student->parents->contains($user);
     }

@@ -21,7 +21,7 @@
 
                         <option value="">Select a Child</option>
                         @foreach ($children as $child)
-                        <option value="{{ $child->StudentID }}">{{ $child->FirstName }} {{ $child->LastName }}</option>
+                        <option value="{{ $child->StudentID }}">{{ $child->FirstName }} {{ $child->LastName }} - Date of Birth: {{ \Carbon\Carbon::parse($child->DOB)->format('F jS, Y')}}</option>
                         @endforeach
 
                     </select>

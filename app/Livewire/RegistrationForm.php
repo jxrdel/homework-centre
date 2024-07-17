@@ -168,6 +168,8 @@ class RegistrationForm extends Component
             'EmergencyConsent' => $this->emergencyconsent,
             'EmergencyContactID' => $this->emergencycontact->EmergencyContactID,
             'IsParent' => true,
+            'HasWindowsLogin' => true,
+            'RegisteredBy' => null,
             'IsAdmin' => false
         ]);
 
@@ -201,18 +203,24 @@ class RegistrationForm extends Component
                 'EmergencyContactID' => $this->emergencycontact->EmergencyContactID,
                 'IsParent' => true,
                 'IsAdmin' => false,
+                'HasWindowsLogin' => false,
+                'RegisteredBy' => null,
             ]);
         }
 
 
         if(!empty($this->pickupcontacts)){
             foreach ($this->pickupcontacts as $contact){ //Save pickup contacts and attach them to parents
-                $tempfile = 'public/' . $contact['PicturePath']; //Get path of temporary picture
-                $extension = pathinfo($tempfile, PATHINFO_EXTENSION); //Get extension of file
-                $uniqueFilename = (string) Str::uuid() . '.' . $extension; //Generate unique file name
-                $newpath = 'public/pickup_contacts/' . $uniqueFilename; //New path for picture
+                $picturepath = null;
 
-                Storage::move($tempfile, $newpath);
+                if($contact['PicturePath']){
+                    $tempfile = 'public/' . $contact['PicturePath']; //Get path of temporary picture
+                    $extension = pathinfo($tempfile, PATHINFO_EXTENSION); //Get extension of file
+                    $uniqueFilename = (string) Str::uuid() . '.' . $extension; //Generate unique file name
+                    $picturepath = 'public/pickup_contacts/' . $uniqueFilename; //New path for picture
+    
+                    Storage::move($tempfile, $picturepath);
+                }
 
                 $pickupcontact = PickupContact::create([ //Add parent 2 to database
                     'FirstName' => $contact['FirstName'],
@@ -222,7 +230,7 @@ class RegistrationForm extends Component
                     'HomeNo' => $contact['HomeNo'],
                     'WorkNo' => $contact['WorkNo'],
                     'Address' => $contact['Address'],
-                    'PicturePath' => $newpath,
+                    'PicturePath' => $picturepath,
                 ]);
 
                 $this->parent1->pickupcontacts()->attach($pickupcontact->PickupContactID); //Attach pickup contacts to parent 1
@@ -306,7 +314,7 @@ class RegistrationForm extends Component
 
         $this->validate([
             'childpicture' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:1024',
-            'immunizationpicture' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:2024'
+            'immunizationpicture' => 'nullable|file|mimes:pdf,png,jpg,jpeg,webp|max:2024'
         ]);
 
         if ($this->childpicture) {

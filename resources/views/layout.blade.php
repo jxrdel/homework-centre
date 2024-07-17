@@ -48,7 +48,7 @@
                 <div class="sidebar-brand-icon">
                     <i style="font-size: 2rem" class="fas fa-person-breastfeeding"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">VOCS</div>
+                <div class="sidebar-brand-text mx-3">VOSC</div>
             </a>
 
             <!-- Divider -->
@@ -66,7 +66,7 @@
                 <li @class(['nav-item', 'active' => request()->routeIs('mychildren')]) id="childrenlink">
                     <a class="nav-link" href="{{ route('mychildren') }}">
                         <i class="fa-solid fa-baby"></i>
-                        &nbsp;<span>My Children</span></a>
+                        &nbsp;<span>My Child(ren)</span></a>
                 </li>
             @endif
 
@@ -94,7 +94,7 @@
             @endif
 
             @if (Auth::user()->IsAdmin)
-                <li @class(['nav-item', 'active' => request()->routeIs('admin') || request()->routeIs('student.all')])>
+                <li @class(['nav-item', 'active' => request()->routeIs('admin.*')])>
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#adminCollapse"
                         aria-expanded="true" aria-controls="adminCollapse">
                         <i class="fa-solid fa-user-tie"></i>&nbsp;
@@ -102,12 +102,15 @@
                     </a>
                     <div id="adminCollapse"
                     @class(['collapse', 'show' =>
-                    request()->routeIs('admin') || request()->routeIs('student.all')])
+                    request()->routeIs('admin.*')])
                     aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a @class(['collapse-item', 'active' => request()->routeIs('admin')]) href="{{ route('admin') }}">Classes</a>
-                            <a @class(['collapse-item', 'active' => request()->routeIs('student.all')]) href="{{ route('student.all') }}">Students</a>
+                            <a @class(['collapse-item', 'active' => request()->routeIs('admin.appointments') || request()->routeIs('admin.appointments.*') ]) href="{{ route('admin.appointments') }}">Make Appointments</a>
+                            <a @class(['collapse-item', 'active' => request()->routeIs('admin.registration')]) href="{{ route('admin.registration') }}">Registration</a>
+                            <a @class(['collapse-item', 'active' => request()->routeIs('admin.classes')]) href="{{ route('admin.classes') }}">Classes</a>
+                            <a @class(['collapse-item', 'active' => request()->routeIs('admin.students.all')]) href="{{ route('admin.students.all') }}">Students</a>
+                            <a @class(['collapse-item', 'active' => request()->routeIs('admin.parents.all')]) href="{{ route('admin.parents.all') }}">Parents</a>
                             <a @class(['collapse-item']) href="#">Reports</a>
                             <a @class(['collapse-item']) href="#">Cirriculum</a>
                         </div>

@@ -1,14 +1,14 @@
 @extends('layout')
 
 @section('title')
-    <title>Pickup Contacts | VOSC</title>
+    <title>All Parents | VOSC</title>
 @endsection
 
 @section('content')
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800" style="margin: auto"><strong><i class="fa-regular fa-address-card"></i> &nbsp; Pickup Contacts</strong></h1>
+            <h1 class="h3 mb-0 text-gray-800" style="margin: auto"><strong><i class="fa-solid fa-person-breastfeeding"></i> &nbsp; Parents</strong></h1>
         </div>
 
         <!-- Content Row -->
@@ -16,24 +16,22 @@
             <div class="card-body">
 
                 <div class="row">
-                    <a type="button" data-bs-toggle="modal" data-bs-target="#createChildModal" class="btn btn-primary btn-icon-split" style="width: 14rem;margin:auto">
+                    <a type="button" href="{{route('admin.registration')}}" class="btn btn-primary btn-icon-split" style="width: 14rem;margin:auto">
                         <span class="icon text-white-50">
                             <i class="fas fa-plus" style="color: white"></i>
                         </span>
-                        <span class="text"  style="width: 200px;">Add Pickup Contact</span>
+                        <span class="text"  style="width: 200px;">Register Parent</span>
                     </a>
                 </div>
 
                 <div class="row" style="margin-top: 30px">
-                    
+
                     <table id="notitable" class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>First Name</th>
                                 <th>Last Name</th>
-                                <th>Email</th>
-                                <th>Mobile Number</th>
-                                <th>Actions</th>
+                                <th style="text-align: center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -59,20 +57,18 @@ $(document).ready(function() {
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
-                    "url": "{{ route('getpickupcontacts') }}", 
+                    "url": "{{ route('admin.getallparents') }}",
                     "type": "GET"
                 },
                 "columns": [
                         { data: 'FirstName', name: 'FirstName' },
                         { data: 'LastName', name: 'LastName' },
-                        { data: 'Email', name: 'Email' },
-                        { data: 'MobileNo', name: 'MobileNo' },
                         {
                             data: null,
                             orderable: false,
                             searchable: false,
                             render: function (data, type, row) {
-                                return '<a href="#" onclick="showView(' + data.PickupContactID + ')">View</a> | <a href="#" onclick="showEdit(' + data.PickupContactID + ')">Edit</a> | <a href="#" onclick="showDelete(' + data.PickupContactID + ')">Delete</a>';
+                                return '<div style="text-align:center"><a href="/Students/Edit/' + data.StudentID + '">View</a> | <a href="/Students/Edit/' + data.StudentID + '" >Edit</a> | <a href="#" onclick="showDelete(' + data.PickupContactID + ')">Delete</a></div>';
                             }
                         },
                 ]

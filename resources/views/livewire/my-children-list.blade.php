@@ -7,14 +7,14 @@
             <div class="row g-0">
             <div class="col-md-4">
                 <div class="" style="display: flex; justify-content: center; align-items: center;height: 180px;">
-                    <img src="{{ Storage::url($child->PicturePath) }}" width="150" height="150" class="img-fluid rounded-start" alt="...">
+                    <img style="max-height: 180px" src="{{ Storage::url($child->PicturePath) }}" width="150" height="150" class="img-fluid rounded-start" alt="...">
                 </div>
             </div>
             <div class="col-md-8">
                 <div class="card-body">
                     <h5 class="card-title">{{$child->FirstName}} {{$child->LastName}}</h5>
                     <p class="card-text">DOB: {{ \Illuminate\Support\Carbon::parse($child->DOB)->format('F jS, Y') }}</p>
-                    <p class="card-text"><a class="btn btn-primary" href="{{route('student.edit', ['id' => $child->StudentID])}}">Edit</a></p>
+                    <p class="card-text"><a class="btn btn-primary" href="{{route('student.edit', ['id' => $child->StudentID])}}">View</a> <a class="btn btn-primary" href="{{route('student.edit', ['id' => $child->StudentID])}}">Edit</a></p>
                 </div>
             </div>
             </div>

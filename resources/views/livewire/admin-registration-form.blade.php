@@ -1,9 +1,6 @@
 <div>
     @if ($this->parentform)
 
-        <div class="text-center">
-            <h1 class="h4 text-gray-900 mb-4"><i class="fa-solid fa-file-lines fa-lg"></i> &nbsp;Registration Form</h1>
-        </div>
         <div style="color:red; text-align: center;padding:10px">@error('error') {{ $message }} @enderror</div>
 
         <div class="row">
@@ -13,6 +10,25 @@
         </div>
 
         <form class="user" wire:submit.prevent="validateParent">
+            
+            <div class="row" style="margin-top:20px">
+                <div class="col">
+                    <div class="col" style="display: flex;">
+                        <div class="col-3">
+                            <label for="title">Does this user have a Windows Login &nbsp;</label>
+                        </div>
+                        <div class="col">
+                            <input wire:model="hasWindowsLogin" value="true" type="radio" name="hasWindowsLogin" id="yesRadio" autocomplete="off">
+                            <label for="yesRadio">Yes</label>&nbsp;&nbsp;
+
+                            <input wire:model="hasWindowsLogin" value="false" type="radio" name="hasWindowsLogin" id="noRadio" autocomplete="off">
+                            <label for="noRadio">No</label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
             <div class="row" style="margin-top:20px">
                 <div class="col">
                     <div class="col" style="display: flex;">
@@ -625,10 +641,10 @@
                         <div class="col">
                             <p>
 
-                                <input required wire:model.live="sexofchild" value="Male" type="radio" class="btn-check" name="sexofchild" id="malechild" autocomplete="off">
+                                <input wire:model.live="sexofchild" value="Male" type="radio" name="sexofchild" id="malechild" autocomplete="off">
                                 <label for="malechild">Male</label>&nbsp;&nbsp;
 
-                                <input wire:model.live="sexofchild" value="Female" type="radio" class="btn-check" name="sexofchild" id="femalechild" autocomplete="off">
+                                <input wire:model.live="sexofchild" value="Female" type="radio" name="sexofchild" id="femalechild" autocomplete="off">
                                 <label for="femalechild">Female</label>
                             </p>
                         </div>
@@ -742,7 +758,7 @@
 
             </div>
 
-            <div class="row">
+            <div class="row" style="margin-top:20px">
                 <div class="col">
                     <div class="col" style="display: flex;">
                         <div class="col-2">
@@ -770,7 +786,7 @@
 
             </div>
 
-            <div class="row">
+            <div class="row" style="margin-top:20px">
                 <div class="col">
                     <div class="col" style="display: flex;">
                         <div class="col-4">
@@ -875,10 +891,10 @@
             <div class="col">
                 <p>I hereby
 
-                    <input required wire:model.live="mediarelease" value=true type="radio" class="btn-check" name="media-release" id="iagree" autocomplete="off">
+                    <input required wire:model.live="mediarelease" value=true type="radio" name="media-release" id="iagree" autocomplete="off">
                     <label for="iagree"><strong style="text-decoration: underline">Give</strong></label>&nbsp;&nbsp;
 
-                    <input wire:model.live="mediarelease" value=false type="radio" class="btn-check" name="media-release" id="donotagree" autocomplete="off">
+                    <input wire:model.live="mediarelease" value=false type="radio" name="media-release" id="donotagree" autocomplete="off">
                     <label for="donotagree"><strong style="text-decoration: underline">Do Not Give</strong></label>
 
                     permission for the Ministry of Health to use Pictures and videos of my child on social media,
@@ -904,10 +920,10 @@
 
                 <p>
                     I hereby
-                    <input required wire:model.live="emergencyconsent" value=true type="radio" class="btn-check" name="emergency-consent" id="iagree" autocomplete="off">
+                    <input required wire:model.live="emergencyconsent" value=true type="radio" name="emergency-consent" id="iagree" autocomplete="off">
                     <label for="iagree"><strong style="text-decoration: underline">Give</strong></label>&nbsp;&nbsp;
 
-                    <input wire:model.live="emergencyconsent" value=false type="radio" class="btn-check" name="emergency-consent" id="donotagree" autocomplete="off">
+                    <input wire:model.live="emergencyconsent" value=false type="radio" name="emergency-consent" id="donotagree" autocomplete="off">
                     <label for="donotagree"><strong style="text-decoration: underline">Do Not Give</strong></label>
 
                     consent for my child(ren) when ill/injured, to be taken to the nearest emergency centre by the staff of my child’s vacation and after-school
@@ -937,13 +953,13 @@
             <div class="col">
                 <div>
 
-                    <input wire:model.live="iagree" value=true type="radio" class="btn-check" name="options-edited" id="iagree" autocomplete="off">
+                    <input wire:model.live="iagree" value=true type="radio" name="options-edited" id="iagree" autocomplete="off">
                     <label for="iagree">I Agree</label>&nbsp;&nbsp;
 
-                    <input wire:model.live="iagree" value=false type="radio" class="btn-check" name="options-edited" id="donotagree" autocomplete="off">
+                    <input wire:model.live="iagree" value=false type="radio" name="options-edited" id="donotagree" autocomplete="off">
                     <label for="donotagree">I Do Not Agree</label>
 
-                    {{-- <input wire:click="toggleAgreeTerms" type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+                    {{-- <input wire:click="toggleAgreeTerms" type="checkbox" id="btncheck1" autocomplete="off">
                     <label class="btn btn-outline-primary" for="btncheck1"><i class="fa-solid fa-check"></i></label> --}}
                 </div>
             </div>
@@ -969,9 +985,9 @@
 
         <div class="row" style="margin-top:10px;text-align:center">
 
-            <label style="margin:auto;padding:20px" for="title">Your username is <strong style="text-decoration: underline">{{$this->newusername}}</strong>. Your password is the same as your Windows password.</label>
+            <label style="margin:auto;padding:20px" for="title">The user <strong style="text-decoration: underline">{{$this->parentfirstname1}} {{$this->parentlastname1}}</strong>  is . Your password is the same as your Windows password.</label>
 
-            <a class="btn btn-primary btn-block" href="{{route('login')}}" style="width: 50%;margin-top:30px;margin:auto">Login</a>
+            <a class="btn btn-primary btn-block" href="{{route('admin.parents.all')}}" style="width: 50%;margin-top:30px;margin:auto">All Parents</a>
         </div>
     @endif
 

@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-    <title>Admin Registration | Vacation Child Care</title>
+    <title>Admin Registration | VOSC</title>
 @endsection
 
 @section('content')
@@ -16,7 +16,7 @@
         <div class="card">
             <div class="card-body">
 
-                @livewire('my-profile')
+                @livewire('admin-registration-form')
 
             </div>
           </div>
@@ -43,10 +43,8 @@
 
 <script>
 
-
-    window.addEventListener('refresh-calendar', event => {
-        calendar.refetchEvents();
-    })
-
+  window.addEventListener('close-pickup-modal', event => {
+  $('#createPickupModal').modal('hide');
+  })
   </script>
 @endsection

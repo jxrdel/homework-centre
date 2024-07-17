@@ -6,6 +6,7 @@ use App\Models\EmergencyContact;
 use App\Models\PickupContact;
 use App\Models\Student;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -24,6 +25,7 @@ class AdminRegistrationForm extends Component
     public $termsform = false;
 
     // Parent/Guardian #1 Information
+    public $hasWindowsLogin;
     public $parent1;
     public $parentfirstname1;
     public $parentlastname1;
@@ -168,7 +170,9 @@ class AdminRegistrationForm extends Component
             'EmergencyConsent' => $this->emergencyconsent,
             'EmergencyContactID' => $this->emergencycontact->EmergencyContactID,
             'IsParent' => true,
-            'IsAdmin' => false
+            'IsAdmin' => false,
+            'HasWindowsLogin' => $this->hasWindowsLogin,
+            'RegisteredBy' => Auth::user()->Username,
         ]);
 
         if($this->multipleparents){
@@ -201,6 +205,8 @@ class AdminRegistrationForm extends Component
                 'EmergencyContactID' => $this->emergencycontact->EmergencyContactID,
                 'IsParent' => true,
                 'IsAdmin' => false,
+                'HasWindowsLogin' => false,
+                'RegisteredBy' => Auth::user()->Username,
             ]);
         }
 
@@ -306,7 +312,7 @@ class AdminRegistrationForm extends Component
 
         $this->validate([
             'childpicture' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:1024',
-            'immunizationpicture' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:2024'
+            'immunizationpicture' => 'nullable|file|mimes:pdf,png,jpg,jpeg,webp|max:2024'
         ]);
 
         if ($this->childpicture) {

@@ -1,28 +1,19 @@
 @extends('layout')
 
 @section('title')
-    <title>Pickup Contacts | Vacation Child Care</title>
+    <title>All Students | VOSC</title>
 @endsection
 
 @section('content')
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800" style="margin: auto"><strong><i class="fa-regular fa-address-card"></i> &nbsp; Pickup Contacts</strong></h1>
+            <h1 class="h3 mb-0 text-gray-800" style="margin: auto"><strong><i class="fa-solid fa-children"></i> &nbsp; Students</strong></h1>
         </div>
 
         <!-- Content Row -->
         <div class="card">
             <div class="card-body">
-
-                <div class="row">
-                    <a type="button" data-bs-toggle="modal" data-bs-target="#createChildModal" class="btn btn-primary btn-icon-split" style="width: 14rem;margin:auto">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-plus" style="color: white"></i>
-                        </span>
-                        <span class="text"  style="width: 200px;">Add Pickup Contact</span>
-                    </a>
-                </div>
 
                 <div class="row" style="margin-top: 30px">
 
@@ -57,7 +48,7 @@ $(document).ready(function() {
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
-                    "url": "{{ route('getallstudents') }}",
+                    "url": "{{ route('admin.getallstudents') }}",
                     "type": "GET"
                 },
                 "columns": [
@@ -68,7 +59,7 @@ $(document).ready(function() {
                             orderable: false,
                             searchable: false,
                             render: function (data, type, row) {
-                                return '<div style="text-align:center"><a href="/Students/Edit/' + data.StudentID + '">View</a> | <a href="/Students/Edit/' + data.StudentID + '" >Edit</a> | <a href="#" onclick="showDelete(' + data.PickupContactID + ')">Delete</a></div>';
+                                return '<div style="text-align:center"><a href="/Students/View/' + data.StudentID + '">View</a> | <a href="/Students/Edit/' + data.StudentID + '" >Edit</a> | <a href="#" onclick="showDelete(' + data.PickupContactID + ')">Delete</a></div>';
                             }
                         },
                 ]

@@ -14,6 +14,19 @@ use Illuminate\Support\Facades\DB;
 class AppointmentController extends Controller
 {
 
+    public function bookAppointment($date){
+        $today = Carbon::now('AST')->startOfDay();
+        $requestDate = Carbon::parse($date);
+        $latestDate = Carbon::now('AST')->startOfDay()->addDays(7);
+
+        if($requestDate->greaterThan($latestDate)){
+            return redirect()->route('/')->with('error', 'Parents are not authorized to book more than 7 days in advance');
+        }
+        else{
+            return view('bookappointment', compact('date'));
+        }
+    }
+
     public function getMyAppointments(){
 
         $user = Auth::user();
@@ -57,12 +70,12 @@ class AppointmentController extends Controller
         return response()->json($timeslots);
     }
 
-    public function getTimeslotDates(){
-
-        $daysWithClasses = TimeSlot::select(DB::raw('DATE(StartTime) as date'))
+    public function getTimeslotDates()
+    {
+        $daysWithClasses = TimeSlot::select(DB::raw("FORMAT(StartTime, 'yyyy-MM-dd') as date"))
             ->distinct()
             ->pluck('date');
-
+    
         return response()->json($daysWithClasses);
     }
 

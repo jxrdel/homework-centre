@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class BookAppointment extends Component
+class BookAppointmentAdmin extends Component
 {
     public $user;
     public $date;
@@ -30,8 +30,7 @@ class BookAppointment extends Component
             $this->isCurrent = false;
         }
         $this->date = $date;
-        $this->user = User::find(Auth::user()->id);
-        $this->children = $this->user->students;
+        $this->children = Student::orderBy('FirstName')->get();
 
         $classes = TimeSlot::whereDate('StartTime', '=', $date)
                                     ->get();
@@ -63,7 +62,7 @@ class BookAppointment extends Component
 
 
         //Get Student Appointment details
-        $this->appointments = $this->user->students()->select('students.StudentID', 'FirstName', 'LastName', 'PicturePath')
+        $this->appointments = Student::select('students.StudentID', 'FirstName', 'LastName', 'PicturePath')
                                     ->with(['appointments' => function($query) use ($parsedDate) {
                                         $query->whereHas('timeslot', function ($query) use ($parsedDate) {
                                             $query->whereDate('StartTime', $parsedDate);
@@ -87,7 +86,7 @@ class BookAppointment extends Component
             $timeSlot->remainingPercentage =  (($maxstudents - ($maxstudents - $timeSlot->appointments->count())) / $maxstudents) * 100;
             return $timeSlot;
         });
-        return view('livewire.book-appointment');
+        return view('livewire.book-appointment-admin');
     }
 
     public function toggleSelected($index){

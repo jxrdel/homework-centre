@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -34,6 +36,8 @@ class User extends Authenticatable
         'EmergencyConsent',
         'IsParent',
         'IsAdmin',
+        'HasWindowsLogin',
+        'RegisteredBy',
         'EmergencyContactID'
     ];
 
@@ -66,5 +70,10 @@ class User extends Authenticatable
     public function pickupcontacts()
     {
         return $this->belongsToMany(PickupContact::class, 'UserPickupcontact', 'UserID', 'PickupContactID');
+    }
+    
+    public function emergencyContact(): HasOne
+    {
+        return $this->hasOne(EmergencyContact::class, 'EmergencyContactID', 'EmergencyContactID');
     }
 }

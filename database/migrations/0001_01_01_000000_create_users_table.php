@@ -30,6 +30,8 @@ return new class extends Migration
             $table->boolean('EmergencyConsent');
             $table->boolean('IsParent');
             $table->boolean('IsAdmin');
+            $table->boolean('HasWindowsLogin')->nullable();
+            $table->string('RegisteredBy')->nullable();
             $table->unsignedBigInteger('EmergencyContactID');
             $table->timestamps();
             
