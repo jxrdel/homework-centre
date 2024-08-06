@@ -16,7 +16,9 @@ class StudentController extends Controller
         return view('mychildren');
     }
 
-
+    public function createStudent(){
+        return view('student-create');
+    }
     public function editStudent($id){
         $student = Student::find($id);
 
@@ -25,7 +27,7 @@ class StudentController extends Controller
             return Redirect::route('mychildren')->with('error', 'You are not authorized to edit this child');
         }
 
-        return view('student-edit');
+        return view('student-edit', compact('student'));
     }
 
     public function viewStudent($id){

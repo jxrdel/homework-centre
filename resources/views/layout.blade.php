@@ -19,6 +19,7 @@
     <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -44,7 +45,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('/') }}">
                 <div class="sidebar-brand-icon">
                     <i style="font-size: 2rem" class="fas fa-person-breastfeeding"></i>
                 </div>
@@ -54,12 +55,14 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
+            @if (Auth::user()->IsParent)
             <!-- Nav Item - Dashboard -->
-            <li @class(['nav-item', 'active' => request()->routeIs('/') || request()->routeIs('bookappointment')]) id="dashboardlink">
-                <a class="nav-link" href="{{ route('/') }}">
-                    <i class="fa-solid fa-book"></i>
-                    &nbsp;<span>Appointments</span></a>
-            </li>
+                <li @class(['nav-item', 'active' => request()->routeIs('appointments') || request()->routeIs('bookappointment')]) id="dashboardlink">
+                    <a class="nav-link" href="{{ route('appointments') }}">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        &nbsp;<span>Appointments</span></a>
+                </li>
+            @endif
 
             @if (Auth::user()->IsParent)
                 <!-- Nav Item - Dashboard -->
@@ -93,7 +96,16 @@
                 </li>
             @endif
 
-            @if (Auth::user()->IsAdmin)
+            @if (Auth::user()->IsParent)
+            <!-- Nav Item - Dashboard -->
+                <li @class(['nav-item', 'active' => request()->routeIs('feedback')]) id="dashboardlink">
+                    <a class="nav-link" href="{{ route('feedback') }}">
+                        <i class="fa-regular fa-comment"></i>
+                        &nbsp;<span>Feedback</span></a>
+                </li>
+            @endif
+
+            @if (Auth::user()->IsAdmin || Auth::user()->IsSuperAdmin)
                 <li @class(['nav-item', 'active' => request()->routeIs('admin.*')])>
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#adminCollapse"
                         aria-expanded="true" aria-controls="adminCollapse">
@@ -106,13 +118,35 @@
                     aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a @class(['collapse-item', 'active' => request()->routeIs('admin.appointments') || request()->routeIs('admin.appointments.*') ]) href="{{ route('admin.appointments') }}">Make Appointments</a>
-                            <a @class(['collapse-item', 'active' => request()->routeIs('admin.registration')]) href="{{ route('admin.registration') }}">Registration</a>
                             <a @class(['collapse-item', 'active' => request()->routeIs('admin.classes')]) href="{{ route('admin.classes') }}">Classes</a>
+                            <a @class(['collapse-item', 'active' => request()->routeIs('admin.attendance') || request()->routeIs('admin.attendance.*')]) href="{{ route('admin.attendance') }}">Attendance</a>
+                            <a @class(['collapse-item', 'active' => request()->routeIs('admin.appointments') || request()->routeIs('admin.appointments.*') ]) href="{{ route('admin.appointments') }}">Appointments</a>
+                            <a @class(['collapse-item', 'active' => request()->routeIs('admin.registration')]) href="{{ route('admin.registration') }}">Registration</a>
                             <a @class(['collapse-item', 'active' => request()->routeIs('admin.students.all')]) href="{{ route('admin.students.all') }}">Students</a>
                             <a @class(['collapse-item', 'active' => request()->routeIs('admin.parents.all')]) href="{{ route('admin.parents.all') }}">Parents</a>
-                            <a @class(['collapse-item']) href="#">Reports</a>
-                            <a @class(['collapse-item']) href="#">Cirriculum</a>
+                            <a @class(['collapse-item', 'active' => request()->routeIs('admin.feedback')]) href="{{ route('admin.feedback') }}">Feedback</a>
+                            <a @class(['collapse-item', 'active' => request()->routeIs('admin.weeklyreports')]) href="{{ route('admin.weeklyreports') }}">Weekly Reports</a>
+                            <a @class(['collapse-item', 'active' => request()->routeIs('admin.forms') || request()->routeIs('admin.forms.*')]) href="{{ route('admin.forms') }}">Forms</a>
+                            <a @class(['collapse-item', 'active' => request()->routeIs('admin.stock')]) href="{{ route('admin.stock') }}">Stock</a>
+                        </div>
+                    </div>
+                </li>
+            @endif
+
+            @if (Auth::user()->IsSuperAdmin)
+                <li @class(['nav-item', 'active' => request()->routeIs('superadmin.*')])>
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#superAdminCollapse"
+                        aria-expanded="true" aria-controls="superAdminCollapse">
+                        <i class="fa-solid fa-user-tie"></i>&nbsp;
+                        <span>Super Admin</span>
+                    </a>
+                    <div id="superAdminCollapse"
+                    @class(['collapse', 'show' =>
+                    request()->routeIs('superadmin.*')])
+                    aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a @class(['collapse-item', 'active' => request()->routeIs('superadmin.users')]) href="{{ route('superadmin.users') }}">Admin Users</a>
                         </div>
                     </div>
                 </li>
@@ -263,6 +297,7 @@
                 toastr.success(event.detail.message,'' , {timeOut:3000});
             })
 </script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 @yield('scripts')
 
 

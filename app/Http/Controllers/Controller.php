@@ -21,6 +21,11 @@ class Controller
 
         return view('home');
     }
+    public function appointments()
+    {
+
+        return view('appointments');
+    }
 
     public function login(){
         return view('login');

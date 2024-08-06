@@ -27,6 +27,25 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        .legend {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            background-color:  rgb(123, 187, 143) !important;
+            margin-right: 8px;
+        }
     </style>
 @endsection
 
@@ -41,8 +60,17 @@
         <!-- Content Row -->
         <div class="card" id="contentCard">
             <div class="card-body" style="min-height: 100px;position:relative">
-                <div class="spinner" id="loadingSpinner"></div>
-                <div id='calendar' style="max-height: 800px;margin-top:30px"></div>
+
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color"></div>
+                        <span>Available Classes</span>
+                    </div>
+                    <!-- Add more legend items here if needed -->
+                </div>
+    
+                <div class="spinner" id="loadingSpinner" style="margin-top: -50px"></div>
+                <div id='calendar' style="max-height: 800px;"></div>
             </div>
           </div>
 

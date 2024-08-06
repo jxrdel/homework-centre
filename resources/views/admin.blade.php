@@ -73,7 +73,7 @@
                     },
                     eventClick: function(info) {
                         // Log the event's start and end time
-                            Livewire.dispatch('show-appointments', { id:info.event.id, starttime: info.event.start, endtime: info.event.end });
+                            Livewire.dispatch('show-appointments', { id:info.event.id});
                     }
                 });
 
@@ -101,6 +101,10 @@
     window.addEventListener('show-appointments', event => {
         $('#dateAppointmentModal').modal('show');
     })
+
+    window.addEventListener('close-details-modal', event => {
+            $('#dateAppointmentModal').modal('hide');
+        })
 
     window.addEventListener('refresh-calendar', event => {
         calendar.refetchEvents();

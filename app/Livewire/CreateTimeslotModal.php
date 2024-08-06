@@ -11,6 +11,7 @@ class CreateTimeslotModal extends Component
 {
     public $starttime;
     public $endtime;
+    public $maxenrollments = 10;
 
     public function render()
     {
@@ -43,7 +44,7 @@ class CreateTimeslotModal extends Component
             'Title' => 'Session',
             'StartTime' => $starttime,
             'EndTime' => $endtime,
-            'MaxEnrollments' => 3,
+            'MaxEnrollments' => $this->maxenrollments,
         ]);
 
         $this->dispatch('close-create-modal');

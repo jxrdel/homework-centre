@@ -26,6 +26,12 @@ $formattedDate = Carbon::createFromFormat('Ymd', $this->date)->format('F jS, Y')
                     <h6 style="text-align: center" class="m-0 font-weight-bold text-primary">Appointments - {{$formattedDate}}</h6>
                 </div>
                 <div class="card-body">
+                    
+    <div  style="width: 85%;position: relative;display: inline-block;margin-left:50px;margin-bottom:20px;margin-top:10px">
+		<input style="color: black" wire:model.live="search" autocomplete="off" id="searchBox" type="text" class="form-control p-2 bg-primary-border border border-2 border-primary" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2" autofocus>
+		<a style="position: absolute;right: 60px;transform: translateY(-120%);" onmouseover="this.style.cursor='pointer'" wire:click="clearInput"><i class="bi bi-x-lg"></i></a>
+		<button class="btn btn-primary" style="border-top-left-radius: 1px;border-bottom-left-radius: 1px;position: absolute;right: 0px;transform: translateY(-100%);height:38px;cursor:default"><i class="bi bi-search" disabled></i></button>
+    </div>
                     @forelse ($appointments as $student)
                     {{-- Display student if they have an appointment for this day --}}
                     @if (count($student->appointments) > 0)
@@ -34,7 +40,7 @@ $formattedDate = Carbon::createFromFormat('Ymd', $this->date)->format('F jS, Y')
                                 <div class="row g-0">
                                 <div class="col-md-4">
                                     <div class="" style="display: flex; justify-content: center; align-items: center;height: 180px;">
-                                        <img style="max-height: 180px;width:auto" src="{{ Storage::url($student->PicturePath) }}" width="150" height="150" class="img-fluid rounded" alt="...">
+                                        <img style="max-height: 140px;width:auto;" src="{{ Storage::url($student->PicturePath) }}" width="150" height="150" class="img-fluid rounded" alt="...">
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -43,12 +49,16 @@ $formattedDate = Carbon::createFromFormat('Ymd', $this->date)->format('F jS, Y')
                                         @foreach ($student->appointments as $appointment)
                                             <p class="card-text">
                                                 <div class="row">
-                                                    <div class="col-5">
+                                                    <div class="col-6">
                                                         {{ \Carbon\Carbon::parse($appointment->timeslot->StartTime)->format('g:i A')}} - {{ \Carbon\Carbon::parse($appointment->timeslot->EndTime)->format('g:i A')}}
                                                     </div>
                                                     @if ($isCurrent)
                                                     <div class="col">
                                                         <a class="btn btn-danger" wire:click="deleteAppointment({{$appointment->AppointmentID}})">Delete</a>
+                                                    </div>
+                                                    @else
+                                                    <div class="col">
+                                                        <p>{{$appointment->Attendance}}</p>
                                                     </div>
                                                     @endif
                                                 </div>
@@ -80,7 +90,10 @@ $formattedDate = Carbon::createFromFormat('Ymd', $this->date)->format('F jS, Y')
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class=" font-weight-bold text-info text-uppercase mb-1">{{ \Carbon\Carbon::parse($class->StartTime)->format('g:i A')}} - {{ \Carbon\Carbon::parse($class->EndTime)->format('g:i A')}} | <strong class="text-gray-800">{{$class->bookingsRemaining}}</strong>
+                                            <div class=" font-weight-bold text-info text-uppercase mb-1">
+                                                {{ \Carbon\Carbon::parse($class->StartTime)->format('g:i A')}} - {{ \Carbon\Carbon::parse($class->EndTime)->format('g:i A')}} | 
+                                                <strong class="text-gray-800">{{$class->bookingsRemaining}}</strong>
+                                                &nbsp;<a style="font-size:0.8rem" href="{{route('admin.attendance.class' , ['id' => $class->TimeSlotID])}}" class="btn btn-primary">Take Attendance</a>
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">

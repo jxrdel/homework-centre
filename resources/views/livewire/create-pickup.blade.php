@@ -13,10 +13,10 @@
                     <div class="col">
                         <div class="col" style="display: flex;">
                             <div class="col-4">
-                                <label style="margin-top:5px;" for="title">First Name: &nbsp;</label>
+                                <label style="margin-top:5px;" for="title">First Name: <span style="color: red">*</span>&nbsp;</label>
                             </div>
                             <div class="col">
-                                <input class="form-control" wire:model="pickupfirstname" type="text" autocomplete="off" style="width: 100%;">
+                                <input required class="form-control" wire:model="pickupfirstname" type="text" autocomplete="off" style="width: 100%;">
                             </div>
                         </div>
                     </div>
@@ -24,10 +24,10 @@
                     <div class="col">
                         <div class="col" style="display: flex;">
                             <div class="col-4">
-                                <label style="margin-top:5px;" for="title">Last Name: &nbsp;</label>
+                                <label style="margin-top:5px;" for="title">Last Name: <span style="color: red">*</span>&nbsp;</label>
                             </div>
                             <div class="col">
-                                <input class="form-control" wire:model="pickuplastname" type="text" autocomplete="off" style="width: 100%;">
+                                <input required class="form-control" wire:model="pickuplastname" type="text" autocomplete="off" style="width: 100%;">
                             </div>
                         </div>
                     </div>
@@ -49,10 +49,10 @@
                     <div class="col">
                         <div class="col" style="display: flex;">
                             <div class="col-4">
-                                <label style="margin-top:5px;" for="title">Mobile Phone: &nbsp;</label>
+                                <label style="margin-top:5px;" for="title">Mobile Phone: <span style="color: red">*</span>&nbsp;</label>
                             </div>
                             <div class="col">
-                                <input class="form-control" wire:model="pickupmobileno" type="text" autocomplete="off" style="width: 100%;">
+                                <input required class="form-control" wire:model="pickupmobileno" type="text" autocomplete="off" style="width: 100%;">
                             </div>
                         </div>
                     </div>
@@ -100,10 +100,10 @@
                     <div class="col">
                         <div class="col" style="display: flex;">
                             <div class="col-4">
-                                <label style="margin-top:5px;" for="title">Picture: &nbsp;</label>
+                                <label style="margin-top:5px;" for="title">ID Picture: <span style="color: red">*</span>&nbsp;</label>
                             </div>
                             <div class="col">
-                                <input class="form-control @error('pickuppicture')is-invalid @enderror" id="formFile" wire:model="pickuppicture" type="file" style="width: 100%;">
+                                <input required class="form-control @error('pickuppicture')is-invalid @enderror" id="formFile" wire:model="pickuppicture" type="file" style="width: 100%;">
                                 <div style="color:red">@error('pickuppicture') {{ $message }} @enderror</div>
                             </div>
                         </div>

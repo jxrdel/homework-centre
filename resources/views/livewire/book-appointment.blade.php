@@ -43,7 +43,7 @@ $formattedDate = Carbon::createFromFormat('Ymd', $this->date)->format('F jS, Y')
                                         @foreach ($student->appointments as $appointment)
                                             <p class="card-text">
                                                 <div class="row">
-                                                    <div class="col-5">
+                                                    <div class="col-6">
                                                         {{ \Carbon\Carbon::parse($appointment->timeslot->StartTime)->format('g:i A')}} - {{ \Carbon\Carbon::parse($appointment->timeslot->EndTime)->format('g:i A')}}
                                                     </div>
                                                     @if ($isCurrent)

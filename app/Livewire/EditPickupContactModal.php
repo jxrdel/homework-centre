@@ -23,6 +23,7 @@ class EditPickupContactModal extends Component
     public $address;
     public $picturepath;
     public $picture;
+    public $recordToDelete;
 
     public function render()
     {
@@ -77,5 +78,25 @@ class EditPickupContactModal extends Component
 
         $this->dispatch('close-edit-modal');
         $this->dispatch('show-message', message: 'Picture deleted successfully');
+    }
+    
+
+    #[On('show-delete-modal')]
+    public function displayEditModal($id)
+    {
+        $this->recordToDelete = PickupContact::find($id);
+        $this->dispatch('display-delete-modal');
+    }
+
+    public function deleteRecord(){
+        // dd($this->recordToDelete);
+        if($this->recordToDelete->PicturePath){
+            Storage::delete($this->recordToDelete->PicturePath);
+        }
+        $this->recordToDelete->delete();
+        $this->dispatch('show-message', message: 'Pickup Contact deleted successfully');
+        $this->dispatch('refresh-table');
+        $this->dispatch('render-create-modal');
+        $this->dispatch('close-delete-modal');
     }
 }

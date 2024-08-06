@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-    <title>Emergency Contact | VOSC</title>
+    <title>{{$student->FirstName}} {{$student->LastName}} | VOSC</title>
 @endsection
 
 @section('content')
@@ -9,14 +9,19 @@
         @livewire('create-child-modal')
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800" style="margin: auto"><strong><i class="fa-solid fa-truck-medical"></i> &nbsp; Emergency Contact</strong></h1>
+            <a href="{{route('mychildren')}}" class="btn btn-primary">
+                <i class="bi bi-arrow-left"></i> Back
+            </a>
+            <h1 class="h3 mb-0 text-gray-800" style="flex: 1; text-align: center;">
+                <strong style="margin-right: 90px"><i class="fa-regular fa-address-card"></i> &nbsp; {{$student->FirstName}} {{$student->LastName}}</strong>
+            </h1>
         </div>
 
         <!-- Content Row -->
         <div class="card">
             <div class="card-body">
 
-                @livewire('my-emergency-contact')
+              @livewire('student-edit-livewire', ['id' => $student->StudentID])
                 
             </div>
           </div>

@@ -17,6 +17,16 @@
                         <input type="datetime-local" wire:model="endtime" class="form-control" aria-label="End Time" autocomplete="off" required>
                     </div>
                 </div>
+                <div class="row" style="margin-top: 20px">
+                    <div class="col" style="display: flex;">
+                        <div class="col-4">
+                            <label style="margin-top:5px;" for="title">Maximum number of students: &nbsp;</label>
+                        </div>
+                        <div class="col">
+                            <input required class="form-control" wire:model="maxenrollments" type="number" autocomplete="off" style="width: 100%;color:black;">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer" style="align-items: center">
                 <div style="margin:auto">

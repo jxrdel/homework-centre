@@ -48,6 +48,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js'></script>
 
+    @if (Session::has('success'))
+
+        <script>
+            toastr.options = {
+            "progressBar" : true,
+            "closeButton" : true,
+            }
+            toastr.success("{{ Session::get('success') }}",'' , {timeOut:3000});
+        </script>
+    
+    @endif
+
     <script>
 
 $(document).ready(function() {
@@ -68,7 +80,7 @@ $(document).ready(function() {
                             orderable: false,
                             searchable: false,
                             render: function (data, type, row) {
-                                return '<div style="text-align:center"><a href="/Students/Edit/' + data.StudentID + '">View</a> | <a href="/Students/Edit/' + data.StudentID + '" >Edit</a> | <a href="#" onclick="showDelete(' + data.PickupContactID + ')">Delete</a></div>';
+                                return '<div style="text-align:center"><a href="/Admin/Parents/View/' + data.id + '">View</a> | <a href="/Admin/Parents/Edit/' + data.id + '" >Edit</a></div>';
                             }
                         },
                 ]

@@ -26,13 +26,14 @@ return new class extends Migration
             $table->string('PicturePath')->nullable();
             $table->string('Address')->nullable();
             $table->string('CityTown')->nullable();
-            $table->boolean('MediaReleaseConsent');
-            $table->boolean('EmergencyConsent');
-            $table->boolean('IsParent');
-            $table->boolean('IsAdmin');
+            $table->boolean('MediaReleaseConsent')->nullable();
+            $table->boolean('EmergencyConsent')->nullable();
+            $table->boolean('IsParent')->nullable();
+            $table->boolean('IsAdmin')->nullable();
+            $table->boolean('IsSuperAdmin')->nullable();
             $table->boolean('HasWindowsLogin')->nullable();
             $table->string('RegisteredBy')->nullable();
-            $table->unsignedBigInteger('EmergencyContactID');
+            $table->unsignedBigInteger('EmergencyContactID')->nullable();
             $table->timestamps();
             
             $table->foreign('EmergencyContactID')->references('EmergencyContactID')->on('emergency_contacts');

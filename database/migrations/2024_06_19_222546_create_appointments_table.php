@@ -15,6 +15,7 @@ return new class extends Migration
             $table->bigIncrements('AppointmentID'); // Primary Key
             $table->unsignedBigInteger('StudentID'); // Foreign key to students table
             $table->unsignedBigInteger('TimeSlotID'); // Foreign key to students table
+            $table->string('Attendance')->nullable(); // Attendance status
 
             $table->timestamps(); // Created_at and updated_at timestamps
 
