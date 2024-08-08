@@ -47,7 +47,19 @@ $formattedDate = Carbon::createFromFormat('Ymd', $date)->format('F jS, Y');
 <script>
 
 
+        
+        $('#studentSelect').select2({
+            dropdownParent: $('#createAppointmentModal')
+        });
+        
+        window.addEventListener('reset-student', event => {
+            $('#studentSelect').val(null).trigger('change');
+        });
 
+        $('#studentSelect').on('select2:select', function (e) {
+            var data = e.params.data;
+            Livewire.dispatch('set-student', { data: data });
+        });
 
     window.addEventListener('close-create-modal', event => {
             $('#createAppointmentModal').modal('hide');

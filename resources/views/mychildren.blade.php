@@ -6,7 +6,6 @@
 
 @section('content')
 
-        @livewire('create-child-modal')
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800" style="margin: auto"><strong><i class="fa-solid fa-baby"></i> &nbsp; My Child(ren)</strong></h1>
@@ -16,7 +15,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <a type="button" data-bs-toggle="modal" data-bs-target="#createChildModal" class="btn btn-primary btn-icon-split" style="width: 12rem;margin:auto">
+                    <a href="{{route('student.create')}}" class="btn btn-primary btn-icon-split" style="width: 12rem;margin:auto">
                         <span class="icon text-white-50">
                             <i class="fas fa-plus" style="color: white"></i>
                         </span>
@@ -45,6 +44,18 @@
     }
     toastr.error("{{ Session::get('error') }}",'' , {timeOut:4000});
 </script>
+
+@endif
+
+@if (Session::has('success'))
+
+  <script>
+      toastr.options = {
+        "progressBar" : true,
+        "closeButton" : true,
+      }
+      toastr.success("{{ Session::get('success') }}",'' , {timeOut:3000});
+  </script>
 
 @endif
 

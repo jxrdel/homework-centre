@@ -40,7 +40,7 @@
                             <div class="col">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4"><i style="font-size: 2.5rem" class="fas fa-person-breastfeeding"></i> &nbsp;Vacation Child Care System</h1>
+                                        <h1 class="h4 text-gray-900 mb-4"><i style="font-size: 2.5rem" class="fas fa-person-breastfeeding"></i> &nbsp;Vacation & Out-of-School Centre</h1>
                                     </div>
                                         @livewire('login-form')
                                 </div>

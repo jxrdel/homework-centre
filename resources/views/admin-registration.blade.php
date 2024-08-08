@@ -4,6 +4,27 @@
     <title>Admin Registration | VOSC</title>
 @endsection
 
+@section('styles')
+<style>
+  .spinner{
+  height: 70px;
+  width: 70px;
+  border: 6px solid;
+  border-color: rgb(51, 50, 50) transparent rgb(51, 50, 50) transparent;
+  border-radius: 50%;
+  animation: spin 1.3s linear infinite;
+  margin: auto;
+  margin-top:10px;
+  }
+
+  @keyframes spin {
+  to {
+      transform: rotate(360deg);
+  }
+  }
+</style>
+@endsection
+
 @section('content')
 
         @livewire('create-child-modal')
@@ -46,5 +67,9 @@
   window.addEventListener('close-pickup-modal', event => {
   $('#createPickupModal').modal('hide');
   })
+
+window.addEventListener('scroll-to-top', event => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+    })
   </script>
 @endsection

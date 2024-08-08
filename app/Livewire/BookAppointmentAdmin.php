@@ -8,6 +8,7 @@ use App\Models\TimeSlot;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class BookAppointmentAdmin extends Component
@@ -20,6 +21,7 @@ class BookAppointmentAdmin extends Component
     public $classes = [];
     public $appointments = [];
     public $isCurrent = true;
+    public $search;
 
     public function mount($date){
         $today = Carbon::today('AST');
@@ -62,22 +64,40 @@ class BookAppointmentAdmin extends Component
 
 
         //Get Student Appointment details
-        $this->appointments = Student::select('students.StudentID', 'FirstName', 'LastName', 'PicturePath')
-                                    ->with(['appointments' => function($query) use ($parsedDate) {
-                                        $query->whereHas('timeslot', function ($query) use ($parsedDate) {
-                                            $query->whereDate('StartTime', $parsedDate);
-                                        })->with('timeSlot');
-                                    }])
-                                    ->get();
-
-        //Removes student from collection if they don't have an appointment for that date
-        $this->appointments = $this->appointments->filter(function ($student) use ($parsedDate) {
-            return $student->appointments->isNotEmpty();
-        });
+        if($this->search){
+            $this->appointments = Student::select('students.StudentID', 'FirstName', 'LastName', 'PicturePath')
+                                        ->where('FirstName' , 'like', '%' . trim($this->search) . '%')
+                                        ->orWhere('LastName' , 'like', '%' . trim($this->search) . '%')
+                                        ->orWhere('PicturePath' , 'like', '%' . trim($this->search) . '%')
+                                        ->with(['appointments' => function($query) use ($parsedDate) {
+                                            $query->whereHas('timeslot', function ($query) use ($parsedDate) {
+                                                $query->whereDate('StartTime', $parsedDate);
+                                            })->with('timeSlot');
+                                        }])
+                                        ->get();
+    
+            //Removes student from collection if they don't have an appointment for that date
+            $this->appointments = $this->appointments->filter(function ($student) use ($parsedDate) {
+                return $student->appointments->isNotEmpty();
+            });
+        }else{
+            $this->appointments = Student::select('students.StudentID', 'FirstName', 'LastName', 'PicturePath')
+                                        ->with(['appointments' => function($query) use ($parsedDate) {
+                                            $query->whereHas('timeslot', function ($query) use ($parsedDate) {
+                                                $query->whereDate('StartTime', $parsedDate);
+                                            })->with('timeSlot');
+                                        }])
+                                        ->get();
+    
+            //Removes student from collection if they don't have an appointment for that date
+            $this->appointments = $this->appointments->filter(function ($student) use ($parsedDate) {
+                return $student->appointments->isNotEmpty();
+            });
+        }
 
         //Display Booking Availability
         $this->timeslots = $this->timeslots->map(function ($timeSlot) {
-            $maxstudents = 10;
+            $maxstudents = $timeSlot->MaxEnrollments;
             if($timeSlot->appointments->count() >= $maxstudents){
                 $timeSlot->bookingsRemaining = 'Full';
             }else{
@@ -107,7 +127,7 @@ class BookAppointmentAdmin extends Component
     }
 
     public function save(){
-        // dd($this->classes);
+        // dd($this->child);
         $student = Student::find($this->child);
 
 
@@ -125,6 +145,7 @@ class BookAppointmentAdmin extends Component
             $this->refreshPage();
             $this->resetValidation();
             $this->dispatch('close-create-modal');
+            $this->dispatch('reset-student');
             $this->dispatch('show-message', message: 'Appointment booked successfully');
         }
 
@@ -150,14 +171,15 @@ class BookAppointmentAdmin extends Component
 
 
         $parsedDate = Carbon::parse($this->date)->toDateString();
+    }
+    
+    public function clearInput(){
+        $this->search = null;
+    }
 
-        //Refreshes appointments
-        // $this->appointments = $this->user->students()->select('students.StudentID', 'FirstName', 'LastName', 'PicturePath')
-        //                             ->with(['appointments' => function($query) use ($parsedDate) {
-        //                                 $query->whereHas('timeslot', function ($query) use ($parsedDate) {
-        //                                     $query->whereDate('StartTime', $parsedDate);
-        //                                 })->with('timeSlot');
-        //                             }])
-        //                             ->get();
+    
+    #[On('set-student')]
+    public function setStudent($data){
+        $this->child = $data['id'];
     }
 }

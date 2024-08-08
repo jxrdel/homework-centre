@@ -2,11 +2,13 @@
 
 namespace App\Livewire;
 
+use App\Mail\RegistrationSuccessful;
 use App\Models\EmergencyContact;
 use App\Models\PickupContact;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -125,10 +127,11 @@ class AdminRegistrationForm extends Component
         // dd($this->children);
 
         if ($this->ecpicture) {
-            $filename = $this->ecfirstname . $this->eclastname . '-' . $this->ecpicture->getClientOriginalName();
-            $this->ecpicture->storeAs('public/emergency_contacts', $filename);
-            // $this->filepath = 'uploads/students/' . $filename;
-            $this->ecpicturepath = 'public/emergency_contacts/' . $filename;
+            // $filename = $this->ecfirstname . $this->eclastname . '-' . $this->ecpicture->getClientOriginalName();
+            // $this->ecpicture->storeAs('public/emergency_contacts', $filename);
+            // // $this->filepath = 'uploads/students/' . $filename;
+            // $this->ecpicturepath = 'public/emergency_contacts/' . $filename;
+            $this->ecpicturepath = $this->ecpicture->store('emergency_contacts', 'public');
         }
 
         $this->emergencycontact = EmergencyContact::create([ //Add parent 2 to database
@@ -146,10 +149,11 @@ class AdminRegistrationForm extends Component
         // dd($username);
 
         if ($this->parentpicture1) {
-            $filename = $this->parentfirstname1 . $this->parentlastname1 . '-' . $this->parentpicture1->getClientOriginalName();
-            $this->parentpicture1->storeAs('public/parents', $filename);
-            // $this->filepath = 'uploads/students/' . $filename;
-            $this->parentpicturepath1 = 'public/parents/' . $filename;
+            // $filename = $this->parentfirstname1 . $this->parentlastname1 . '-' . $this->parentpicture1->getClientOriginalName();
+            // $this->parentpicture1->storeAs('public/parents', $filename);
+            // // $this->filepath = 'uploads/students/' . $filename;
+            // $this->parentpicturepath1 = 'public/parents/' . $filename;
+            $this->parentpicturepath1 = $this->parentpicture1->store('parents', 'public');
         }
 
         $this->parent1 = User::create([ //Add parent 1 to database
@@ -171,17 +175,18 @@ class AdminRegistrationForm extends Component
             'EmergencyContactID' => $this->emergencycontact->EmergencyContactID,
             'IsParent' => true,
             'IsAdmin' => false,
-            'HasWindowsLogin' => $this->hasWindowsLogin,
+            'HasWindowsLogin' => $this->hasWindowsLogin == 'true' ? true : false,
             'RegisteredBy' => Auth::user()->Username,
         ]);
 
         if($this->multipleparents){
 
         if ($this->parentpicture2) {
-            $filename = $this->parentfirstname2 . $this->parentlastname2 . '-' . $this->parentpicture2->getClientOriginalName();
-            $this->parentpicture2->storeAs('public/parents', $filename);
-            // $this->filepath = 'uploads/students/' . $filename;
-            $this->parentpicturepath2 = 'public/parents/' . $filename;
+            // $filename = $this->parentfirstname2 . $this->parentlastname2 . '-' . $this->parentpicture2->getClientOriginalName();
+            // $this->parentpicture2->storeAs('public/parents', $filename);
+            // // $this->filepath = 'uploads/students/' . $filename;
+            // $this->parentpicturepath2 = 'public/parents/' . $filename;
+            $this->parentpicturepath2 = $this->parentpicture2->store('parents', 'public');
         }
 
             $username2 = User::generateUniqueUsername($this->parentfirstname2, $this->parentlastname2);
@@ -213,12 +218,15 @@ class AdminRegistrationForm extends Component
 
         if(!empty($this->pickupcontacts)){
             foreach ($this->pickupcontacts as $contact){ //Save pickup contacts and attach them to parents
-                $tempfile = 'public/' . $contact['PicturePath']; //Get path of temporary picture
-                $extension = pathinfo($tempfile, PATHINFO_EXTENSION); //Get extension of file
-                $uniqueFilename = (string) Str::uuid() . '.' . $extension; //Generate unique file name
-                $newpath = 'public/pickup_contacts/' . $uniqueFilename; //New path for picture
-
-                Storage::move($tempfile, $newpath);
+                $newpath = null;
+                if($contact['PicturePath']){
+                    $tempfile = 'public/' . $contact['PicturePath']; //Get path of temporary picture
+                    $extension = pathinfo($tempfile, PATHINFO_EXTENSION); //Get extension of file
+                    $uniqueFilename = (string) Str::uuid() . '.' . $extension; //Generate unique file name
+                    $newpath = 'public/pickup_contacts/' . $uniqueFilename; //New path for picture
+    
+                    Storage::move($tempfile, $newpath);
+                }
 
                 $pickupcontact = PickupContact::create([ //Add parent 2 to database
                     'FirstName' => $contact['FirstName'],
@@ -241,17 +249,24 @@ class AdminRegistrationForm extends Component
 
         foreach ($this->children as $child){
 
-            $tempfile = 'public/' . $child['PicturePath']; //Get path of temporary picture
-            $extension = pathinfo($tempfile, PATHINFO_EXTENSION); //Get extension of file
-            $uniqueFilename = (string) Str::uuid() . '.' . $extension; //Generate unique file name
-            $newpicturepath = 'public/students/' . $uniqueFilename; //New path for picture
-            Storage::move($tempfile, $newpicturepath);
+            $newpicturepath = null;
+            $newimmunizationpath = null;
+            
+            if($child['PicturePath']){
+                $tempfile = 'public/' . $child['PicturePath']; //Get path of temporary picture
+                $extension = pathinfo($tempfile, PATHINFO_EXTENSION); //Get extension of file
+                $uniqueFilename = (string) Str::uuid() . '.' . $extension; //Generate unique file name
+                $newpicturepath = 'public/students/' . $uniqueFilename; //New path for picture
+                Storage::move($tempfile, $newpicturepath);
+            }
 
-            $tempimmunization = 'public/' . $child['ImmunizationPath']; //Get path of temporary picture
-            $extension = pathinfo($tempimmunization, PATHINFO_EXTENSION); //Get extension of file
-            $uniqueFilename = (string) Str::uuid() . '.' . $extension; //Generate unique file name
-            $newimmunizationpath = 'public/students/immunization/' . $uniqueFilename; //New path for picture
-            Storage::move($tempimmunization, $newimmunizationpath);
+            if($child['ImmunizationPath']){
+                $tempimmunization = 'public/' . $child['ImmunizationPath']; //Get path of temporary picture
+                $extension = pathinfo($tempimmunization, PATHINFO_EXTENSION); //Get extension of file
+                $uniqueFilename = (string) Str::uuid() . '.' . $extension; //Generate unique file name
+                $newimmunizationpath = 'public/students/immunization/' . $uniqueFilename; //New path for picture
+                Storage::move($tempimmunization, $newimmunizationpath);
+            }
 
 
             $newchild = Student::create([
@@ -290,6 +305,8 @@ class AdminRegistrationForm extends Component
             $this->childform = false;
             $this->emergencycontactform = false;
             $this->registrationcomplete = true;
+            
+            Mail::to($this->parent1->Email)->send(new RegistrationSuccessful($this->parent1));
             $this->dispatch('show-message', message: 'Account created successfully');
 
     }
@@ -297,8 +314,8 @@ class AdminRegistrationForm extends Component
     public function validateParent(){
 
         $this->validate([
-            'parentpicture1' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:1024',
-            'parentpicture2' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:1024'
+            'parentpicture1' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:3024',
+            'parentpicture2' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:3024'
         ]);
 
         $this->parentform = false;
@@ -311,8 +328,19 @@ class AdminRegistrationForm extends Component
     public function validateStudent(){
 
         $this->validate([
-            'childpicture' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:1024',
-            'immunizationpicture' => 'nullable|file|mimes:pdf,png,jpg,jpeg,webp|max:2024'
+            'childpicture' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:3024',
+            'immunizationpicture' => 'nullable|file|mimes:pdf,png,jpg,jpeg,webp|max:3024',
+            'childdob' => [
+                'required',
+                'before:today',
+                function ($attribute, $value, $fail) {
+                    $age = \Carbon\Carbon::parse($value)->age;
+                    if ($age < 3 || $age > 17) {
+                        $fail('The child must be between 3 and 17 years old.');
+                        $this->dispatch('scroll-to-top');
+                    }
+                }
+            ]
         ]);
 
         if ($this->childpicture) {
@@ -364,7 +392,7 @@ class AdminRegistrationForm extends Component
     public function validateEmergencyContact(){
 
         $this->validate([
-            'ecpicture' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:1024',
+            'ecpicture' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:3024',
         ]);
 
         $this->parentform = false;

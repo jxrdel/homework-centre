@@ -16,14 +16,7 @@
         <div class="card">
             <div class="card-body">
 
-                <div class="row">
-                    <a type="button" data-bs-toggle="modal" data-bs-target="#createChildModal" class="btn btn-primary btn-icon-split" style="width: 14rem;margin:auto">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-plus" style="color: white"></i>
-                        </span>
-                        <span class="text"  style="width: 200px;">Add Pickup Contact</span>
-                    </a>
-                </div>
+                @livewire('create-pickup-contact-modal')
 
                 <div class="row" style="margin-top: 30px">
 
@@ -73,7 +66,7 @@ $(document).ready(function() {
                             orderable: false,
                             searchable: false,
                             render: function (data, type, row) {
-                                return '<a href="#" onclick="showView(' + data.PickupContactID + ')">View</a> | <a href="#" onclick="showEdit(' + data.PickupContactID + ')">Edit</a> | <a href="#" onclick="showDelete(' + data.PickupContactID + ')">Delete</a>';
+                                return ' <a href="#" onclick="showEdit(' + data.PickupContactID + ')">Edit</a> | <a href="#" onclick="showDelete(' + data.PickupContactID + ')">Delete</a>';
                             }
                         },
                 ]
@@ -82,6 +75,11 @@ $(document).ready(function() {
 
         window.addEventListener('refresh-table', event => {
             $('#myTable').DataTable().ajax.reload();
+        })
+
+        
+        window.addEventListener('close-create-modal', event => {
+            $('#createPickupModal').modal('hide');
         })
 
         function showEdit(id) {
@@ -94,6 +92,19 @@ $(document).ready(function() {
 
         window.addEventListener('close-edit-modal', event => {
             $('#editPickupModal').modal('hide');
+        })
+        
+
+        function showDelete(id) {
+            Livewire.dispatch('show-delete-modal', { id: id });
+        }
+
+        window.addEventListener('display-delete-modal', event => {
+            $('#deleteRecordModal').modal('show');
+        })
+
+        window.addEventListener('close-delete-modal', event => {
+            $('#deleteRecordModal').modal('hide');
         })
     </script>
 @endsection

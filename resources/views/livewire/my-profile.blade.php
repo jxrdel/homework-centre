@@ -123,7 +123,7 @@
                     </div>
 
                     @if ($picturepath)
-                    <div class="col-md-3">
+                    <div class="col">
                         <div class="" style="max-height: 180px;">
                             <img style="max-height: 180px;width:auto;" src="{{ Storage::url($picturepath) }}" width="150" height="150" class="img-fluid rounded" alt="...">
                             <a wire:click="deletePicture" class="btn btn-danger">Delete</a>

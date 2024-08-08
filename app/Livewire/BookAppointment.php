@@ -78,7 +78,7 @@ class BookAppointment extends Component
 
         //Display Booking Availability
         $this->timeslots = $this->timeslots->map(function ($timeSlot) {
-            $maxstudents = 10;
+            $maxstudents = $timeSlot->MaxEnrollments;
             if($timeSlot->appointments->count() >= $maxstudents){
                 $timeSlot->bookingsRemaining = 'Full';
             }else{
@@ -106,6 +106,20 @@ class BookAppointment extends Component
 
         return false;
     }
+    public function checkFullClasses(){
+        // dd('Full');
+        foreach($this->classes as $appointment){
+            if($appointment['Selected']){
+                if(Appointment::isClassFull($appointment['TimeSlotID'])){
+                    return true;
+                    // dd('Full');
+                }
+            }
+        }
+        // dd('Empty');
+
+        return false;
+    }
 
     public function save(){
         // dd($this->classes);
@@ -115,6 +129,9 @@ class BookAppointment extends Component
         if($this->checkDuplicateAppointments()){ //If there are duplicates, display error
             $this->resetValidation();
             $this->addError('child', $student->FirstName . ' ' . $student->LastName . ' is already registered for 1 or more of the selected classes');
+        }else if($this->checkFullClasses()){
+            $this->resetValidation();
+            $this->addError('child', 'One or more of the selected classes is full');
         }else{
 
             foreach($this->classes as $appointment){

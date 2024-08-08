@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{$child->FirstName}} {{$child->LastName}}</h5>
                     <p class="card-text">DOB: {{ \Illuminate\Support\Carbon::parse($child->DOB)->format('F jS, Y') }}</p>
-                    <p class="card-text"><a class="btn btn-primary" href="{{route('student.edit', ['id' => $child->StudentID])}}">View</a> <a class="btn btn-primary" href="{{route('student.edit', ['id' => $child->StudentID])}}">Edit</a></p>
+                    <p class="card-text"><a class="btn btn-primary" href="{{route('student.view', ['id' => $child->StudentID])}}">View</a> <a class="btn btn-primary" href="{{route('student.edit', ['id' => $child->StudentID])}}">Edit</a></p>
                 </div>
             </div>
             </div>

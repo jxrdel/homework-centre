@@ -6,7 +6,7 @@
         </div>
     </div>
 
-    <form wire:submit.prevent="validateStudent">
+    <form wire:submit.prevent="save">
         <div class="row" style="margin-top:20px">
             <div class="col">
                 <div class="col" style="display: flex;">
@@ -68,10 +68,10 @@
                     <div class="col">
                         <p>
                             
-                            <input required wire:model.live="sexofchild" value="Male" type="radio" class="btn-check" name="sexofchild" id="malechild" autocomplete="off">
+                            <input required wire:model.live="sexofchild" value="Male" type="radio" name="sexofchild" id="malechild" autocomplete="off">
                             <label for="malechild">Male</label>&nbsp;&nbsp;
 
-                            <input wire:model.live="sexofchild" value="Female" type="radio" class="btn-check" name="sexofchild" id="femalechild" autocomplete="off">
+                            <input wire:model.live="sexofchild" value="Female" type="radio" name="sexofchild" id="femalechild" autocomplete="off">
                             <label for="femalechild">Female</label>
                         </p>
                     </div>
@@ -97,10 +97,20 @@
                     <div class="col-4">
                         <label style="margin-top:5px;" for="formFile" class="form-label">Photo: &nbsp;</label>
                     </div>
+                    
+                    @if ($childpicturepath)
+                    <div class="col">
+                        <div class="" style="max-height: 180px;">
+                            <img style="max-height: 180px;width:auto;" src="{{ Storage::url($childpicturepath) }}" width="150" height="150" class="img-fluid rounded" alt="...">
+                            <a wire:click="deleteChildPicture" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                    @else
                     <div class="col">
                         <input class="form-control @error('childpicture')is-invalid @enderror" id="formFile" wire:model="childpicture" type="file" style="width: 100%;">
                         <div style="color:red">@error('childpicture') {{ $message }} @enderror</div>
                     </div>
+                    @endif
                 </div>
             </div>
             <div class="col"></div>
@@ -185,7 +195,7 @@
 
         </div>
 
-        <div class="row">
+        <div class="row" style="margin-top:20px">
             <div class="col">
                 <div class="col" style="display: flex;">
                     <div class="col-2">
@@ -213,7 +223,7 @@
 
         </div>
 
-        <div class="row">
+        <div class="row" style="margin-top:20px">
             <div class="col">
                 <div class="col" style="display: flex;">
                     <div class="col-4">
@@ -259,7 +269,11 @@
                         <label style="margin-top:5px;" for="title">Immunization Card: &nbsp;</label>
                     </div>
                     <div class="col">
-                        <input class="form-control" id="formFile" wire:model="immunizationpicture" type="file" style="width: 100%;">
+                        @if ($immunizationpicturepath)
+                            <label style="margin-top:5px;" for="title"><a href="{{ Storage::url($immunizationpicturepath) }}" target="_blank">View Immunization Card <i class="fa-solid fa-arrow-up-right-from-square"></i></a> &nbsp;</label>
+                        @else
+                            <input class="form-control" id="formFile" wire:model="immunizationpicture" type="file" style="width: 100%;">
+                        @endif
                     </div>
                 </div>
             </div>
@@ -267,18 +281,15 @@
         </div>
 
 
-        <div class="row">
-            <div class="col">
-                <a href="#" wire:click="backBtnChildForm" class="btn btn-primary btn-block" style="font-size: 1rem;margin-top:30px;width:200px">
-                    <i class="fa-solid fa-circle-arrow-left"></i> Back
-                </a>
-            </div>
+        <hr style="margin-top: 20px">
 
-            <div class="col" style="display: flex;justify-content:end">
-                <button wire:loading.attr="disabled" class="btn btn-primary btn-block" style="font-size: 1rem;margin-top:30px;width:200px">
-                    Next <i class="fa-solid fa-circle-arrow-right"></i>
-                </button>
-            </div>
+        <div class="row" style="margin-top: 30px">
+            <button  wire:loading.attr="disabled" class="btn btn-primary btn-icon-split" style="width: 8rem;margin:auto">
+                <span class="icon text-white-50">
+                    <i class="bi bi-floppy2-fill" style="color: white"></i>
+                </span>
+                <span class="text"  style="width: 200px;">Save</span>
+            </button>
         </div>
         {{-- <div class="d-flex justify-content-end">
         </div> --}}

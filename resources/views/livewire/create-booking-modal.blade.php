@@ -10,24 +10,26 @@
         <form wire:submit.prevent="save" action="">
             <div class="modal-body">
 
-                <div class="row">
+                <div wire:ignore class="row">
                     <div style="width: 60%;margin:auto">
 
-                        @error('child')
-                            <div style="color:red; text-align: center;padding:10px">@error('child') {{ $message }} @enderror</div>
-                        @enderror
 
-                    <select class="form-select @error('child')is-invalid @enderror" wire:model.live="child" required>
+                    <select style="width: 100%" id="studentSelect" class="form-select" wire:model.live="child" required>
 
                         <option value="">Select a Child</option>
                         @foreach ($children as $child)
-                        <option value="{{ $child->StudentID }}">{{ $child->FirstName }} {{ $child->LastName }} - Date of Birth: {{ \Carbon\Carbon::parse($child->DOB)->format('F jS, Y')}}</option>
+                        <option value="{{ $child->StudentID }}">{{ $child->FirstName }} {{ $child->LastName }}</option>
                         @endforeach
 
                     </select>
                     </div>
 
                 </div>
+                
+                @error('child')
+                    <div style="color:red; text-align: center;padding:10px">@error('child') {{ $message }} @enderror</div>
+                @enderror
+            
 
                 @if ($this->child)
                     <div class="row" style="margin-top: 30px">

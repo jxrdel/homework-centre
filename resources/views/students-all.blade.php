@@ -6,6 +6,7 @@
 
 @section('content')
 
+        @livewire('delete-student-modal')
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800" style="margin: auto"><strong><i class="fa-solid fa-children"></i> &nbsp; Students</strong></h1>
@@ -59,12 +60,28 @@ $(document).ready(function() {
                             orderable: false,
                             searchable: false,
                             render: function (data, type, row) {
-                                return '<div style="text-align:center"><a href="/Students/View/' + data.StudentID + '">View</a> | <a href="/Students/Edit/' + data.StudentID + '" >Edit</a> | <a href="#" onclick="showDelete(' + data.PickupContactID + ')">Delete</a></div>';
+                                return '<div style="text-align:center"><a href="/Admin/Students/View/' + data.StudentID + '">View</a> | <a href="/Admin/Students/Edit/' + data.StudentID + '" >Edit</a> | <a href="#" onclick="showDelete(' + data.StudentID + ')">Delete</a></div>';
                             }
                         },
                 ]
             });
         });
+        
+        window.addEventListener('refresh-table', event => {
+            $('#myTable').DataTable().ajax.reload();
+        })
+        
+        function showDelete(id) {
+            Livewire.dispatch('show-delete-modal', { id: id });
+        }
+
+        window.addEventListener('display-delete-modal', event => {
+            $('#deleteRecordModal').modal('show');
+        })
+
+        window.addEventListener('close-delete-modal', event => {
+            $('#deleteRecordModal').modal('hide');
+        })
 
     </script>
 @endsection
