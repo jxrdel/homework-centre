@@ -38,6 +38,7 @@ class User extends Authenticatable
         'IsAdmin',
         'HasWindowsLogin',
         'RegisteredBy',
+        'IsSuperAdmin',
         'EmergencyContactID'
     ];
 
@@ -75,5 +76,10 @@ class User extends Authenticatable
     public function emergencyContact(): HasOne
     {
         return $this->hasOne(EmergencyContact::class, 'EmergencyContactID', 'EmergencyContactID');
+    }
+
+    public function feedbackforms()
+    {
+        return $this->hasMany(Feedback::class, 'ParentID', 'id');
     }
 }

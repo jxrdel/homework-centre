@@ -11,10 +11,11 @@ use Livewire\Component;
 class DateAppointments extends Component
 {
     public $appointmentstart;
-    public $appointmentend;
+    public $timeslot;
+    public $timeslotid = 1;
     public $starttime;
     public $endtime;
-    public $appointments = [];
+    public $maxenrollments;
 
     public function render()
     {
@@ -23,31 +24,33 @@ class DateAppointments extends Component
 
 
     #[On('show-appointments')]
-    public function displayModal($id, $starttime, $endtime)
+    public function displayModal($id)
     {
-        $timeslot = TimeSlot::find($id);
-        $this->appointmentstart = Carbon::parse($timeslot->StartTime)->format('l jS F Y, g:i A');
-        $this->appointmentend = Carbon::parse($timeslot->EndTime)->format('g:i A');
+        $this->timeslot = TimeSlot::find($id);
+        $this->timeslotid = $this->timeslot->TimeSlotID;
+        $this->starttime = $this->timeslot->StartTime;
+        $this->endtime = $this->timeslot->EndTime;
+        $this->maxenrollments = $this->timeslot->MaxEnrollments;
 
-
-        $this->starttime = $starttime;
-        $this->endtime = $endtime;
-
-        $this->appointments = Appointment::whereDate('StartDate', '<=', $starttime)
-                                    ->whereDate('EndDate', '>=', $endtime)
-                                    ->with('student') // Eager load the related student
-                                    ->get();
-
-        // dd($appointments);
-
-        // $this->appointments = collect($appointments->map(function($appointment) {
-        //     return $appointment->student->StudentName;
-        // }));
-
-        // dd($this->studentnames);
-        
         $this->dispatch('display-appointments-modal');
-        // dd($startdate);
+    }
+
+    public function editTimeslot()
+    {
+        $starttime = Carbon::parse($this->starttime);
+        $starttime = $starttime->format('Y-m-d H:i:s');
+        $endtime = Carbon::parse($this->endtime);
+        $endtime = $endtime->format('Y-m-d H:i:s');
+
+        TimeSlot::find($this->timeslot->TimeSlotID)->update([
+            'StartTime' => $starttime,
+            'EndTime' => $endtime,
+            'MaxEnrollments' => $this->maxenrollments
+        ]);
+
+        $this->dispatch('close-details-modal');
+        $this->dispatch('refresh-calendar');
+        $this->dispatch('show-message', message: 'Class edited successfully');
     }
 
 }

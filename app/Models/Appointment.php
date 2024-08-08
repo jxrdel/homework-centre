@@ -14,6 +14,7 @@ class Appointment extends Model
     protected $fillable = [
         'StudentID',
         'TimeSlotID',
+        'Attendance'
     ];
 
     // Define the relationship to the Student model
@@ -32,5 +33,17 @@ class Appointment extends Model
         return self::where('StudentID', '=', $studentid)
                     ->where('TimeSlotID', '=', $timeslotid)
                     ->exists();
+    }
+
+    public static function isClassFull($TimeSlotID)
+    {
+        // Get the timeslot for this appointment
+        $timeslot = TimeSlot::find($TimeSlotID);
+
+        // Count the number of appointments for this timeslot
+        $currentEnrollments = Appointment::where('TimeSlotID', $TimeSlotID)->count();
+
+        // Compare with MaxEnrollments
+        return $currentEnrollments >= $timeslot->MaxEnrollments;
     }
 }
