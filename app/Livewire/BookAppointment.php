@@ -6,6 +6,7 @@ use App\Models\Appointment;
 use App\Models\Student;
 use App\Models\TimeSlot;
 use App\Models\User;
+use App\Models\WaitingList;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -20,6 +21,7 @@ class BookAppointment extends Component
     public $classes = [];
     public $appointments = [];
     public $isCurrent = true;
+
 
     public function mount($date){
         $today = Carbon::today('AST');
@@ -84,7 +86,7 @@ class BookAppointment extends Component
             }else{
                 $timeSlot->bookingsRemaining = $maxstudents - $timeSlot->appointments->count() . ' Spots Remaining';
             }
-            $timeSlot->remainingPercentage =  (($maxstudents - ($maxstudents - $timeSlot->appointments->count())) / $maxstudents) * 100;
+            $timeSlot->remainingPercentage = round((($maxstudents - ($maxstudents - $timeSlot->appointments->count())) / $maxstudents) * 100);
             return $timeSlot;
         });
         return view('livewire.book-appointment');
@@ -106,6 +108,7 @@ class BookAppointment extends Component
 
         return false;
     }
+    
     public function checkFullClasses(){
         // dd('Full');
         foreach($this->classes as $appointment){
@@ -178,4 +181,7 @@ class BookAppointment extends Component
         //                             }])
         //                             ->get();
     }
+
+    
+
 }

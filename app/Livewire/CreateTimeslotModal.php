@@ -11,7 +11,7 @@ class CreateTimeslotModal extends Component
 {
     public $starttime;
     public $endtime;
-    public $maxenrollments = 10;
+    public $maxenrollments = 7;
 
     public function render()
     {
