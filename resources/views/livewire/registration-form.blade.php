@@ -175,6 +175,7 @@
                     <div class="col" style="display: flex;">
                         <div class="col-4">
 <<<<<<< HEAD
+<<<<<<< HEAD
                             <label style="margin-top:5px;" for="title">Relationship to Child: <span style="color: red">*</span>&nbsp;</label>
                         </div>
                         <div class="col">
@@ -185,12 +186,17 @@
                                 <option value="Legal Guardian">Legal Guardian</option>
                             </select>
 =======
+=======
+>>>>>>> b94be6ee21818e9757233b2104d20e3c8dcdb0b4
                             <label style="margin-top:5px;" for="formFile" class="form-label">Job Letter: <span style="color: red">*</span></label>
                         </div>
                         <div class="col">
                             <input required class="form-control @error('jobletter')is-invalid @enderror" id="formFile" wire:model="jobletter" type="file" style="width: 100%;">
                             <div style="color:red">@error('jobletter') {{ $message }} @enderror</div>
+<<<<<<< HEAD
 >>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
+=======
+>>>>>>> b94be6ee21818e9757233b2104d20e3c8dcdb0b4
                         </div>
                     </div>
                 </div>
@@ -198,10 +204,14 @@
                     <div class="col" style="display: flex;">
                         <div class="col-4">
 <<<<<<< HEAD
+<<<<<<< HEAD
                             <label style="margin-top:5px;" for="formFile" class="form-label">Photo: <span style="color: red">*</span></label>
 =======
                             <label style="margin-top:5px;" for="formFile" class="form-label">Photo ID: <span style="color: red">*</span></label>
 >>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
+=======
+                            <label style="margin-top:5px;" for="formFile" class="form-label">Photo ID: <span style="color: red">*</span></label>
+>>>>>>> b94be6ee21818e9757233b2104d20e3c8dcdb0b4
                         </div>
                         <div class="col">
                             <input required class="form-control @error('parentpicture1')is-invalid @enderror" id="formFile" wire:model="parentpicture1" type="file" style="width: 100%;">

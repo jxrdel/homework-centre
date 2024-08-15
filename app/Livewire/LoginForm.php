@@ -21,6 +21,7 @@ class LoginForm extends Component
     public function login(){
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         // $user = User::find(16); //Gets user
         // Auth::login($user);
         // if($user->IsAdmin){
@@ -30,12 +31,17 @@ class LoginForm extends Component
         // }
         $whitelist = ['jardel.regis', 'kia.boldan', 'kizzy.villaroel'];
 =======
+=======
+>>>>>>> b94be6ee21818e9757233b2104d20e3c8dcdb0b4
         // $user = User::find(2); //Gets user
         // Auth::login($user);
         // redirect()->route('/');
 
         $whitelist = ['jardel.regis', 'kia.boldan', 'kizzy.villaroel', 'varma.maharaj'];
+<<<<<<< HEAD
 >>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
+=======
+>>>>>>> b94be6ee21818e9757233b2104d20e3c8dcdb0b4
 
         if(!in_array($this->username, $whitelist)){
             $this->addError('username', 'Login has been disabled until the official opening of the centre');

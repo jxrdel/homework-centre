@@ -13,7 +13,10 @@ use App\Livewire\CreateComplaintForm;
 use App\Livewire\CreateIncidentForm;
 use App\Livewire\WaitingList;
 use App\Livewire\WaitingListTable;
+<<<<<<< HEAD
 >>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
+=======
+>>>>>>> b94be6ee21818e9757233b2104d20e3c8dcdb0b4
 use Illuminate\Support\Facades\Route;
 
 Route::get('/Login', [Controller::class, 'login'])->name('login');
@@ -59,7 +62,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/Admin/Forms/Complaint/Create', CreateComplaintForm::class)->name('admin.forms.complaint.create');
     Route::get('/getcomplaints', [AdminController::class, 'getComplaints'])->name('admin.getcomplaints');
     Route::get('/Admin/WaitingList', WaitingListTable::class)->name('admin.waitinglist');
+<<<<<<< HEAD
 >>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
+=======
+>>>>>>> b94be6ee21818e9757233b2104d20e3c8dcdb0b4
 
 
     Route::get('/MyChildren', [StudentController::class, 'myChildren'])->name('mychildren');

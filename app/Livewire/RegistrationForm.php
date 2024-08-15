@@ -151,10 +151,13 @@ class RegistrationForm extends Component
 
         if ($this->parentpicture1) {
 <<<<<<< HEAD
+<<<<<<< HEAD
             // $filename = $this->parentfirstname1 . $this->parentlastname1 . '-' . $this->parentpicture1->getClientOriginalName();
             // $this->parentpicture1->storeAs('public/parents', $filename);
             // // $this->filepath = 'uploads/students/' . $filename;
             // $this->parentpicturepath1 = 'public/parents/' . $filename;
+=======
+>>>>>>> b94be6ee21818e9757233b2104d20e3c8dcdb0b4
             $this->parentpicturepath1 = $this->parentpicture1->store('parents', 'public');
 =======
             $this->parentpicturepath1 = $this->parentpicture1->store('parents', 'public');
@@ -163,6 +166,10 @@ class RegistrationForm extends Component
         if ($this->jobletter) {
             $this->jobletterpath = $this->jobletter->store('parents/jobletters', 'public');
 >>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
+        }
+
+        if ($this->jobletter) {
+            $this->jobletterpath = $this->jobletter->store('parents/jobletters', 'public');
         }
 
         $this->parent1 = User::create([ //Add parent 1 to database
@@ -331,6 +338,7 @@ class RegistrationForm extends Component
 
         $this->validate([
 <<<<<<< HEAD
+<<<<<<< HEAD
             'parentpicture1' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:3024',
             'parentpicture2' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:3024'
 =======
@@ -338,6 +346,11 @@ class RegistrationForm extends Component
             'parentpicture1' => 'required|file|mimes:png,jpg,jpeg,webp|max:5024',
             'parentpicture2' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:5024'
 >>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
+=======
+            'jobletter' => 'required|file|mimes:pdf,png,jpg,jpeg,webp|max:10024',
+            'parentpicture1' => 'required|file|mimes:png,jpg,jpeg,webp|max:5024',
+            'parentpicture2' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:5024'
+>>>>>>> b94be6ee21818e9757233b2104d20e3c8dcdb0b4
         ]);
 
         $this->parentform = false;
@@ -351,12 +364,17 @@ class RegistrationForm extends Component
 
         $this->validate([
 <<<<<<< HEAD
+<<<<<<< HEAD
             'childpicture' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:3024',
             'immunizationpicture' => 'nullable|file|mimes:pdf,png,jpg,jpeg,webp|max:3024',
 =======
             'childpicture' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:5024',
             'immunizationpicture' => 'nullable|file|mimes:pdf,png,jpg,jpeg,webp|max:5024',
 >>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
+=======
+            'childpicture' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:5024',
+            'immunizationpicture' => 'nullable|file|mimes:pdf,png,jpg,jpeg,webp|max:5024',
+>>>>>>> b94be6ee21818e9757233b2104d20e3c8dcdb0b4
             'childdob' => [
                 'required',
                 'before:today',
@@ -420,10 +438,14 @@ class RegistrationForm extends Component
 
         $this->validate([
 <<<<<<< HEAD
+<<<<<<< HEAD
             'ecpicture' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:3024',
 =======
             'ecpicture' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:5024',
 >>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
+=======
+            'ecpicture' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:5024',
+>>>>>>> b94be6ee21818e9757233b2104d20e3c8dcdb0b4
         ]);
 
         $this->parentform = false;

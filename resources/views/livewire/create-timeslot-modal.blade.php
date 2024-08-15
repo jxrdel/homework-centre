@@ -21,6 +21,7 @@
                     @endif
 
 
+<<<<<<< HEAD
                 </div>
                 <div class="row" style="margin-top: 20px">
                     <div class="col" style="display: flex;">
@@ -31,6 +32,8 @@
                             <input required class="form-control" wire:model="maxenrollments" type="number" autocomplete="off" style="width: 100%;color:black;">
                         </div>
                     </div>
+=======
+>>>>>>> b94be6ee21818e9757233b2104d20e3c8dcdb0b4
                 </div>
             </div>
             <div class="modal-footer" style="align-items: center">

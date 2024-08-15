@@ -125,7 +125,10 @@ class BookAppointment extends Component
         return true;
     }
     
+<<<<<<< HEAD
 >>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
+=======
+>>>>>>> b94be6ee21818e9757233b2104d20e3c8dcdb0b4
     public function checkFullClasses(){
         // dd('Full');
         foreach($this->classes as $appointment){

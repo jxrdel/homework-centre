@@ -122,9 +122,13 @@
                             <a @class(['collapse-item', 'active' => request()->routeIs('admin.attendance') || request()->routeIs('admin.attendance.*')]) href="{{ route('admin.attendance') }}">Attendance</a>
                             <a @class(['collapse-item', 'active' => request()->routeIs('admin.appointments') || request()->routeIs('admin.appointments.*') ]) href="{{ route('admin.appointments') }}">Appointments</a>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                             {{-- <a @class(['collapse-item', 'active' => request()->routeIs('admin.waitinglist')]) href="{{ route('admin.waitinglist') }}">Waiting List</a> --}}
 >>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
+=======
+                            {{-- <a @class(['collapse-item', 'active' => request()->routeIs('admin.waitinglist')]) href="{{ route('admin.waitinglist') }}">Waiting List</a> --}}
+>>>>>>> b94be6ee21818e9757233b2104d20e3c8dcdb0b4
                             <a @class(['collapse-item', 'active' => request()->routeIs('admin.registration')]) href="{{ route('admin.registration') }}">Registration</a>
                             <a @class(['collapse-item', 'active' => request()->routeIs('admin.students.all')]) href="{{ route('admin.students.all') }}">Students</a>
                             <a @class(['collapse-item', 'active' => request()->routeIs('admin.parents.all')]) href="{{ route('admin.parents.all') }}">Parents</a>

@@ -18,7 +18,10 @@ class CreateTimeslotModal extends Component
 =======
     public $maxenrollments = 7;
     public $existingClasses = [];
+<<<<<<< HEAD
 >>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
+=======
+>>>>>>> b94be6ee21818e9757233b2104d20e3c8dcdb0b4
 
     public function render()
     {
@@ -44,6 +47,7 @@ class CreateTimeslotModal extends Component
         $classes = [];
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         TimeSlot::create([
             'Title' => 'Session',
             'StartTime' => $starttime,
@@ -51,6 +55,8 @@ class CreateTimeslotModal extends Component
             'MaxEnrollments' => $this->maxenrollments,
         ]);
 =======
+=======
+>>>>>>> b94be6ee21818e9757233b2104d20e3c8dcdb0b4
         // First time slot: 7:45 AM to 12:00 PM
         $classes[] = [
             'StartTime' => Carbon::parse($this->date)->setTime(7, 45)->format('Y-m-d H:i:s'),
@@ -73,7 +79,10 @@ class CreateTimeslotModal extends Component
                 'MaxEnrollments' => $this->maxenrollments,
             ]);
         }
+<<<<<<< HEAD
 >>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
+=======
+>>>>>>> b94be6ee21818e9757233b2104d20e3c8dcdb0b4
 
         $this->dispatch('close-create-modal');
         $this->dispatch('refresh-calendar');
