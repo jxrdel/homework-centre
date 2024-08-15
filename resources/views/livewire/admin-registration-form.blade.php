@@ -163,6 +163,25 @@
 
             </div>
 
+
+            <div class="row" style="margin-top:10px">
+
+                <div class="col">
+                    <div class="col" style="display: flex;">
+                        <div class="col-4">
+                            <label style="margin-top:5px;" for="formFile" class="form-label">Job Letter:</label>
+                        </div>
+                        <div class="col">
+                            <input class="form-control @error('jobletter')is-invalid @enderror" id="formFile" wire:model="jobletter" type="file" style="width: 100%;">
+                            <div style="color:red">@error('jobletter') {{ $message }} @enderror</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                </div>
+
+            </div>
+
             <div class="row" style="margin-top:20px">
 
                 <div class="col">

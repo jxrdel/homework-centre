@@ -15,5 +15,9 @@ class StockItem extends Model
         'ItemName',
         'Quantity',
         'Notes',
+        'Code',
+        'Addition',
+        'Removal',
+        'DetailsOfRemoval'
     ];
 }

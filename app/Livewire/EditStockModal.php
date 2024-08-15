@@ -12,6 +12,10 @@ class EditStockModal extends Component
     public $itemname;
     public $quantity;
     public $notes;
+    public $code;
+    public $addition;
+    public $removal;
+    public $detailsofremoval;
 
     public function render()
     {
@@ -25,6 +29,10 @@ class EditStockModal extends Component
         $this->itemname = $this->item->ItemName;
         $this->quantity = $this->item->Quantity;
         $this->notes = $this->item->Notes;
+        $this->code = $this->item->Code;
+        $this->addition = $this->item->Addition == 1 ? true : false;
+        $this->removal = $this->item->Removal;
+        $this->detailsofremoval = $this->item->DetailsOfRemoval;
         $this->dispatch('display-edit-modal');
     }
 
@@ -32,7 +40,11 @@ class EditStockModal extends Component
         StockItem::where('id', $this->item->id)->update([
             'ItemName' => $this->itemname,
             'Quantity' => $this->quantity,
-            'Notes' => $this->notes
+            'Notes' => $this->notes,
+            'Code' => $this->code,
+            'Addition' => $this->addition,
+            'Removal' => $this->removal,
+            'DetailsOfRemoval' => $this->detailsofremoval
         ]);
 
         $this->dispatch('close-edit-modal');

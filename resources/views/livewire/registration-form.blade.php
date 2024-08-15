@@ -16,7 +16,8 @@
         <div class="row" style="margin-top: 10px">
             <p style="color: black;font-size:1.2rem;"><strong>Parent:</strong></p>
             <ul style="color: black;font-size:1.2rem">
-                <li>Ministry of Health ID</li>
+                <li>Ministry of Health ID or National ID</li>
+                <li>Job Letter (If Ministry of Health ID is not provided)</li>
             </ul>
         </div>
 
@@ -173,6 +174,32 @@
                 <div class="col">
                     <div class="col" style="display: flex;">
                         <div class="col-4">
+                            <label style="margin-top:5px;" for="formFile" class="form-label">Job Letter:</label>
+                        </div>
+                        <div class="col">
+                            <input class="form-control @error('jobletter')is-invalid @enderror" id="formFile" wire:model="jobletter" type="file" style="width: 100%;">
+                            <div style="color:red">@error('jobletter') {{ $message }} @enderror</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="col" style="display: flex;">
+                        <div class="col-4">
+                            <label style="margin-top:5px;" for="formFile" class="form-label">Photo ID: <span style="color: red">*</span></label>
+                        </div>
+                        <div class="col">
+                            <input required class="form-control @error('parentpicture1')is-invalid @enderror" id="formFile" wire:model="parentpicture1" type="file" style="width: 100%;">
+                            <div style="color:red">@error('parentpicture1') {{ $message }} @enderror</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row" style="margin-top:10px">
+
+                <div class="col">
+                    <div class="col" style="display: flex;">
+                        <div class="col-4">
                             <label style="margin-top:5px;" for="title">Relationship to Child: <span style="color: red">*</span>&nbsp;</label>
                         </div>
                         <div class="col">
@@ -186,15 +213,6 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div class="col" style="display: flex;">
-                        <div class="col-4">
-                            <label style="margin-top:5px;" for="formFile" class="form-label">Photo: <span style="color: red">*</span></label>
-                        </div>
-                        <div class="col">
-                            <input required class="form-control @error('parentpicture1')is-invalid @enderror" id="formFile" wire:model="parentpicture1" type="file" style="width: 100%;">
-                            <div style="color:red">@error('parentpicture1') {{ $message }} @enderror</div>
-                        </div>
-                    </div>
                 </div>
 
             </div>
@@ -204,10 +222,10 @@
                 <div class="col">
                     <div class="col" style="display: flex;">
                         <div class="col-2">
-                            <label style="margin-top:5px;" for="title">Address: &nbsp;</label>
+                            <label style="margin-top:5px;" for="title">Address: <span style="color: red">*</span>&nbsp;</label>
                         </div>
                         <div class="col">
-                            <input class="form-control" wire:model="parentaddress1" type="text" autocomplete="off" style="width: 100%;color:black;">
+                            <input required class="form-control" wire:model="parentaddress1" type="text" autocomplete="off" style="width: 100%;color:black;">
                         </div>
                     </div>
                 </div>
@@ -378,7 +396,7 @@
                     <div class="col">
                         <div class="col" style="display: flex;">
                             <div class="col-4">
-                                <label style="margin-top:5px;" for="formFile" class="form-label">Photo: &nbsp;</label>
+                                <label style="margin-top:5px;" for="formFile" class="form-label">Photo ID: &nbsp;</label>
                             </div>
                             <div class="col">
                                 <input class="form-control @error('parentpicture2')is-invalid @enderror" id="formFile" wire:model="parentpicture2" type="file" style="width: 100%;">

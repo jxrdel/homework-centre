@@ -48,7 +48,7 @@ $formattedDate = Carbon::createFromFormat('Ymd', $this->date)->format('F jS, Y')
                                                     </div>
                                                     @if ($isCurrent)
                                                     <div class="col">
-                                                        <a class="btn btn-danger" wire:click="deleteAppointment({{$appointment->AppointmentID}})">Delete</a>
+                                                        <a class="btn btn-danger" wire:confirm="Are you sure you want to delete this appointment?" wire:click="deleteAppointment({{$appointment->AppointmentID}})" >Delete</a>
                                                     </div>
                                                     @endif
                                                 </div>
@@ -84,7 +84,7 @@ $formattedDate = Carbon::createFromFormat('Ymd', $this->date)->format('F jS, Y')
                                             <div class=" font-weight-bold text-info text-uppercase mb-1">
                                                 {{ \Carbon\Carbon::parse($class->StartTime)->format('g:i A')}} - {{ \Carbon\Carbon::parse($class->EndTime)->format('g:i A')}} | 
                                                 <strong class="text-gray-800">{{$class->bookingsRemaining}}
-                                                    <a href="#" onclick="showWaitingListModal('{{$class->TimeSlotID}}')" class="btn btn-primary">Join Waiting List</a>
+                                                    {{-- <a href="#" onclick="showWaitingListModal('{{$class->TimeSlotID}}')" class="btn btn-primary">Join Waiting List</a> --}}
                                                 </strong>
                                             @else
                                             <div class=" font-weight-bold text-info text-uppercase mb-1">{{ \Carbon\Carbon::parse($class->StartTime)->format('g:i A')}} - {{ \Carbon\Carbon::parse($class->EndTime)->format('g:i A')}} | <strong class="text-gray-800">{{$class->bookingsRemaining}}</strong>

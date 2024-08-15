@@ -42,6 +42,8 @@ class AdminRegistrationForm extends Component
     public $parentpicturepath1;
     public $parentaddress1;
     public $parentvtc1;
+    public $jobletter;
+    public $jobletterpath;
 
     // Parent/Guardian #2 Information
     public $parent2;
@@ -149,11 +151,11 @@ class AdminRegistrationForm extends Component
         // dd($username);
 
         if ($this->parentpicture1) {
-            // $filename = $this->parentfirstname1 . $this->parentlastname1 . '-' . $this->parentpicture1->getClientOriginalName();
-            // $this->parentpicture1->storeAs('public/parents', $filename);
-            // // $this->filepath = 'uploads/students/' . $filename;
-            // $this->parentpicturepath1 = 'public/parents/' . $filename;
             $this->parentpicturepath1 = $this->parentpicture1->store('parents', 'public');
+        }
+
+        if ($this->jobletter) {
+            $this->jobletterpath = $this->jobletter->store('parents/jobletters', 'public');
         }
 
         $this->parent1 = User::create([ //Add parent 1 to database
@@ -168,6 +170,7 @@ class AdminRegistrationForm extends Component
             'Department' => $this->parentdepartment1,
             'ChildRelationship' => $this->parentrelationship1,
             'PicturePath' => $this->parentpicturepath1,
+            'JobLetterPath' => $this->jobletterpath,
             'Address' => $this->parentaddress1,
             'CityTown' => $this->parentvtc1,
             'MediaReleaseConsent' => $this->mediarelease,

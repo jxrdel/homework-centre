@@ -40,6 +40,8 @@ class RegistrationForm extends Component
     public $parentrelationship1;
     public $parentpicture1;
     public $parentpicturepath1;
+    public $jobletter;
+    public $jobletterpath;
     public $parentaddress1;
     public $parentvtc1;
 
@@ -148,11 +150,11 @@ class RegistrationForm extends Component
         // dd($username);
 
         if ($this->parentpicture1) {
-            // $filename = $this->parentfirstname1 . $this->parentlastname1 . '-' . $this->parentpicture1->getClientOriginalName();
-            // $this->parentpicture1->storeAs('public/parents', $filename);
-            // // $this->filepath = 'uploads/students/' . $filename;
-            // $this->parentpicturepath1 = 'public/parents/' . $filename;
             $this->parentpicturepath1 = $this->parentpicture1->store('parents', 'public');
+        }
+
+        if ($this->jobletter) {
+            $this->jobletterpath = $this->jobletter->store('parents/jobletters', 'public');
         }
 
         $this->parent1 = User::create([ //Add parent 1 to database
@@ -167,6 +169,7 @@ class RegistrationForm extends Component
             'Department' => $this->parentdepartment1,
             'ChildRelationship' => $this->parentrelationship1,
             'PicturePath' => $this->parentpicturepath1,
+            'JobLetterPath' => $this->jobletterpath,
             'Address' => $this->parentaddress1,
             'CityTown' => $this->parentvtc1,
             'MediaReleaseConsent' => $this->mediarelease,
@@ -319,8 +322,9 @@ class RegistrationForm extends Component
     public function validateParent(){
 
         $this->validate([
-            'parentpicture1' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:3024',
-            'parentpicture2' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:3024'
+            'jobletter' => 'nullable|file|mimes:pdf,png,jpg,jpeg,webp|max:10024',
+            'parentpicture1' => 'required|file|mimes:png,jpg,jpeg,webp|max:5024',
+            'parentpicture2' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:5024'
         ]);
 
         $this->parentform = false;
@@ -333,8 +337,8 @@ class RegistrationForm extends Component
     public function validateStudent(){
 
         $this->validate([
-            'childpicture' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:3024',
-            'immunizationpicture' => 'nullable|file|mimes:pdf,png,jpg,jpeg,webp|max:3024',
+            'childpicture' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:5024',
+            'immunizationpicture' => 'nullable|file|mimes:pdf,png,jpg,jpeg,webp|max:5024',
             'childdob' => [
                 'required',
                 'before:today',
@@ -397,7 +401,7 @@ class RegistrationForm extends Component
     public function validateEmergencyContact(){
 
         $this->validate([
-            'ecpicture' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:3024',
+            'ecpicture' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:5024',
         ]);
 
         $this->parentform = false;

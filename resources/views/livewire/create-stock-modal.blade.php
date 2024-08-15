@@ -39,13 +39,63 @@
 
                     <div class="col" style="display: flex;">
                         <div class="col-2">
-                            <label style="margin-top:5px;" for="title">Notes: &nbsp;</label>
+                            <label style="margin-top:5px;" for="title">Description: &nbsp;</label>
                         </div>
                         <div class="col">
                             <textarea style="color: black" wire:model="notes" class="form-control" cols="10" rows="3"></textarea>
                         </div>
                     </div>
 
+                </div>
+
+                <div class="row" style="margin-top:10px">
+                    <div class="col">
+                        <div class="col" style="display: flex;">
+                            <div class="col-4">
+                                <label style="margin-top:5px;margin-left:-10px" for="title">Code: &nbsp;</label>
+                            </div>
+                            <div class="col">
+                                <input class="form-control" wire:model="code" type="text" autocomplete="off" style="width: 100%;color: black">
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="col">
+                        <div class="col" style="display: flex;">
+                            <div class="col-4">
+                                <label style="margin-top:5px;" for="title">Addition: &nbsp;</label>
+                            </div>
+                            <div class="col">
+                                <input wire:model="addition" class="form-check-input" type="checkbox" name="addition">
+                            </div>
+                        </div>
+                    </div>
+        
+                </div>
+
+                <div class="row" style="margin-top:10px">
+                    <div class="col">
+                        <div class="col" style="display: flex;">
+                            <div class="col-4">
+                                <label style="margin-top:5px;margin-left:-10px" for="title">Removal: &nbsp;</label>
+                            </div>
+                            <div class="col">
+                                <input class="form-control" wire:model="removal" type="text" autocomplete="off" style="width: 100%;color: black">
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="col">
+                        <div class="col" style="display: flex;">
+                            <div class="col-4">
+                                <label style="margin-top:5px;" for="title">Details of Removal: &nbsp;</label>
+                            </div>
+                            <div class="col">
+                                <input class="form-control" wire:model="detailsofremoval" type="text" autocomplete="off" style="width: 100%;color: black">
+                            </div>
+                        </div>
+                    </div>
+        
                 </div>
 
             </div>
