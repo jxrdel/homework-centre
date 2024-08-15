@@ -5,7 +5,11 @@
             <i class="bi bi-arrow-left"></i> Back
         </a>
         <h1 class="h3 mb-0 text-gray-800" style="flex: 1; text-align: center;">
+<<<<<<< HEAD
             <strong style="margin-right: 90px"><i class="fa-solid fa-person-falling-burst"></i> &nbsp; Accident Report Form</strong>
+=======
+            <strong style="margin-right: 90px"><i class="fa-solid fa-file-pen"></i> &nbsp; Accident Report Form</strong>
+>>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
         </h1>
     </div>
 

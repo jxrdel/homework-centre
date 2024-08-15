@@ -5,7 +5,11 @@
             <i class="bi bi-arrow-left"></i> Back
         </a>
         <h1 class="h3 mb-0 text-gray-800" style="flex: 1; text-align: center;">
+<<<<<<< HEAD
             <strong style="margin-right: 90px"><i class="fa-solid fa-person-falling-burst"></i> &nbsp; Incident Report Form</strong>
+=======
+            <strong style="margin-right: 90px"><i class="fa-solid fa-file-pen"></i> &nbsp; Incident Report Form</strong>
+>>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
         </h1>
     </div>
 
@@ -47,7 +51,11 @@
                             <label style="margin-top:5px;" for="title">Telephone Ext: <span style="color: red">*</span>&nbsp;</label>
                         </div>
                         <div class="col">
+<<<<<<< HEAD
                             <input required class="form-control" wire:model="extno" type="text" autocomplete="off" style="width: 100%;color:black;">
+=======
+                            <input required class="form-control" wire:model="extno" type="number" autocomplete="off" style="width: 100%;color:black;">
+>>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
                         </div>
                     </div>
                 </div>
@@ -84,7 +92,11 @@
                 <div class="col">
                     <div class="col" style="display: flex;">
                         <div class="col">
+<<<<<<< HEAD
                             <label style="margin-top:5px;" for="title">Brief description of incident / dangerous occurrence: &nbsp;</label>
+=======
+                            <label style="margin-top:5px;" for="title">Brief description of incident / dangerous occurrence: <span style="color: red">*</span></label>
+>>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
                             
                             <textarea style="color: black"wire:model="incidentdescription" class="form-control" cols="10" rows="3"></textarea>
                         </div>

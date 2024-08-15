@@ -314,8 +314,8 @@ class AdminRegistrationForm extends Component
     public function validateParent(){
 
         $this->validate([
-            'parentpicture1' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:1024',
-            'parentpicture2' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:1024'
+            'parentpicture1' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:3024',
+            'parentpicture2' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:3024'
         ]);
 
         $this->parentform = false;
@@ -328,8 +328,13 @@ class AdminRegistrationForm extends Component
     public function validateStudent(){
 
         $this->validate([
+<<<<<<< HEAD
             'childpicture' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:1024',
             'immunizationpicture' => 'nullable|file|mimes:pdf,png,jpg,jpeg,webp|max:2024',
+=======
+            'childpicture' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:3024',
+            'immunizationpicture' => 'nullable|file|mimes:pdf,png,jpg,jpeg,webp|max:3024',
+>>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
             'childdob' => [
                 'required',
                 'before:today',
@@ -392,7 +397,7 @@ class AdminRegistrationForm extends Component
     public function validateEmergencyContact(){
 
         $this->validate([
-            'ecpicture' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:1024',
+            'ecpicture' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:3024',
         ]);
 
         $this->parentform = false;

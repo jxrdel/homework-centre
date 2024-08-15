@@ -28,7 +28,11 @@
 
                 <div class="row" style="margin-top: 30px">
 
+<<<<<<< HEAD
                     <table id="myTable" class="table table-striped table-bordered">
+=======
+                    <table id="myTable" class="table table-striped table-bordered" style="width: 100%">
+>>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
                         <thead>
                             <tr>
                                 <th>First Name</th>

@@ -33,11 +33,19 @@
                     <div class="tab-pane fade show active" id="accidents-tab-pane" role="tabpanel" aria-labelledby="accidents-tab" tabindex="0">
                         
                         <div class="row" style="margin-top: 20px">
+<<<<<<< HEAD
                             <a href="{{route('admin.forms.accident.create')}}" class="btn btn-primary btn-icon-split" style="width: 12rem;margin:auto">
                                 <span class="icon text-white-50">
                                     <i class="fa-solid fa-plus" style="color: white"></i>
                                 </span>
                                 <span class="text"  style="width: 200px;">Create Report</span>
+=======
+                            <a href="{{route('admin.forms.accident.create')}}" class="btn btn-primary btn-icon-split" style="width: 14rem;margin:auto">
+                                <span class="icon text-white-50">
+                                    <i class="fa-solid fa-plus" style="color: white"></i>
+                                </span>
+                                <span class="text"  style="width: 200px;">New Accident Form</span>
+>>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
                             </a>
                         </div>
 
@@ -48,7 +56,11 @@
                                 <thead>
                                     <tr>
                                         <th>Report Date</th>
+<<<<<<< HEAD
                                         <th>End Date</th>
+=======
+                                        <th>Name of Child</th>
+>>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
                                         <th style="text-align: center">Actions</th>
                                     </tr>
                                 </thead>
@@ -59,6 +71,7 @@
 
                     </div>
                     <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+<<<<<<< HEAD
                         
                         
                         <div class="row" style="margin-top: 20px">
@@ -67,6 +80,15 @@
                                     <i class="fa-solid fa-plus" style="color: white"></i>
                                 </span>
                                 <span class="text"  style="width: 200px;">Create Incident</span>
+=======
+
+                        <div class="row" style="margin-top: 20px">
+                            <a href="{{route('admin.forms.incident.create')}}" class="btn btn-primary btn-icon-split" style="width: 14rem;margin:auto">
+                                <span class="icon text-white-50">
+                                    <i class="fa-solid fa-plus" style="color: white"></i>
+                                </span>
+                                <span class="text"  style="width: 200px;">New Incident Form</span>
+>>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
                             </a>
                         </div>
 
@@ -77,7 +99,38 @@
                                 <thead>
                                     <tr>
                                         <th>Report Date</th>
+<<<<<<< HEAD
                                         <th>End Date</th>
+=======
+                                        <th>Time of Incident</th>
+                                        <th style="text-align: center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+                        <div class="row" style="margin-top: 20px">
+                            <a href="{{route('admin.forms.complaint.create')}}" class="btn btn-primary btn-icon-split" style="width: 12rem;margin:auto">
+                                <span class="icon text-white-50">
+                                    <i class="fa-solid fa-plus" style="color: white"></i>
+                                </span>
+                                <span class="text"  style="width: 200px;">Create Complaint</span>
+                            </a>
+                        </div>
+
+                        
+                        <div class="row" style="margin-top: 30px">
+
+                            <table id="complaintTable" class="table table-striped table-hover" style="width: 100%">
+                                <thead>
+                                    <tr>
+                                        <th>Report Date</th>
+>>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
                                         <th style="text-align: center">Actions</th>
                                     </tr>
                                 </thead>
@@ -86,7 +139,10 @@
                             </table>
                         </div>
                     </div>
+<<<<<<< HEAD
                     <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">...</div>
+=======
+>>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
                   </div>
                   
             </div>
@@ -131,7 +187,11 @@
                             orderable: false,
                             searchable: false,
                             render: function (data, type, row) {
+<<<<<<< HEAD
                                 return '<div style="text-align:center"><a href="#" onclick="showView(' + data.WeeklyReportID + ')">View</a> | <a href="#" onclick="showEdit(' + data.WeeklyReportID + ')">Edit</a></div>';
+=======
+                                return '<div style="text-align:center"><a href="#" onclick="showView(' + data.id + ')">View</a> | <a href="#" onclick="showEdit(' + data.id + ')">Edit</a></div>';
+>>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
                             }
                         },
                 ]
@@ -156,13 +216,44 @@
                             orderable: false,
                             searchable: false,
                             render: function (data, type, row) {
+<<<<<<< HEAD
                                 return '<div style="text-align:center"><a href="#" onclick="showView(' + data.WeeklyReportID + ')">View</a> | <a href="#" onclick="showEdit(' + data.WeeklyReportID + ')">Edit</a></div>';
+=======
+                                return '<div style="text-align:center"><a href="#" onclick="showView(' + data.id + ')">View</a> | <a href="#" onclick="showEdit(' + data.id + ')">Edit</a></div>';
+>>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
                             }
                         },
                 ]
             });
         });
+<<<<<<< HEAD
         
+=======
+ 
+        $(document).ready(function() {
+            $('#complaintTable').DataTable({
+                "pageLength": 10,
+                // order: [[1, 'asc']],
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": "{{ route('admin.getcomplaints') }}",
+                    "type": "GET"
+                },
+                "columns": [
+                        { data: 'DateOfComplaint', name: 'DateOfComplaint' },
+                        {
+                            data: null,
+                            orderable: false,
+                            searchable: false,
+                            render: function (data, type, row) {
+                                return '<div style="text-align:center"><a href="#" onclick="showView(' + data.id + ')">View</a> | <a href="#" onclick="showEdit(' + data.id + ')">Edit</a></div>';
+                            }
+                        },
+                ]
+            });
+        });       
+>>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
         window.addEventListener('refresh-table', event => {
             $('#accidentTable').DataTable().ajax.reload();
         })

@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Mail\RegistrationSuccessful;
 use App\Models\AccidentReport;
+<<<<<<< HEAD
+=======
+use App\Models\Complaint;
+>>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
 use App\Models\Feedback;
 use App\Models\IncidentReport;
 use App\Models\StockItem;
@@ -254,4 +258,14 @@ class AdminController extends Controller
         return DataTables::of($reports)->make(true);
     }
 
+<<<<<<< HEAD
+=======
+    public function getComplaints(){
+
+        $complaints = Complaint::all();
+
+        return DataTables::of($complaints)->make(true);
+    }
+
+>>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
 }

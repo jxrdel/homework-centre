@@ -6,7 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\StudentController;
 use App\Livewire\CreateAccidentForm;
+<<<<<<< HEAD
 use App\Livewire\CreateIncidentForm;
+=======
+use App\Livewire\CreateComplaintForm;
+use App\Livewire\CreateIncidentForm;
+use App\Livewire\WaitingList;
+use App\Livewire\WaitingListTable;
+>>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
 use Illuminate\Support\Facades\Route;
 
 Route::get('/Login', [Controller::class, 'login'])->name('login');
@@ -46,7 +53,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/getaccidentreports', [AdminController::class, 'getAccidentReports'])->name('admin.getaccidentreports');
     Route::get('/Admin/Forms/Incident/Create', CreateIncidentForm::class)->name('admin.forms.incident.create');
     Route::get('/getincidentreports', [AdminController::class, 'getIncidentReports'])->name('admin.getincidentreports');
+<<<<<<< HEAD
 
+=======
+    Route::get('/Admin/Forms/Complaint/Create', CreateComplaintForm::class)->name('admin.forms.complaint.create');
+    Route::get('/getcomplaints', [AdminController::class, 'getComplaints'])->name('admin.getcomplaints');
+    Route::get('/Admin/WaitingList', WaitingListTable::class)->name('admin.waitinglist');
+>>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
 
 
     Route::get('/MyChildren', [StudentController::class, 'myChildren'])->name('mychildren');

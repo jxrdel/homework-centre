@@ -19,6 +19,7 @@ $formattedDate = Carbon::createFromFormat('Ymd', $date)->format('F jS, Y');
 @section('content')
 
         @include('livewire.delete-record-modal')
+        @livewire('join-waiting-list')
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <a href="{{route('appointments')}}" class="btn btn-primary">
@@ -53,6 +54,18 @@ $formattedDate = Carbon::createFromFormat('Ymd', $date)->format('F jS, Y');
             $('#createAppointmentModal').modal('hide');
         })
 
+
+    function showWaitingListModal(id) {
+        Livewire.dispatch('show-waiting-list-modal', { id: id });
+    }
+
+    window.addEventListener('show-waiting-list-modal', event => {
+        $('#joinWaitingListModal').modal('show');
+    })
+
+    window.addEventListener('close-waiting-list-modal', event => {
+        $('#joinWaitingListModal').modal('hide');
+    })
 
     window.addEventListener('refresh-calendar', event => {
         calendar.refetchEvents();

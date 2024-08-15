@@ -36,6 +36,10 @@
                   <h5><i class="fa-solid fa-envelope"></i> {{$parent->Email}}</h5>
                   <h5><i class="fa-solid fa-briefcase"></i> {{$parent->Ministry}} {{$parent->Department}}</h5>
                   <h5><i class="fa-solid fa-phone"></i> {{$parent->MobileNo}} {{$parent->HomeNo ? '| ' . $parent->HomeNo : ''}} {{$parent->WorkNo ? '| Ext. ' . $parent->WorkNo : ''}}</h5>
+<<<<<<< HEAD
+=======
+                  <h5><i class="fa-solid fa-envelope-open-text"></i> <a href="{{ Storage::url($parent->JobLetterPath) }}" target="_blank">Job Letter <i class="fa-solid fa-arrow-up-right-from-square"></i></a></h5>
+>>>>>>> cf0d5b63b90800db92b5b332c2be77d0fd78c4c8
                   </div>
               </div>
               </div>
