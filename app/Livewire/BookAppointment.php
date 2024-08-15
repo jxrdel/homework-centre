@@ -40,11 +40,14 @@ class BookAppointment extends Component
 
         //Initialize classes
         foreach($classes as $class){
+            $isFull = $class->appointments->count() >= $class->MaxEnrollments ? true : false; 
+
             $this->classes [] = [
                 'TimeSlotID' => $class->TimeSlotID,
                 'StartTime' => Carbon::parse($class->StartTime)->format('g:i A'),
                 'EndTime' => Carbon::parse($class->EndTime)->format('g:i A'),
-                'Selected' => true //Classes are selected by default
+                'Selected' => !$isFull , //Classes are selected by default
+                'isFull' => $isFull
             ];
         }
 
@@ -109,6 +112,17 @@ class BookAppointment extends Component
         return false;
     }
     
+
+    public function noClassesSelected(){
+        foreach($this->classes as $appointment){
+            if($appointment['Selected']){
+                return false;
+            }
+        }
+
+        return true;
+    }
+    
     public function checkFullClasses(){
         // dd('Full');
         foreach($this->classes as $appointment){
@@ -128,8 +142,9 @@ class BookAppointment extends Component
         // dd($this->classes);
         $student = Student::find($this->child);
 
-
-        if($this->checkDuplicateAppointments()){ //If there are duplicates, display error
+        if($this->noClassesSelected()){
+            $this->addError('child', 'No classes selected');
+        }else if($this->checkDuplicateAppointments()){ //If there are duplicates, display error
             $this->resetValidation();
             $this->addError('child', $student->FirstName . ' ' . $student->LastName . ' is already registered for 1 or more of the selected classes');
         }else if($this->checkFullClasses()){
@@ -156,21 +171,56 @@ class BookAppointment extends Component
 
         $appointment = Appointment::find($id);
         $appointment->delete();
+        $this->refreshPage();
+        $this->resetValidation();
         $this->dispatch('show-message', message: 'Appointment deleted successfully');
     }
 
+    public function canJoinWaitingList($studentid, $timeslotid){
+        if(Appointment::isDuplicate($studentid, $timeslotid)){
+            $this->addError('error', 'This student is already registered for this class');
+            return false;
+        }else if(WaitingList::isDuplicate($studentid, $timeslotid)){
+            $this->addError('error', 'This student is already on the waiting list for this class');
+            return false;
+        }
+
+        return true;
+    }
+
+    public function joinWaitingList($timeslotid){
+        // dd($timeslotid);
+        if($this->canJoinWaitingList($this->child, $timeslotid)){
+            dd($this->child);
+            WaitingList::create([
+                'TimeSlotID' => $this->timeslot,
+                'StudentID' => $this->student,
+            ]);
+
+            $this->dispatch('close-create-modal');
+            $this->refreshPage();
+            $this->resetValidation();
+            $this->dispatch('show-message', message: 'Student added to waiting list successfully');
+        }
+    }
     public function refreshPage(){
 
         $this->child = null;
 
         //Resets the classes array
         $this->classes = array_map(function ($class) {
-            $class['Selected'] = true;
+
+        $timeslot = TimeSlot::find($class['TimeSlotID']); // Assuming ClassModel is the model for your class data
+    
+        $isFull = $timeslot->appointments->count() >= $timeslot->MaxEnrollments;
+            
+        $class['Selected'] = !$isFull;
+        $class['isFull'] = $isFull;
             return $class;
         }, $this->classes);
 
 
-        $parsedDate = Carbon::parse($this->date)->toDateString();
+        // $parsedDate = Carbon::parse($this->date)->toDateString();
 
         //Refreshes appointments
         // $this->appointments = $this->user->students()->select('students.StudentID', 'FirstName', 'LastName', 'PicturePath')

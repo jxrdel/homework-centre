@@ -20,7 +20,7 @@ class AppointmentController extends Controller
         $latestDate = Carbon::now('AST')->startOfDay()->addDays(7);
 
         if($requestDate->greaterThan($latestDate)){
-            return redirect()->route('/')->with('error', 'Parents are not authorized to book more than 7 days in advance');
+            return redirect()->route('appointments')->with('error', 'Parents are not authorized to book more than 7 days in advance');
         }
         else{
             return view('bookappointment', compact('date'));
