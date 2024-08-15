@@ -30,6 +30,7 @@ class User extends Authenticatable
         'Department',
         'ChildRelationship',
         'PicturePath',
+        'JobLetterPath',
         'Address',
         'CityTown',
         'MediaReleaseConsent',
