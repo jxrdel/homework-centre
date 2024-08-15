@@ -121,6 +121,7 @@
                             <a @class(['collapse-item', 'active' => request()->routeIs('admin.classes')]) href="{{ route('admin.classes') }}">Classes</a>
                             <a @class(['collapse-item', 'active' => request()->routeIs('admin.attendance') || request()->routeIs('admin.attendance.*')]) href="{{ route('admin.attendance') }}">Attendance</a>
                             <a @class(['collapse-item', 'active' => request()->routeIs('admin.appointments') || request()->routeIs('admin.appointments.*') ]) href="{{ route('admin.appointments') }}">Appointments</a>
+                            {{-- <a @class(['collapse-item', 'active' => request()->routeIs('admin.waitinglist')]) href="{{ route('admin.waitinglist') }}">Waiting List</a> --}}
                             <a @class(['collapse-item', 'active' => request()->routeIs('admin.registration')]) href="{{ route('admin.registration') }}">Registration</a>
                             <a @class(['collapse-item', 'active' => request()->routeIs('admin.students.all')]) href="{{ route('admin.students.all') }}">Students</a>
                             <a @class(['collapse-item', 'active' => request()->routeIs('admin.parents.all')]) href="{{ route('admin.parents.all') }}">Parents</a>

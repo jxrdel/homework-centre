@@ -41,7 +41,7 @@ class RegistrationSuccessful extends Mailable
             markdown: 'registration-successful',
             with: [
                 'user' => $this->user,
-                'url' => 'https://10.100.0.86:2121/Login'
+                'url' => 'https://vosc.moh.gov.tt/Login'
             ]
         );
     }

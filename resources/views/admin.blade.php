@@ -50,22 +50,18 @@
 
             function initializeCalendar() {
                 var calendar = new FullCalendar.Calendar(myCalendar, {
-                    initialView: 'timeGridWeek',
+                    initialView: 'dayGridMonth',
                     editable: false,
                     selectable: true,
-                    headerToolbar: {
-                        left: 'prev,next',
-                        center: 'title',
-                        right: 'timeGridWeek,timeGridDay,dayGridMonth' // user can switch between the two
-                    },
                     events: '/gettimeslots', // Fetch events from the specified route
                     select: function(info) {
                         // Ensure only single dates are selectable
-                        var startDate = moment(info.startStr);
-                        var endDate = moment(info.endStr);
+                        var startDate = moment(info.startStr).startOf('day');
+                        var endDate = moment(info.endStr).startOf('day');
 
-                        if (startDate.isSame(endDate, 'day')) {
-                            console.log('Selected date: ' + info.startStr);
+                        // Check if endDate is the day after startDate
+                        if (endDate.isSame(startDate.clone().add(1, 'day'), 'day')) {
+                            console.log('Selected range from: ' + info.startStr + ' to ' + info.endStr);
                             Livewire.dispatch('create-timeslot', { starttime: info.startStr, endtime: info.endStr });
                         } else {
                             calendar.unselect();

@@ -206,6 +206,26 @@
               </a>
             </div>
         </div>
+          
+        <div class="row" style="margin-top: 30px;margin-bottom: 30px">
+            
+            <div class="col">
+              
+              <a style="text-decoration: none" href="{{route('admin.forms')}}">
+                  <div class="card card-1">
+                    <h4 style="margin: auto;text-align:center"><i class="fa-solid fa-person-falling-burst"></i> &nbsp;<strong>Accident/Incident Forms</strong></h4>
+                  </div>
+              </a>
+            </div>
+            
+            <div class="col">
+              
+            </div>
+              
+            <div class="col">
+              
+            </div>
+        </div>
         @endif
 
 @endsection
