@@ -26,9 +26,6 @@ class LoginForm extends Component
 
         $whitelist = ['jardel.regis', 'kia.boldan', 'kizzy.villaroel', 'varma.maharaj'];
 
-        if(!in_array($this->username, $whitelist)){
-            $this->addError('username', 'Login has been disabled until the official opening of the centre');
-        }else{
             try{
     
                 $connection = Container::getConnection('default');
@@ -60,7 +57,6 @@ class LoginForm extends Component
             }catch(Exception $e){
                 dd('Error: Please contact IT at ext 11124', $e->getMessage());
             }
-        }
 
 
     }

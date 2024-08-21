@@ -178,10 +178,6 @@
                         </div>
                         <div class="col">
                             <input class="form-control @error('jobletter')is-invalid @enderror" id="formFile" wire:model="jobletter" type="file" style="width: 100%;">
-                            <label style="margin-top:5px;" for="formFile" class="form-label">Job Letter: <span style="color: red">*</span></label>
-                        </div>
-                        <div class="col">
-                            <input required class="form-control @error('jobletter')is-invalid @enderror" id="formFile" wire:model="jobletter" type="file" style="width: 100%;">
                             <div style="color:red">@error('jobletter') {{ $message }} @enderror</div>
                         </div>
                     </div>

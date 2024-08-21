@@ -39,10 +39,6 @@
                   @if ($parent->JobLetterPath)
                     <h5><i class="fa-solid fa-envelope-open-text"></i> <a href="{{ Storage::url($parent->JobLetterPath) }}" target="_blank">Job Letter <i class="fa-solid fa-arrow-up-right-from-square"></i></a></h5>
                   @endif
-                  <h5><i class="fa-solid fa-envelope-open-text"></i> <a href="{{ Storage::url($parent->JobLetterPath) }}" target="_blank">Job Letter <i class="fa-solid fa-arrow-up-right-from-square"></i></a></h5>
-                  @if ($parent->JobLetterPath)
-                    <h5><i class="fa-solid fa-envelope-open-text"></i> <a href="{{ Storage::url($parent->JobLetterPath) }}" target="_blank">Job Letter <i class="fa-solid fa-arrow-up-right-from-square"></i></a></h5>
-                  @endif
                   </div>
               </div>
               </div>
