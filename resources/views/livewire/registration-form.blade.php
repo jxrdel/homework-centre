@@ -16,13 +16,8 @@
         <div class="row" style="margin-top: 10px">
             <p style="color: black;font-size:1.2rem;"><strong>Parent:</strong></p>
             <ul style="color: black;font-size:1.2rem">
-<<<<<<< HEAD
                 <li>Ministry of Health ID or National ID</li>
                 <li>Job Letter (If Ministry of Health ID is not provided)</li>
-=======
-                <li>Ministry of Health ID</li>
-                <li>Job Letter</li>
->>>>>>> 174802a5e000cd8b261d5b6a3c4a2af08a4d90c7
             </ul>
         </div>
 
@@ -179,17 +174,14 @@
                 <div class="col">
                     <div class="col" style="display: flex;">
                         <div class="col-4">
-<<<<<<< HEAD
                             <label style="margin-top:5px;" for="formFile" class="form-label">Job Letter:</label>
                         </div>
                         <div class="col">
                             <input class="form-control @error('jobletter')is-invalid @enderror" id="formFile" wire:model="jobletter" type="file" style="width: 100%;">
-=======
                             <label style="margin-top:5px;" for="formFile" class="form-label">Job Letter: <span style="color: red">*</span></label>
                         </div>
                         <div class="col">
                             <input required class="form-control @error('jobletter')is-invalid @enderror" id="formFile" wire:model="jobletter" type="file" style="width: 100%;">
->>>>>>> 174802a5e000cd8b261d5b6a3c4a2af08a4d90c7
                             <div style="color:red">@error('jobletter') {{ $message }} @enderror</div>
                         </div>
                     </div>

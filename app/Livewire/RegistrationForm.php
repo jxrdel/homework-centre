@@ -322,11 +322,7 @@ class RegistrationForm extends Component
     public function validateParent(){
 
         $this->validate([
-<<<<<<< HEAD
             'jobletter' => 'nullable|file|mimes:pdf,png,jpg,jpeg,webp|max:10024',
-=======
-            'jobletter' => 'required|file|mimes:pdf,png,jpg,jpeg,webp|max:10024',
->>>>>>> 174802a5e000cd8b261d5b6a3c4a2af08a4d90c7
             'parentpicture1' => 'required|file|mimes:png,jpg,jpeg,webp|max:5024',
             'parentpicture2' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:5024'
         ]);
