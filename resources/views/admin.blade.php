@@ -51,6 +51,7 @@
 
                 var calendar = new FullCalendar.Calendar(myCalendar, {
                     initialView: 'dayGridMonth',
+<<<<<<< Updated upstream
                     editable: true,
                     selectable: true,
                     select: function(info) {
@@ -61,6 +62,20 @@
                         if (startDate.isSame(endDate, 'day')) {
                             console.log('Selected date: ' + info.startStr);
                             Livewire.dispatch('show-appointments', { date: info.startStr });
+=======
+                    editable: false,
+                    selectable: true,
+                    events: '/gettimeslots', // Fetch events from the specified route
+                    select: function(info) {
+                        // Ensure only single dates are selectable
+                        var startDate = moment(info.startStr).startOf('day');
+                        var endDate = moment(info.endStr).startOf('day');
+
+                        // Check if endDate is the day after startDate
+                        if (endDate.isSame(startDate.clone().add(1, 'day'), 'day')) {
+                            console.log('Selected range from: ' + info.startStr + ' to ' + info.endStr);
+                            Livewire.dispatch('create-timeslot', { starttime: info.startStr, endtime: info.endStr });
+>>>>>>> Stashed changes
                         } else {
                             calendar.unselect();
                         }

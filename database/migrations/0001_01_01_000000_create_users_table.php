@@ -13,11 +13,36 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+<<<<<<< Updated upstream
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+=======
+            $table->string('FirstName');
+            $table->string('LastName');
+            $table->string('Username')->unique();
+            $table->string('Email')->nullable();
+            $table->string('MobileNo')->nullable();
+            $table->string('HomeNo')->nullable();
+            $table->string('WorkNo')->nullable();
+            $table->string('Ministry')->nullable();
+            $table->string('Department')->nullable();
+            $table->string('ChildRelationship')->nullable();
+            $table->string('PicturePath')->nullable();
+            $table->string('JobLetterPath')->nullable();
+            $table->string('Address')->nullable();
+            $table->string('CityTown')->nullable();
+            $table->boolean('MediaReleaseConsent')->nullable();
+            $table->boolean('EmergencyConsent')->nullable();
+            $table->boolean('IsParent')->nullable();
+            $table->boolean('IsAdmin')->nullable();
+            $table->boolean('IsSuperAdmin')->nullable();
+            $table->boolean('HasWindowsLogin')->nullable();
+            $table->string('RegisteredBy')->nullable();
+            $table->unsignedBigInteger('EmergencyContactID')->nullable();
+>>>>>>> Stashed changes
             $table->timestamps();
         });
 

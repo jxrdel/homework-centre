@@ -27,6 +27,90 @@
                 <div id='calendar' style="max-height: 800px"></div>
             </div>
           </div>
+<<<<<<< Updated upstream
+=======
+          
+        <div class="row" style="margin-top: 30px">
+            
+            <div class="col">
+              
+              <a style="text-decoration: none" href="{{route('admin.registration')}}">
+                  <div class="card card-1">
+                    <h3 style="margin: auto"><i class="fa-brands fa-wpforms"></i> &nbsp; Registration</h3>
+                  </div>
+              </a>
+            </div>
+            
+            <div class="col">
+              
+              <a style="text-decoration: none" href="{{route('admin.students.all')}}">
+                  <div class="card card-1">
+                    <h3 style="margin: auto"><i class="fa-solid fa-children"></i> &nbsp; Students</h3>
+                  </div>
+              </a>
+            </div>
+              
+            <div class="col">
+              
+              <a style="text-decoration: none" href="{{route('admin.parents.all')}}">
+                  <div class="card card-1">
+                    <h3 style="margin: auto"><i class="fa-solid fa-person-breastfeeding"></i> &nbsp; Parents</h3>
+                  </div>
+              </a>
+            </div>
+        </div>
+          
+        <div class="row" style="margin-top: 30px;margin-bottom: 30px">
+            
+            <div class="col">
+              
+              <a style="text-decoration: none" href="{{route('admin.feedback')}}">
+                  <div class="card card-1">
+                    <h3 style="margin: auto"><i class="fa-solid fa-comments"></i> &nbsp; Feedback Forms</h3>
+                  </div>
+              </a>
+            </div>
+            
+            <div class="col">
+              
+              <a style="text-decoration: none" href="{{route('admin.weeklyreports')}}">
+                  <div class="card card-1">
+                    <h3 style="margin: auto"><i class="fa-solid fa-chart-line"></i> &nbsp; Weekly Reports</h3>
+                  </div>
+              </a>
+            </div>
+              
+            <div class="col">
+              
+              <a style="text-decoration: none" href="{{route('admin.stock')}}">
+                  <div class="card card-1">
+                    <h3 style="margin: auto"><i class="fa-solid fa-box-open"></i> &nbsp; Stock</h3>
+                  </div>
+              </a>
+            </div>
+        </div>
+          
+        <div class="row" style="margin-top: 30px;margin-bottom: 30px">
+            
+            <div class="col">
+              
+              <a style="text-decoration: none" href="{{route('admin.forms')}}">
+                  <div class="card card-1">
+                    <h4 style="margin: auto;text-align:center"><i class="fa-solid fa-person-falling-burst"></i> &nbsp;<strong>Accident/Incident Forms</strong></h4>
+                  </div>
+              </a>
+            </div>
+            
+            <div class="col">
+              
+            </div>
+              
+            <div class="col">
+              
+            </div>
+        </div>
+        @endif
+>>>>>>> Stashed changes
 
 @endsection
 
