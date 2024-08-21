@@ -20,7 +20,7 @@
 
                 <div class="row" style="margin-top: 30px">
 
-                    <table id="myTable" class="table table-striped table-bordered">
+                    <table id="myTable" class="table table-striped table-bordered" style="width: 100%">
                         <thead>
                             <tr>
                                 <th>First Name</th>

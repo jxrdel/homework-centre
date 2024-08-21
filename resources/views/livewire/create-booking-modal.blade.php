@@ -45,8 +45,13 @@
                             <tr>
                                 <td>{{$class['StartTime']}} - {{$class['EndTime']}} &nbsp;</td>
                                 <td>
-                                    <input wire:click="toggleSelected({{$index}})" type="checkbox" class="btn-check" id="btn-check-mc{{$index}}" checked>
-                                    <label style="margin-top: 5px" class="btn btn-outline-success" for="btn-check-mc{{$index}}"><i class="bi bi-check-lg"></i></label>
+                                    @if ($class['isFull'])
+                                        {{-- <button wire:click.prevent="joinWaitingList({{$class['TimeSlotID']}})" class="btn btn-primary">Join Waiting List</a> --}}
+                                        Class is full
+                                    @else
+                                        <input wire:click="toggleSelected({{$index}})" type="checkbox" class="btn-check" id="btn-check-mc{{$index}}" checked>
+                                        <label style="margin-top: 5px" class="btn btn-outline-success" for="btn-check-mc{{$index}}"><i class="bi bi-check-lg"></i></label>
+                                    @endif
                                 </td>
                             </tr>
                             @empty

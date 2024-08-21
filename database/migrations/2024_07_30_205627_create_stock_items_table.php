@@ -16,6 +16,10 @@ return new class extends Migration
             $table->string('ItemName');
             $table->integer('Quantity');
             $table->string('Notes')->nullable();
+            $table->string('Code')->nullable();
+            $table->string('Addition')->nullable();
+            $table->string('Removal')->nullable();
+            $table->string('DetailsOfRemoval')->nullable();
             $table->timestamps();
         });
     }

@@ -54,7 +54,7 @@ $formattedDate = Carbon::createFromFormat('Ymd', $this->date)->format('F jS, Y')
                                                     </div>
                                                     @if ($isCurrent)
                                                     <div class="col">
-                                                        <a class="btn btn-danger" wire:click="deleteAppointment({{$appointment->AppointmentID}})">Delete</a>
+                                                        <a class="btn btn-danger"  wire:confirm="Are you sure you want to delete this appointment?" wire:click="deleteAppointment({{$appointment->AppointmentID}})">Delete</a>
                                                     </div>
                                                     @else
                                                     <div class="col">

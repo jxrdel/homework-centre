@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('Department')->nullable();
             $table->string('ChildRelationship')->nullable();
             $table->string('PicturePath')->nullable();
+            $table->string('JobLetterPath')->nullable();
             $table->string('Address')->nullable();
             $table->string('CityTown')->nullable();
             $table->boolean('MediaReleaseConsent')->nullable();

@@ -6,12 +6,15 @@ use App\Models\TimeSlot;
 use Carbon\Carbon;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Ramsey\Uuid\Type\Time;
 
 class CreateTimeslotModal extends Component
 {
-    public $starttime;
+    public $date;
+    public $formattedDate;
     public $endtime;
     public $maxenrollments = 7;
+    public $existingClasses = [];
 
     public function render()
     {
@@ -21,33 +24,56 @@ class CreateTimeslotModal extends Component
     #[On('create-timeslot')]
     public function displayModal($starttime, $endtime)
     {
-        $starttime = Carbon::parse($starttime);
-        $starttime = $starttime->format('Y-m-d\TH:i');
-        $endtime = Carbon::parse($endtime);
-        $endtime = $endtime->format('Y-m-d\TH:i');
-
-        $this->starttime = $starttime;
+        $this->date = $starttime;
         $this->endtime = $endtime;
+        $this->existingClasses = TimeSlot::where('StartTime', '>=', $starttime)
+            ->where('EndTime', '<=', $endtime)
+            ->get();
+            
+        $this->formattedDate = Carbon::parse($starttime)->format('l, F j, Y');
+
 
         $this->dispatch('display-create-modal');
-        // dd($starttime);
     }
 
     public function createTimeslot(){
-        // dd($this->endtime);
-        $starttime = Carbon::parse($this->starttime);
-        $starttime = $starttime->format('Y-m-d H:i:s');
-        $endtime = Carbon::parse($this->endtime);
-        $endtime = $endtime->format('Y-m-d H:i:s');
+        $classes = [];
 
-        TimeSlot::create([
-            'Title' => 'Session',
-            'StartTime' => $starttime,
-            'EndTime' => $endtime,
-            'MaxEnrollments' => $this->maxenrollments,
-        ]);
+        // First time slot: 7:45 AM to 12:00 PM
+        $classes[] = [
+            'StartTime' => Carbon::parse($this->date)->setTime(7, 45)->format('Y-m-d H:i:s'),
+            'EndTime' => Carbon::parse($this->date)->setTime(12, 0)->format('Y-m-d H:i:s'),
+        ];
+
+        // Second time slot: 12:00 PM to 4:00 PM
+        $classes[] = [
+            'StartTime' => Carbon::parse($this->date)->setTime(12, 0)->format('Y-m-d H:i:s'),
+            'EndTime' => Carbon::parse($this->date)->setTime(16, 0)->format('Y-m-d H:i:s'), // 4:00 PM is 16:00 in 24-hour format
+        ];
+
+        // dd($classes);
+
+        foreach ($classes as $class) {
+            TimeSlot::create([
+                'Title' => 'Session',
+                'StartTime' => $class['StartTime'],
+                'EndTime' => $class['EndTime'],
+                'MaxEnrollments' => $this->maxenrollments,
+            ]);
+        }
 
         $this->dispatch('close-create-modal');
         $this->dispatch('refresh-calendar');
+        $this->dispatch('show-message', message: 'Classes created successfully');
+    }
+
+    public function deleteClasses(){
+        TimeSlot::where('StartTime', '>=', $this->date)
+        ->where('EndTime', '<=', $this->endtime)
+            ->delete();
+
+        $this->dispatch('close-create-modal');
+        $this->dispatch('refresh-calendar');
+        $this->dispatch('show-message', message: 'Classes deleted successfully');
     }
 }
