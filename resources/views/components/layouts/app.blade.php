@@ -105,6 +105,15 @@
                 </li>
             @endif
 
+            @if (Auth::user()->IsParent)
+            <!-- Nav Item - Dashboard -->
+                <li @class(['nav-item', 'active' => request()->routeIs('complaint')]) id="dashboardlink">
+                    <a class="nav-link" href="{{ route('complaint') }}">
+                        <i class="fa-solid fa-file-pen"></i>
+                        &nbsp;<span>Complaint</span></a>
+                </li>
+            @endif
+
             @if (Auth::user()->IsAdmin || Auth::user()->IsSuperAdmin)
                 <li @class(['nav-item', 'active' => request()->routeIs('admin.*')])>
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#adminCollapse"

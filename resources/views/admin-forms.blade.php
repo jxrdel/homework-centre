@@ -25,9 +25,6 @@
                     <li class="nav-item" role="presentation">
                       <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Incident Forms</button>
                     </li>
-                    <li class="nav-item" role="presentation">
-                      <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Complaint Forms</button>
-                    </li>
                   </ul>
                   <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="accidents-tab-pane" role="tabpanel" aria-labelledby="accidents-tab" tabindex="0">
@@ -87,31 +84,6 @@
 
                     </div>
 
-                    <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-                        <div class="row" style="margin-top: 20px">
-                            <a href="{{route('admin.forms.complaint.create')}}" class="btn btn-primary btn-icon-split" style="width: 12rem;margin:auto">
-                                <span class="icon text-white-50">
-                                    <i class="fa-solid fa-plus" style="color: white"></i>
-                                </span>
-                                <span class="text"  style="width: 200px;">Create Complaint</span>
-                            </a>
-                        </div>
-
-                        
-                        <div class="row" style="margin-top: 30px">
-
-                            <table id="complaintTable" class="table table-striped table-hover" style="width: 100%">
-                                <thead>
-                                    <tr>
-                                        <th>Report Date</th>
-                                        <th style="text-align: center">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                   </div>
                   
             </div>
@@ -187,30 +159,7 @@
                 ]
             });
         });
- 
-        $(document).ready(function() {
-            $('#complaintTable').DataTable({
-                "pageLength": 10,
-                // order: [[1, 'asc']],
-                "processing": true,
-                "serverSide": true,
-                "ajax": {
-                    "url": "{{ route('admin.getcomplaints') }}",
-                    "type": "GET"
-                },
-                "columns": [
-                        { data: 'DateOfComplaint', name: 'DateOfComplaint' },
-                        {
-                            data: null,
-                            orderable: false,
-                            searchable: false,
-                            render: function (data, type, row) {
-                                return '<div style="text-align:center"><a href="#" onclick="showView(' + data.id + ')">View</a> | <a href="#" onclick="showEdit(' + data.id + ')">Edit</a></div>';
-                            }
-                        },
-                ]
-            });
-        });       
+    
         window.addEventListener('refresh-table', event => {
             $('#accidentTable').DataTable().ajax.reload();
         })

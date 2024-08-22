@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Complaint;
+use Illuminate\Support\Facades\App;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -33,6 +34,10 @@ class CreateComplaintForm extends Component
 
     public function mount(){
         $this->dateofcomplaint = date('Y-m-d');
+        $this->reportername = auth()->user()->FirstName . ' ' . auth()->user()->LastName;
+        $this->reporteremail = auth()->user()->Email;
+        $this->reportertelno = auth()->user()->MobileNo;
+        $this->reporterext = auth()->user()->Extension;
     }
 
     public function save(){
@@ -55,6 +60,12 @@ class CreateComplaintForm extends Component
             'ReporterEmail' => $this->reporteremail
         ]);
 
-        return redirect()->route('admin.forms')->with('success', 'Complaint Created Successfully');
+        return redirect()->route('/')->with('success', 'Complaint created successfully. An email has been sent to the relevant parties.');
     }
+
+    // public function generatePDF(){
+    //     $pdf = App::make('dompdf.wrapper');
+    //     $pdf->loadHTML('<h1>Test</h1>');
+    //     return $pdf->stream();
+    // }
 }

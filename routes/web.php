@@ -66,6 +66,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/getpickupcontacts', [ParentController::class, 'getPickupContacts'])->name('getpickupcontacts');
     Route::get('/Feedback', [ParentController::class, 'feedback'])->name('feedback');
     Route::get('/getmyfeedbackforms', [ParentController::class, 'getMyFeedbackForms'])->name('getmyfeedbackforms');
+    Route::get('/Complaint', CreateComplaintForm::class)->name('complaint');
 
     // Appointments
     Route::get('/myappointments', [AppointmentController::class, 'getMyAppointments'])->name('myappointments');
@@ -73,4 +74,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/gettimeslots', [AppointmentController::class, 'getTimeSlots'])->name('gettimeslots');
     Route::get('/gettimeslotdates', [AppointmentController::class, 'getTimeslotDates'])->name('gettimeslotdates');
     Route::get('/getappointmentcount', [AppointmentController::class, 'getAppointmentCount'])->name('getappointmentcount');
+
+    Route::get('/generatePDF', [Controller::class, 'generatePDF'])->name('generatepdf');
 });

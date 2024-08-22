@@ -243,5 +243,17 @@
   </script>
 
   @endif
+
+  @if (Session::has('success'))
+  
+    <script>
+        toastr.options = {
+          "progressBar" : true,
+          "closeButton" : true,
+        }
+        toastr.success("{{ Session::get('success') }}",'' , {timeOut:3000});
+    </script>
+  
+  @endif
   
 @endsection
