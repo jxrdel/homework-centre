@@ -26,6 +26,7 @@ class Complaint extends Model
         'ReporterName',
         'ReporterTelNo',
         'ReporterExt',
-        'ReporterEmail'
+        'ReporterEmail',
+        'ComplaintPath'
     ];
 }

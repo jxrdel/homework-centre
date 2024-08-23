@@ -1,8 +1,11 @@
+<div style="text-align: center">
+    <img src="{{ public_path('mohlogo.png') }}" alt="Coat of Arms of Trinidad and Tobago" style="width: 300px; height: auto;">
+</div>
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Coat_of_arms_of_Trinidad_and_Tobago.svg" alt="Coat of Arms of Trinidad and Tobago" style="width: 200px; height: auto;">
 
-
-<h2 style="text-align: center">Vacation and Out of School Centre (VOSC) Health and Safety Complaints Form</h2>
+<div style="width:80%;margin:auto">
+    <h3 style="text-align: center;">Vacation and Out of School Centre (VOSC) Health and Safety Complaints Form</h3>
+</div>
 
 <p>Section 10(1)(c) of the OSH Act indicates as follows:</p>
 <p><strong>

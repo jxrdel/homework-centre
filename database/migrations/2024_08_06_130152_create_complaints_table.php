@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('ReporterTelNo')->nullable();
             $table->string('ReporterExt')->nullable();
             $table->string('ReporterEmail')->nullable();
+            $table->string('ComplaintPath')->nullable();
             $table->timestamps();
         });
     }

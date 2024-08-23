@@ -42,7 +42,7 @@ class CreateComplaintForm extends Component
 
     public function save(){
         // dd($this->dateofcomplaint);
-        Complaint::create([
+        $newcomplaint = Complaint::create([
             'DateOfComplaint' => $this->dateofcomplaint,
             'VOSCREP' => $this->voscrep,
             'FacilitiesManager' => $this->facilitiesmanager,
