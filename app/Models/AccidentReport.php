@@ -21,8 +21,10 @@ class AccidentReport extends Model
         'MedicalReport',
         'RemedialActions',
         'ParentNotified',
+        'StaffOnDuty',
         'ReporterName',
         'JobTitle',
-        'DateOfReport'
+        'DateOfReport',
+        'ReportPath',
     ];
 }

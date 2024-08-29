@@ -1,4 +1,4 @@
-<div style="text-align: center">
+<div style="text-align: center;margin-top:-40px">
     <img src="{{ public_path('mohlogo.png') }}" alt="Coat of Arms of Trinidad and Tobago" style="width: 300px; height: auto;">
 </div>
 

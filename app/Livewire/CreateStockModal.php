@@ -22,14 +22,20 @@ class CreateStockModal extends Component
 
     public function createStock(){
         // dd($this->itemname);
-        StockItem::create([
+        $newitem = StockItem::create([
             'ItemName' => $this->itemname,
             'Quantity' => $this->quantity,
             'Notes' => $this->notes,
             'Code' => $this->code,
             'Addition' => $this->addition,
-            'Removal' => $this->removal,
-            'DetailsOfRemoval' => $this->detailsofremoval
+        ]);
+
+        $newitem->transactions()->create([
+            'TransactionType' => 'Addition',
+            'Quantity' => $this->quantity,
+            'TransactionDetails' =>  'Initial Stock',
+            'Remainder' => $this->quantity,
+            'created_by' => auth()->user()->Username
         ]);
 
         $this->reset();

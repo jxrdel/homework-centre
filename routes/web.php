@@ -8,6 +8,7 @@ use App\Http\Controllers\StudentController;
 use App\Livewire\CreateAccidentForm;
 use App\Livewire\CreateComplaintForm;
 use App\Livewire\CreateIncidentForm;
+use App\Livewire\EditStockItem;
 use App\Livewire\WaitingList;
 use App\Livewire\WaitingListTable;
 use Illuminate\Support\Facades\Route;
@@ -40,8 +41,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/getallfeedbackforms', [AdminController::class, 'getAllFeedbackForms'])->name('admin.getallfeedbackforms');
     Route::get('/Admin/WeeklyReports', [AdminController::class, 'weeklyReports'])->name('admin.weeklyreports');
     Route::get('/getweeklyreports', [AdminController::class, 'getWeeklyReports'])->name('admin.getweeklyreports');
-    Route::get('/Admin/Stock', [AdminController::class, 'stock'])->name('admin.stock');
-    Route::get('/getstock', [AdminController::class, 'getStock'])->name('admin.getstock');
     Route::get('/Admin/Attendance', [AdminController::class, 'attendance'])->name('admin.attendance');
     Route::get('/Admin/Attendance/{id}', [AdminController::class, 'classAttendance'])->name('admin.attendance.class');
     Route::get('/Admin/Forms', [AdminController::class, 'forms'])->name('admin.forms');
@@ -52,6 +51,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/Admin/Forms/Complaint/Create', CreateComplaintForm::class)->name('admin.forms.complaint.create');
     Route::get('/getcomplaints', [AdminController::class, 'getComplaints'])->name('admin.getcomplaints');
     Route::get('/Admin/WaitingList', WaitingListTable::class)->name('admin.waitinglist');
+    Route::get('/Admin/Stock', [AdminController::class, 'stock'])->name('admin.stock');
+    Route::get('/getstock', [AdminController::class, 'getStock'])->name('admin.getstock');
+    Route::get('/Admin/Stock/Edit/{id}', EditStockItem::class)->name('admin.stock.edit');
 
 
     Route::get('/MyChildren', [StudentController::class, 'myChildren'])->name('mychildren');
@@ -76,4 +78,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/getappointmentcount', [AppointmentController::class, 'getAppointmentCount'])->name('getappointmentcount');
 
     Route::get('/generatePDF', [Controller::class, 'generatePDF'])->name('generatepdf');
+    Route::get('/generateStockReport/{startdate}/{enddate}', [Controller::class, 'generateStockReport'])->name('generatereport');
+
 });

@@ -2,10 +2,14 @@
 
 namespace App\Livewire;
 
+use App\Mail\ComplaintEmail;
 use App\Models\Complaint;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Illuminate\Support\Str;
 
 class CreateComplaintForm extends Component
 {
@@ -42,7 +46,10 @@ class CreateComplaintForm extends Component
 
     public function save(){
         // dd($this->dateofcomplaint);
-        $newcomplaint = Complaint::create([
+        
+        $filename = (string) Str::uuid() . '.pdf'; //Generate unique filename for PDF
+
+        $complaint = Complaint::create([
             'DateOfComplaint' => $this->dateofcomplaint,
             'VOSCREP' => $this->voscrep,
             'FacilitiesManager' => $this->facilitiesmanager,
@@ -57,15 +64,14 @@ class CreateComplaintForm extends Component
             'ReporterName' => $this->reportername,
             'ReporterTelNo' => $this->reportertelno,
             'ReporterExt' => $this->reporterext,
-            'ReporterEmail' => $this->reporteremail
+            'ReporterEmail' => $this->reporteremail,
+            'ComplaintPath' => 'complaints/' . $filename,
         ]);
+
+        $pdf = Pdf::loadView('PDF.complaint', compact('complaint'))->save(public_path('storage/complaints/' . $filename));
+        Mail::to('jardel.regis@health.gov.tt')->queue(new ComplaintEmail($complaint));
 
         return redirect()->route('/')->with('success', 'Complaint created successfully. An email has been sent to the relevant parties.');
     }
 
-    // public function generatePDF(){
-    //     $pdf = App::make('dompdf.wrapper');
-    //     $pdf->loadHTML('<h1>Test</h1>');
-    //     return $pdf->stream();
-    // }
 }

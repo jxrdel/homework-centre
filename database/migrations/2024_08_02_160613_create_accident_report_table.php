@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('ReporterName')->nullable();
             $table->string('JobTitle')->nullable();
             $table->date('DateOfReport')->nullable();
+            $table->string('ReportPath')->nullable();
             $table->timestamps();
         });
     }

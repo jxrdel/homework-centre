@@ -137,7 +137,7 @@
                             <a @class(['collapse-item', 'active' => request()->routeIs('admin.feedback')]) href="{{ route('admin.feedback') }}">Feedback</a>
                             <a @class(['collapse-item', 'active' => request()->routeIs('admin.weeklyreports')]) href="{{ route('admin.weeklyreports') }}">Weekly Reports</a>
                             <a @class(['collapse-item', 'active' => request()->routeIs('admin.forms') || request()->routeIs('admin.forms.*')]) href="{{ route('admin.forms') }}">Forms</a>
-                            <a @class(['collapse-item', 'active' => request()->routeIs('admin.stock')]) href="{{ route('admin.stock') }}">Stock</a>
+                            <a @class(['collapse-item', 'active' => request()->routeIs('admin.stock') || request()->routeIs('admin.stock.*')]) href="{{ route('admin.stock') }}">Stock</a>
                         </div>
                     </div>
                 </li>

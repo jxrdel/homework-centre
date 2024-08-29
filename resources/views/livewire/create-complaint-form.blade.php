@@ -90,7 +90,7 @@
                             <label style="margin-top:5px;" for="title">Email:</label>
                         </div>
                         <div class="col">
-                            <input required class="form-control" wire:model="reporteremail" type="email" autocomplete="off" style="width: 100%;color:black;">
+                            <input readonly required class="form-control" wire:model="reporteremail" type="email" autocomplete="off" style="width: 100%;color:black;">
                         </div>
                     </div>
                 </div>

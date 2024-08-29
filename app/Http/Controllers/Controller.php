@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AccidentReport;
 use App\Models\Appointment;
 use App\Models\Complaint;
 use App\Models\PickupContact;
+use App\Models\StockTransaction;
 use App\Models\Student;
 use App\Models\TimeSlot;
 use App\Models\User;
@@ -46,8 +48,19 @@ class Controller
 
     public function generatePDF(){
         // $pdf = App::make('dompdf.wrapper');
-        $complaint = Complaint::find(1);
-        $pdf = Pdf::loadView('PDF.complaint', compact('complaint'));
+        $accident = AccidentReport::find(1);
+        $pdf = Pdf::loadView('PDF.accident', compact('accident'));
+        return $pdf->stream();
+    }
+    
+    public function generateStockReport($startdate, $enddate){
+        $startdate = Carbon::parse($startdate)->startOfDay();
+        $enddate = Carbon::parse($enddate)->endOfDay();
+        $transactions = StockTransaction::whereBetween('created_at', [$startdate, $enddate])
+                        ->with('stockItem')
+                        ->get()
+                        ->groupBy('stockItem.ItemName');
+        $pdf = Pdf::loadView('PDF.transactionreport', compact('transactions', 'startdate', 'enddate'));
         return $pdf->stream();
     }
 }

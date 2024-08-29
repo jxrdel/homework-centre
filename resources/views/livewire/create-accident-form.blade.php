@@ -14,14 +14,19 @@
         </div>
     
         <form wire:submit.prevent="save">
-            <div class="row" style="margin-top:20px">
+            <div wire:ignore class="row" style="margin-top:20px">
                 <div class="col">
                     <div class="col" style="display: flex;">
                         <div class="col-4">
                             <label style="margin-top:5px;" for="title">Name of Injured Child: <span style="color: red">*</span></label>
                         </div>
                         <div class="col">
-                            <input required autofocus class="form-control" wire:model="childname" type="text" autocomplete="off" style="width: 100%;color:black;">
+                            <select required id="studentSelect" class="js-example-basic-single" name="facility" style="width: 100%">
+                                <option value="">Select a Student</option>
+                                @foreach ($students as $student)
+                                    <option value="{{ $student->StudentID }}">{{ $student->FirstName }} {{ $student->LastName }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -32,7 +37,7 @@
                             <label style="margin-top:5px;" for="title">Age of Injured Child: <span style="color: red">*</span></label>
                         </div>
                         <div class="col">
-                            <input required class="form-control" wire:model="childage" type="number" autocomplete="off" style="width: 100%;color:black;">
+                            <input readonly class="form-control" wire:model="childage" type="number" autocomplete="off" style="width: 100%;color:black;">
                         </div>
                     </div>
                 </div>
@@ -196,3 +201,13 @@
         
 </div>
 
+@script
+    <script>
+        $('#studentSelect').select2();
+        studentSelect
+        $('#studentSelect').on('change', function() {
+            var student = $(this).val(); // Get selected values as an array
+            $wire.setStudent(student); // Pass selected values to Livewire
+        });
+    </script>
+@endscript
