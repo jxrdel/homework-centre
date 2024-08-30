@@ -21,7 +21,7 @@
                             <label style="margin-top:5px;" for="title">Name of person making this report: <span style="color: red">*</span></label>
                         </div>
                         <div class="col">
-                            <input required class="form-control" wire:model="reportername" type="text" autocomplete="off" style="width: 100%;color:black;">
+                            <input readonly required class="form-control" wire:model="reportername" type="text" autocomplete="off" style="width: 100%;color:black;">
                         </div>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                         <div class="col">
                             <label style="margin-top:5px;" for="title">Where did the incident / dangerous occurrence happen?: <span style="color: red">*</span></label>
                             
-                            <textarea style="color: black"wire:model="incidentlocation" class="form-control" cols="10" rows="3"></textarea>
+                            <textarea required style="color: black"wire:model="incidentlocation" class="form-control" cols="10" rows="3"></textarea>
                         </div>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                         <div class="col">
                             <label style="margin-top:5px;" for="title">Brief description of incident / dangerous occurrence: <span style="color: red">*</span></label>
                             
-                            <textarea style="color: black"wire:model="incidentdescription" class="form-control" cols="10" rows="3"></textarea>
+                            <textarea required style="color: black"wire:model="incidentdescription" class="form-control" cols="10" rows="3"></textarea>
                         </div>
                     </div>
                 </div>

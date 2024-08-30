@@ -18,6 +18,7 @@ class IncidentReport extends Model
         'IncidentLocation',
         'TimeOfIncident',
         'IncidentDescription',
-        'DateOfReport'
+        'DateOfReport',
+        'ReportPath'
     ];
 }

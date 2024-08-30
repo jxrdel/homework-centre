@@ -8,6 +8,7 @@ use App\Http\Controllers\StudentController;
 use App\Livewire\CreateAccidentForm;
 use App\Livewire\CreateComplaintForm;
 use App\Livewire\CreateIncidentForm;
+use App\Livewire\CreateStudentAdmin;
 use App\Livewire\EditStockItem;
 use App\Livewire\WaitingList;
 use App\Livewire\WaitingListTable;
@@ -31,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/getallstudents', [AdminController::class, 'getAllStudents'])->name('admin.getallstudents');
     Route::get('/Admin/Students/View/{id}', [AdminController::class, 'viewStudent'])->name('admin.students.view');
     Route::get('/Admin/Students/Edit/{id}', [AdminController::class, 'editStudent'])->name('admin.students.edit');
+    Route::get('/Admin/Students/Create', CreateStudentAdmin::class)->name('admin.students.create');
     Route::get('/Admin/Appointments', [AdminController::class, 'adminAppointments'])->name('admin.appointments');
     Route::get('/Admin/Appointments/Book/{date}', [AdminController::class, 'bookAppointmentAdmin'])->name('admin.appointments.book');
     Route::get('/Admin/Parents/All', [AdminController::class, 'allParents'])->name('admin.parents.all');

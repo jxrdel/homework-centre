@@ -3,14 +3,16 @@
 namespace App\Livewire;
 
 use App\Models\Student;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class CreateStudent extends Component
+class CreateStudentAdmin extends Component
 {
     use WithFileUploads;
 
+    public $parent;
     public $id;
     public $student;
     public $childfirstname;
@@ -36,10 +38,17 @@ class CreateStudent extends Component
     public $bloodtype;
     public $additionalinfo;
 
+    public $parents;
+
+    #[Title('Create Student')] 
+
+    public function mount(){
+        $this->parents = User::where('IsParent', true)->get();
+    }
 
     public function render()
     {
-        return view('livewire.create-student');
+        return view('livewire.create-student-admin');
     }
 
     public function save(){
@@ -90,8 +99,11 @@ class CreateStudent extends Component
             'ImmunizationPath' => $this->immunizationpicturepath,
         ]);
         
-        $user = Auth::user();
-        $user->students()->attach($newStudent->StudentID);
-        return redirect()->route('mychildren')->with('success', 'Student created successfully.');
+        $this->parent->students()->attach($newStudent->StudentID);
+        return redirect()->route('admin.students.all')->with('success', 'Student created successfully.');
+    }
+
+    public function setParent($id){
+        $this->parent = User::find($id);
     }
 }

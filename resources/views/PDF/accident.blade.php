@@ -35,6 +35,10 @@
 <p>6. Describe briefly the nature and extent of injuries (attach a copy of medical report if applicable)</p>
 <p><strong>{{$accident->InjuryDescription}}</strong></p>
 
+@if ($accident->MedicalReport)
+    <p><a  href="{{Storage::url($accident->MedicalReport)}}" target="_blank">Click here to view medical report</a></p>
+@endif
+
 <p>7. Remedial Actions Taken after the accident and by whom:</p>
 <p><strong>{{$accident->RemedialActions}}</strong></p>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AccidentReport;
 use App\Models\Appointment;
 use App\Models\Complaint;
+use App\Models\IncidentReport;
 use App\Models\PickupContact;
 use App\Models\StockTransaction;
 use App\Models\Student;
@@ -48,8 +49,8 @@ class Controller
 
     public function generatePDF(){
         // $pdf = App::make('dompdf.wrapper');
-        $accident = AccidentReport::find(1);
-        $pdf = Pdf::loadView('PDF.accident', compact('accident'));
+        $incident = IncidentReport::find(1);
+        $pdf = Pdf::loadView('PDF.incident', compact('incident'));
         return $pdf->stream();
     }
     

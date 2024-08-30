@@ -1,6 +1,6 @@
 @extends('layout')
 @section('title')
-    <title>Weekly Reports | VOSC</title>
+    <title>Forms | VOSC</title>
 @endsection
 @section('content')
         @livewire('create-weekly-report-modal')
@@ -129,7 +129,8 @@
                             orderable: false,
                             searchable: false,
                             render: function (data, type, row) {
-                                return '<div style="text-align:center"><a href="#" onclick="showView(' + data.id + ')">View</a> | <a href="#" onclick="showEdit(' + data.id + ')">Edit</a></div>';
+                                var fileUrl = '{{ url("storage") }}/' + data.ReportPath;
+                                return '<div style="text-align:center"><a href="' + fileUrl + '" target="_blank">View</a></div>';
                             }
                         },
                 ]
@@ -153,7 +154,8 @@
                             orderable: false,
                             searchable: false,
                             render: function (data, type, row) {
-                                return '<div style="text-align:center"><a href="#" onclick="showView(' + data.id + ')">View</a> | <a href="#" onclick="showEdit(' + data.id + ')">Edit</a></div>';
+                                var fileUrl = '{{ url("storage") }}/' + data.ReportPath;
+                                return '<div style="text-align:center"><a href="' + fileUrl + '" target="_blank">View</a></div>';
                             }
                         },
                 ]

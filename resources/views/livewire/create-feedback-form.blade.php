@@ -60,7 +60,7 @@
                     <div class="col" style="display: flex;">
                         <div class="col" style="text-align:center">
                             <div class="form-check form-check-inline">
-                                <input wire:model="activitysatisfaction" class="form-check-input" type="radio" name="activitysatisfaction" value="Very Satisfied">
+                                <input required wire:model="activitysatisfaction" class="form-check-input" type="radio" name="activitysatisfaction" value="Very Satisfied">
                                 <label class="form-check-label">Very Satisfied</label>
                             </div>
                             <div class="form-check form-check-inline">
@@ -96,7 +96,7 @@
                     <div class="col" style="display: flex;">
                         <div class="col" style="text-align:center">
                             <div class="form-check form-check-inline">
-                                <input wire:model="overallsatisfaction" class="form-check-input" type="radio" name="overallsatisfaction" value="Very Satisfied">
+                                <input required wire:model="overallsatisfaction" class="form-check-input" type="radio" name="overallsatisfaction" value="Very Satisfied">
                                 <label class="form-check-label">Very Satisfied</label>
                             </div>
                             <div class="form-check form-check-inline">
@@ -133,7 +133,7 @@
                     <div class="col" style="display: flex;">
                         <div class="col" style="text-align:center">
                             <div class="form-check form-check-inline">
-                                <input wire:model="childsatisfaction" class="form-check-input" type="radio" name="childsatisfaction" value="Very Satisfied">
+                                <input required wire:model="childsatisfaction" class="form-check-input" type="radio" name="childsatisfaction" value="Very Satisfied">
                                 <label class="form-check-label">Very Satisfied</label>
                             </div>
                             <div class="form-check form-check-inline">

@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Models\AccidentReport;
+use App\Models\IncidentReport;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -11,14 +11,14 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class AccidentEmail extends Mailable
+class IncidentEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(public AccidentReport $accident)
+    public function __construct(public IncidentReport $incident)
     {
         //
     }
@@ -29,7 +29,7 @@ class AccidentEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Accident Report Submitted | VOSC',
+            subject: 'Incident Report Submitted | VOSC',
         );
     }
 
@@ -39,9 +39,9 @@ class AccidentEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'accident-email',
+            markdown: 'incident-email',
             with: [
-                'accident' => $this->accident,
+                'incident' => $this->incident,
             ]
         );
     }
@@ -54,7 +54,7 @@ class AccidentEmail extends Mailable
     public function attachments(): array
     {
         return [
-            Attachment::fromPath(storage_path('app/public/' . $this->accident->ReportPath)),
+            Attachment::fromPath(storage_path('app/public/' . $this->incident->ReportPath)),
         ];
     }
 }

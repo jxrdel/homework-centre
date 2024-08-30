@@ -75,8 +75,8 @@
                 <div class="col">
                     <div class="col" style="display: flex;">
                         <div class="col">
-                            <label style="margin-top:5px;" for="title">Brief description of accident: &nbsp;</label>
-                            <textarea style="color: black"wire:model="accidentdescription" class="form-control" cols="10" rows="3"></textarea>
+                            <label style="margin-top:5px;" for="title">Brief description of accident: <span style="color: red">*</span>&nbsp;</label>
+                            <textarea required style="color: black"wire:model="accidentdescription" class="form-control" cols="10" rows="3"></textarea>
                         </div>
                     </div>
                 </div>
@@ -87,9 +87,9 @@
                 <div class="col">
                     <div class="col" style="display: flex;">
                         <div class="col">
-                            <label style="margin-top:5px;" for="title">Describe briefly the nature and extent of injuries (attach a copy of medical report if applicable) &nbsp;</label>
+                            <label style="margin-top:5px;" for="title">Describe briefly the nature and extent of injuries (attach a copy of medical report if applicable) &nbsp;<span style="color: red">*</span></label>
                             
-                            <textarea style="color: black"wire:model="injurydescription" class="form-control" cols="10" rows="3"></textarea>
+                            <textarea required style="color: black"wire:model="injurydescription" class="form-control" cols="10" rows="3"></textarea>
                         </div>
                     </div>
                 </div>
@@ -128,7 +128,7 @@
                 <div class="col">
                     <div class="col" style="display: flex;">
                         <div class="col-3">
-                            <label for="title">Parent/ guardian was notified: &nbsp;</label>
+                            <label for="title">Parent/ guardian was notified: &nbsp;<span style="color: red">*</span></label>
                         </div>
                         <div class="col">
                             <input required wire:model="parentnotified" value="true" type="radio" name="parentnotified" id="yesRadio" autocomplete="off">
@@ -146,10 +146,10 @@
                 <div class="col">
                     <div class="col" style="display: flex;">
                         <div class="col-4">
-                            <label style="margin-top:5px;" for="title">Name of person making this report: <span style="color: red">*</span></label>
+                            <label style="margin-top:5px;" for="title">Name of person making this report:</label>
                         </div>
                         <div class="col">
-                            <input required class="form-control" wire:model="reportername" type="text" autocomplete="off" style="width: 100%;color:black;">
+                            <input readonly required class="form-control" wire:model="reportername" type="text" autocomplete="off" style="width: 100%;color:black;">
                         </div>
                     </div>
                 </div>

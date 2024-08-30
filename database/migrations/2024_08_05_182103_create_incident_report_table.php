@@ -20,6 +20,7 @@ return new class extends Migration
             $table->dateTime('TimeOfIncident')->nullable();
             $table->text('IncidentDescription')->nullable();
             $table->date('DateOfReport')->nullable();
+            $table->string('ReportPath')->nullable();
             $table->timestamps();
         });
     }

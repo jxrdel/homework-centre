@@ -12,9 +12,11 @@ use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Illuminate\Support\Str;
+use Livewire\WithFileUploads;
 
 class CreateAccidentForm extends Component
 {
+    use WithFileUploads;
     public $childname;
     public $childage;
     public $accidentlocation;
@@ -22,6 +24,7 @@ class CreateAccidentForm extends Component
     public $accidentdescription;
     public $injurydescription;
     public $medicalreport;
+    public $medicalreportpath;
     public $remedialactions;
     public $parentnotified;
     public $reportername;
@@ -41,9 +44,19 @@ class CreateAccidentForm extends Component
     public function mount(){
         $this->dateofreport = date('Y-m-d');
         $this->students = Student::all();
+        $this->reportername = auth()->user()->FirstName . ' ' . auth()->user()->LastName;
     }
 
     public function save(){
+        $this->validate([
+            'medicalreport' => 'nullable|file|mimes:pdf,png,jpg,jpeg,webp|max:10024',
+        ]);
+
+
+        if ($this->medicalreport) {
+            $this->medicalreportpath = $this->medicalreport->store('medical_reports', 'public');
+        }
+
         $timeofaccident = Carbon::parse($this->timeofaccident);
         $timeofaccident = $timeofaccident->format('Y-m-d H:i:s');
         // dd($timeofaccident);
@@ -56,7 +69,7 @@ class CreateAccidentForm extends Component
             'TimeOfAccident' => $timeofaccident,
             'AccidentDescription' => $this->accidentdescription,
             'InjuryDescription' => $this->injurydescription,
-            'MedicalReport' => $this->medicalreport,
+            'MedicalReport' => $this->medicalreportpath,
             'RemedialActions' => $this->remedialactions,
             'ParentNotified' => $this->parentnotified,
             'ReporterName' => $this->reportername,
