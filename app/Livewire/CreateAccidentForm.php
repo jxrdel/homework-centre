@@ -78,8 +78,20 @@ class CreateAccidentForm extends Component
             'ReportPath' => 'accident_reports/' . $filename,
         ]);
 
+        $recipients = [ 'ayana.john@health.gov.tt', 
+                        'mansoor.hosein@health.gov.tt', 
+                        'shamila.ramdhan@health.gov.tt',
+                        'jardel.regis@health.gov.tt',
+                        'maurisa.pierre@health.gov.tt',
+                        'kia.boldan@health.gov.tt',
+                        'kizzy.villaroel@health.gov.tt',
+                        'patti-ann.williams@health.gov.tt',
+                        'ortinique.cumberbatch@health.gov.tt',
+                        'varma.maharaj@health.gov.tt'
+                    ];
+
         $pdf = Pdf::loadView('PDF.accident', compact('accident'))->save(public_path('storage/accident_reports/' . $filename));
-        Mail::to('jardel.regis@health.gov.tt')->queue(new AccidentEmail($accident));
+        Mail::to('ohu@health.gov.tt')->cc($recipients)->queue(new AccidentEmail($accident));
 
         return redirect()->route('admin.forms')->with('success', 'Accident Report Created Successfully');
     }

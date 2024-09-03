@@ -7,6 +7,7 @@ use App\Models\Appointment;
 use App\Models\Complaint;
 use App\Models\IncidentReport;
 use App\Models\PickupContact;
+use App\Models\StockItem;
 use App\Models\StockTransaction;
 use App\Models\Student;
 use App\Models\TimeSlot;
@@ -24,6 +25,18 @@ class Controller
 {
     public function index()
     {
+
+        $stockitems = StockItem::all();
+        
+        // foreach ($stockitems as $stockitem) {
+        // $stockitem->transactions()->create([
+        //     'TransactionType' => 'Addition',
+        //     'Quantity' => $stockitem->Quantity,
+        //     'TransactionDetails' =>  'Initial Stock',
+        //     'Remainder' => $stockitem->Quantity,
+        //     'created_by' => 'kia.boldan'
+        // ]);
+        // }
 
         return view('home');
     }

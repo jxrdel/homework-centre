@@ -68,8 +68,20 @@ class CreateComplaintForm extends Component
             'ComplaintPath' => 'complaints/' . $filename,
         ]);
 
+        $recipients = [ 'ayana.john@health.gov.tt', 
+                        'mansoor.hosein@health.gov.tt', 
+                        'shamila.ramdhan@health.gov.tt',
+                        'jardel.regis@health.gov.tt',
+                        'maurisa.pierre@health.gov.tt',
+                        'kia.boldan@health.gov.tt',
+                        'kizzy.villaroel@health.gov.tt',
+                        'patti-ann.williams@health.gov.tt',
+                        'ortinique.cumberbatch@health.gov.tt',
+                        'varma.maharaj@health.gov.tt'
+                    ];
+
         $pdf = Pdf::loadView('PDF.complaint', compact('complaint'))->save(public_path('storage/complaints/' . $filename));
-        Mail::to('jardel.regis@health.gov.tt')->queue(new ComplaintEmail($complaint));
+        Mail::to('ohu@health.gov.tt')->cc($recipients)->queue(new ComplaintEmail($complaint));
 
         return redirect()->route('/')->with('success', 'Complaint created successfully. An email has been sent to the relevant parties.');
     }
