@@ -6,6 +6,7 @@
           <h1 class="modal-title fs-5" id="createAppointmentModalLabel" style="color: black">Create Appointment</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div style="color:red; text-align: center;padding:10px">@error('error') {{ $message }} @enderror</div>
         <form wire:submit.prevent="createAppointment" action="">
             <div class="modal-body">
                 <div class="row">
@@ -20,11 +21,19 @@
 
                 <div class="row" style="margin-top: 30px">
                     <div class="col-3">
-                        <label style="margin-top: 5px" for="title">Title: &nbsp;</label>
+                        <label style="margin-top: 5px" for="title">Student: &nbsp;</label>
                     </div>
 
                     <div class="col">
-                        <input type="text" wire:model="title" class="form-control" aria-label="Start Date" autocomplete="off" required>
+
+                    <select class="form-select" wire:model="student" required>
+
+                        <option value="">Select a Student</option>
+                        @foreach ($students as $student)
+                        <option value="{{ $student->StudentID }}">{{ $student->FirstName }} {{ $student->LastName }} </option>
+                        @endforeach
+
+                    </select>
                     </div>
 
                 </div>

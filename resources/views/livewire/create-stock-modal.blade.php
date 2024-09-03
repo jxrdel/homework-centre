@@ -61,42 +61,10 @@
                     </div>
         
                     <div class="col">
-                        <div class="col" style="display: flex;">
-                            <div class="col-4">
-                                <label style="margin-top:5px;" for="title">Addition: &nbsp;</label>
-                            </div>
-                            <div class="col">
-                                <input wire:model="addition" class="form-check-input" type="checkbox" name="addition">
-                            </div>
-                        </div>
                     </div>
         
                 </div>
 
-                <div class="row" style="margin-top:10px">
-                    <div class="col">
-                        <div class="col" style="display: flex;">
-                            <div class="col-4">
-                                <label style="margin-top:5px;margin-left:-10px" for="title">Removal: &nbsp;</label>
-                            </div>
-                            <div class="col">
-                                <input class="form-control" wire:model="removal" type="text" autocomplete="off" style="width: 100%;color: black">
-                            </div>
-                        </div>
-                    </div>
-        
-                    <div class="col">
-                        <div class="col" style="display: flex;">
-                            <div class="col-4">
-                                <label style="margin-top:5px;" for="title">Details of Removal: &nbsp;</label>
-                            </div>
-                            <div class="col">
-                                <input class="form-control" wire:model="detailsofremoval" type="text" autocomplete="off" style="width: 100%;color: black">
-                            </div>
-                        </div>
-                    </div>
-        
-                </div>
 
             </div>
             <div class="modal-footer" style="align-items: center">

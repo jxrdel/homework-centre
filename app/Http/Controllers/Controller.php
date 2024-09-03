@@ -2,65 +2,79 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AccidentReport;
 use App\Models\Appointment;
+use App\Models\Complaint;
+use App\Models\IncidentReport;
+use App\Models\PickupContact;
+use App\Models\StockItem;
+use App\Models\StockTransaction;
+use App\Models\Student;
+use App\Models\TimeSlot;
+use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+use Yajra\DataTables\Facades\DataTables;
 
 class Controller
 {
     public function index()
     {
-        $appointments = Appointment::all();
 
-        $events = [];
+        $stockitems = StockItem::all();
+        
+        // foreach ($stockitems as $stockitem) {
+        // $stockitem->transactions()->create([
+        //     'TransactionType' => 'Addition',
+        //     'Quantity' => $stockitem->Quantity,
+        //     'TransactionDetails' =>  'Initial Stock',
+        //     'Remainder' => $stockitem->Quantity,
+        //     'created_by' => 'kia.boldan'
+        // ]);
+        // }
 
-        foreach ($appointments as $appointment){
-            $events[] = [
-                'id' => $appointment->AppointmentID,
-                'title' => $appointment->Title,
-                'start' => $appointment->StartDate,
-                'end' => $appointment->EndDate
-            ];
-        }
+        return view('home');
+    }
+    public function appointments()
+    {
 
-        return view('home', compact('events'));
+        return view('appointments');
     }
 
-    public function getMyAppointments(){
-
-        $appointments = Appointment::select('AppointmentID as id', 'Title as title', 'StartDate as start', 'EndDate as end')
-            ->get();
-
-        return response()->json($appointments);
+    public function login(){
+        return view('login');
     }
 
-
-    public function getAppointmentCount(){
-
-
-        // Fetch all appointments
-        $appointments = Appointment::all();
-
-        // Determine the dates that have appointments
-        $dates = [];
-        foreach ($appointments as $appointment) {
-            // Create a period from StartDate to EndDate - 1 day
-            $endDate = Carbon::parse($appointment->EndDate);
-            $period = CarbonPeriod::create($appointment->StartDate, $endDate);
-
-            foreach ($period as $date) {
-                $dateStr = $date->format('Y-m-d');
-                if (!isset($dates[$dateStr])) {
-                    $dates[$dateStr] = 0;
-                }
-                $dates[$dateStr]++;
-            }
-        }
-
-        return response()->json($dates);
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login');
     }
 
-    public function admin(){
-        return view('admin');
+    public function register(){
+        return view('register');
+    }
+
+    public function generatePDF(){
+        // $pdf = App::make('dompdf.wrapper');
+        $incident = IncidentReport::find(1);
+        $pdf = Pdf::loadView('PDF.incident', compact('incident'));
+        return $pdf->stream();
+    }
+    
+    public function generateStockReport($startdate, $enddate){
+        $startdate = Carbon::parse($startdate)->startOfDay();
+        $enddate = Carbon::parse($enddate)->endOfDay();
+        $transactions = StockTransaction::whereBetween('created_at', [$startdate, $enddate])
+                        ->with('stockItem')
+                        ->get()
+                        ->groupBy('stockItem.ItemName');
+        $pdf = Pdf::loadView('PDF.transactionreport', compact('transactions', 'startdate', 'enddate'));
+        return $pdf->stream();
     }
 }

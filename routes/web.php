@@ -1,25 +1,23 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\Controller;
-<<<<<<< Updated upstream
-=======
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\StudentController;
 use App\Livewire\CreateAccidentForm;
 use App\Livewire\CreateComplaintForm;
 use App\Livewire\CreateIncidentForm;
+use App\Livewire\CreateStudentAdmin;
+use App\Livewire\EditStockItem;
 use App\Livewire\WaitingList;
 use App\Livewire\WaitingListTable;
->>>>>>> Stashed changes
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [Controller::class, 'index'])->name('/');
-Route::get('/myappointments', [Controller::class, 'getMyAppointments'])->name('myappointments');
-Route::get('/getappointmentcount', [Controller::class, 'getAppointmentCount'])->name('getappointmentcount');
+Route::get('/Login', [Controller::class, 'login'])->name('login');
+Route::get('/Logout', [Controller::class, 'logout'])->name('logout');
+Route::get('/Register', [Controller::class, 'register'])->name('register');
 
-<<<<<<< Updated upstream
-Route::get('/Admin', [Controller::class, 'admin'])->name('admin');
-=======
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [Controller::class, 'index'])->name('/');
     // Route::get('/Home', [Controller::class, 'index'])->name('home');
@@ -34,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/getallstudents', [AdminController::class, 'getAllStudents'])->name('admin.getallstudents');
     Route::get('/Admin/Students/View/{id}', [AdminController::class, 'viewStudent'])->name('admin.students.view');
     Route::get('/Admin/Students/Edit/{id}', [AdminController::class, 'editStudent'])->name('admin.students.edit');
+    Route::get('/Admin/Students/Create', CreateStudentAdmin::class)->name('admin.students.create');
     Route::get('/Admin/Appointments', [AdminController::class, 'adminAppointments'])->name('admin.appointments');
     Route::get('/Admin/Appointments/Book/{date}', [AdminController::class, 'bookAppointmentAdmin'])->name('admin.appointments.book');
     Route::get('/Admin/Parents/All', [AdminController::class, 'allParents'])->name('admin.parents.all');
@@ -44,8 +43,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/getallfeedbackforms', [AdminController::class, 'getAllFeedbackForms'])->name('admin.getallfeedbackforms');
     Route::get('/Admin/WeeklyReports', [AdminController::class, 'weeklyReports'])->name('admin.weeklyreports');
     Route::get('/getweeklyreports', [AdminController::class, 'getWeeklyReports'])->name('admin.getweeklyreports');
-    Route::get('/Admin/Stock', [AdminController::class, 'stock'])->name('admin.stock');
-    Route::get('/getstock', [AdminController::class, 'getStock'])->name('admin.getstock');
     Route::get('/Admin/Attendance', [AdminController::class, 'attendance'])->name('admin.attendance');
     Route::get('/Admin/Attendance/{id}', [AdminController::class, 'classAttendance'])->name('admin.attendance.class');
     Route::get('/Admin/Forms', [AdminController::class, 'forms'])->name('admin.forms');
@@ -56,6 +53,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/Admin/Forms/Complaint/Create', CreateComplaintForm::class)->name('admin.forms.complaint.create');
     Route::get('/getcomplaints', [AdminController::class, 'getComplaints'])->name('admin.getcomplaints');
     Route::get('/Admin/WaitingList', WaitingListTable::class)->name('admin.waitinglist');
+    Route::get('/Admin/Stock', [AdminController::class, 'stock'])->name('admin.stock');
+    Route::get('/getstock', [AdminController::class, 'getStock'])->name('admin.getstock');
+    Route::get('/Admin/Stock/Edit/{id}', EditStockItem::class)->name('admin.stock.edit');
 
 
     Route::get('/MyChildren', [StudentController::class, 'myChildren'])->name('mychildren');
@@ -70,6 +70,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/getpickupcontacts', [ParentController::class, 'getPickupContacts'])->name('getpickupcontacts');
     Route::get('/Feedback', [ParentController::class, 'feedback'])->name('feedback');
     Route::get('/getmyfeedbackforms', [ParentController::class, 'getMyFeedbackForms'])->name('getmyfeedbackforms');
+    Route::get('/Complaint', CreateComplaintForm::class)->name('complaint');
 
     // Appointments
     Route::get('/myappointments', [AppointmentController::class, 'getMyAppointments'])->name('myappointments');
@@ -77,5 +78,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/gettimeslots', [AppointmentController::class, 'getTimeSlots'])->name('gettimeslots');
     Route::get('/gettimeslotdates', [AppointmentController::class, 'getTimeslotDates'])->name('gettimeslotdates');
     Route::get('/getappointmentcount', [AppointmentController::class, 'getAppointmentCount'])->name('getappointmentcount');
+
+    Route::get('/generatePDF', [Controller::class, 'generatePDF'])->name('generatepdf');
+    Route::get('/generateStockReport/{startdate}/{enddate}', [Controller::class, 'generateStockReport'])->name('generatereport');
+
 });
->>>>>>> Stashed changes

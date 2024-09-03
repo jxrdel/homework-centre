@@ -16,6 +16,15 @@
         <div class="card">
             <div class="card-body">
 
+                <div class="row" style="margin-top: 20px">
+                    <a href="{{route('admin.students.create')}}" class="btn btn-primary btn-icon-split" style="width: 14rem;margin:auto">
+                        <span class="icon text-white-50">
+                            <i class="fa-solid fa-plus" style="color: white"></i>
+                        </span>
+                        <span class="text"  style="width: 200px;">Create a Student</span>
+                    </a>
+                </div>
+
                 <div class="row" style="margin-top: 30px">
 
                     <table id="notitable" class="table table-striped table-bordered" style="width: 100%">
@@ -36,6 +45,18 @@
 @endsection
 
 @section('scripts')
+
+@if (Session::has('success'))
+
+  <script>
+      toastr.options = {
+        "progressBar" : true,
+        "closeButton" : true,
+      }
+      toastr.success("{{ Session::get('success') }}",'' , {timeOut:3000});
+  </script>
+
+@endif
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js'></script>

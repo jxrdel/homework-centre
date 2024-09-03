@@ -174,22 +174,22 @@
                 <div class="col">
                     <div class="col" style="display: flex;">
                         <div class="col-4">
-                            <label style="margin-top:5px;" for="formFile" class="form-label">Job Letter:</label>
+                            <label style="margin-top:5px;" for="formFile" class="form-label">Photo ID: <span style="color: red">*</span></label>
                         </div>
                         <div class="col">
-                            <input class="form-control @error('jobletter')is-invalid @enderror" id="formFile" wire:model="jobletter" type="file" style="width: 100%;">
-                            <div style="color:red">@error('jobletter') {{ $message }} @enderror</div>
+                            <input required class="form-control @error('parentpicture1')is-invalid @enderror" id="formFile" wire:model="parentpicture1" type="file" style="width: 100%;">
+                            <div style="color:red">@error('parentpicture1') {{ $message }} @enderror</div>
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="col" style="display: flex;">
                         <div class="col-4">
-                            <label style="margin-top:5px;" for="formFile" class="form-label">Photo ID: <span style="color: red">*</span></label>
+                            <label style="margin-top:5px;" for="formFile" class="form-label">Job Letter:</label>
                         </div>
                         <div class="col">
-                            <input required class="form-control @error('parentpicture1')is-invalid @enderror" id="formFile" wire:model="parentpicture1" type="file" style="width: 100%;">
-                            <div style="color:red">@error('parentpicture1') {{ $message }} @enderror</div>
+                            <input class="form-control @error('jobletter')is-invalid @enderror" id="formFile" wire:model="jobletter" type="file" style="width: 100%;">
+                            <div style="color:red">@error('jobletter') {{ $message }} @enderror</div>
                         </div>
                     </div>
                 </div>
@@ -545,7 +545,7 @@
                         <label style="margin-top:5px;" for="title">Relationship to Child: <span style="color: red">*</span>&nbsp;</label>
                     </div>
                     <div class="col">
-                        <input required class="form-control" wire:model="ecrelationship" type="text" autocomplete="off" style="width: 100%;color:black;">
+                        <input required class="form-control" placeholder="i.e. friend, uncle, aunt etc." wire:model="ecrelationship" type="text" autocomplete="off" style="width: 100%;color:black;">
                     </div>
                 </div>
             </div>

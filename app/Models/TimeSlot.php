@@ -14,8 +14,27 @@ class TimeSlot extends Model
     protected $primaryKey = 'TimeSlotID';
 
     protected $fillable = [
+        'Title',
         'StartTime',
         'EndTime',
         'MaxEnrollments',
     ];
+
+    public static function timeslotExists($startTime, $endTime)
+    {
+        return self::where('StartTime', '<=', $startTime)
+                    ->where('EndTime', '>=', $endTime)
+                    ->exists();
+    }
+
+    public function students()
+    {
+        return $this->belongsToMany(Student::class, 'appointments', 'TimeSlotID', 'StudentID')
+                    ->withTimestamps();
+    }
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class, 'TimeSlotID', 'TimeSlotID');
+    }
 }

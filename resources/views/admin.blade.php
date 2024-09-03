@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-    <title>Homework Centre | Admin</title>
+    <title>Admin | VOSC</title>
 @endsection
 
 @section('styles')
@@ -19,10 +19,11 @@
 
 @section('content')
 
+        @livewire('create-timeslot-modal')
         @livewire('date-appointments')
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Admin</h1>
+            <h1 class="h3 mb-0 text-gray-800" style="margin: auto"><strong><i class="fa-solid fa-school"></i> &nbsp; Classes</strong></h1>
         </div>
 
         <!-- Content Row -->
@@ -43,26 +44,13 @@
 <script>
 
         document.addEventListener('DOMContentLoaded', function() {
+            //Set active link
+
             var myCalendar = document.getElementById('calendar');
 
-            // Fetch appointment counts from the backend
-            axios.get('/getappointmentcount').then(response => {
-                const appointmentCounts = response.data;
-
+            function initializeCalendar() {
                 var calendar = new FullCalendar.Calendar(myCalendar, {
                     initialView: 'dayGridMonth',
-<<<<<<< Updated upstream
-                    editable: true,
-                    selectable: true,
-                    select: function(info) {
-                        // Ensure only single dates are selectable
-                        var startDate = moment(info.startStr);
-                        var endDate = moment(info.endStr).subtract(1, 'days');
-
-                        if (startDate.isSame(endDate, 'day')) {
-                            console.log('Selected date: ' + info.startStr);
-                            Livewire.dispatch('show-appointments', { date: info.startStr });
-=======
                     editable: false,
                     selectable: true,
                     events: '/gettimeslots', // Fetch events from the specified route
@@ -75,19 +63,13 @@
                         if (endDate.isSame(startDate.clone().add(1, 'day'), 'day')) {
                             console.log('Selected range from: ' + info.startStr + ' to ' + info.endStr);
                             Livewire.dispatch('create-timeslot', { starttime: info.startStr, endtime: info.endStr });
->>>>>>> Stashed changes
                         } else {
                             calendar.unselect();
                         }
                     },
-                    dayCellClassNames: function(arg) {
-                        const dateStr = arg.date.toISOString().split('T')[0];
-                        if (appointmentCounts[dateStr] && appointmentCounts[dateStr] >= 3) {
-                            return 'max-appointments';
-                        } else if (appointmentCounts[dateStr] && appointmentCounts[dateStr] > 0) {
-                            return 'appointment-day';
-                        }
-                        return '';
+                    eventClick: function(info) {
+                        // Log the event's start and end time
+                            Livewire.dispatch('show-appointments', { id:info.event.id});
                     }
                 });
 
@@ -97,21 +79,28 @@
                 window.addEventListener('refresh-calendar', event => {
                     calendar.refetchEvents();
                 });
-            }).catch(error => {
-                console.error('Error fetching appointment counts:', error);
-            });
+            }
+
+            initializeCalendar();
         });
 
 
 
-    window.addEventListener('display-appointments-modal', event => {
-            $('#dateAppointmentModal').modal('show');
+    window.addEventListener('display-create-modal', event => {
+            $('#createTimeslotModal').modal('show');
         })
 
-    window.addEventListener('close-appointments-modal', event => {
+    window.addEventListener('close-create-modal', event => {
+            $('#createTimeslotModal').modal('hide');
+        })
+
+    window.addEventListener('show-appointments', event => {
+        $('#dateAppointmentModal').modal('show');
+    })
+
+    window.addEventListener('close-details-modal', event => {
             $('#dateAppointmentModal').modal('hide');
         })
-
 
     window.addEventListener('refresh-calendar', event => {
         calendar.refetchEvents();

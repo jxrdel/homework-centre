@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -17,11 +19,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-<<<<<<< Updated upstream
-        'name',
-        'email',
-        'password',
-=======
         'FirstName',
         'LastName',
         'Username',
@@ -44,29 +41,46 @@ class User extends Authenticatable
         'RegisteredBy',
         'IsSuperAdmin',
         'EmergencyContactID'
->>>>>>> Stashed changes
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    public static function generateUniqueUsername($firstname, $lastname)
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        $username = strtolower(trim($firstname) . '.' . trim($lastname));
+        $baseUsername = $username;
+        $counter = 1;
+
+        // Check if the username already exists
+        while (self::where('Username', $username)->exists()) {
+            // Append the counter to the base username
+            $username = $baseUsername . $counter;
+            $counter++;
+        }
+
+        return $username;
+    }
+
+    public static function usernameExists($username)
+    {
+        return self::where('Username', $username)->exists();
+    }
+
+    public function students()
+    {
+        return $this->belongsToMany(Student::class, 'UserStudent', 'UserID', 'StudentID');
+    }
+
+    public function pickupcontacts()
+    {
+        return $this->belongsToMany(PickupContact::class, 'UserPickupcontact', 'UserID', 'PickupContactID');
+    }
+    
+    public function emergencyContact(): HasOne
+    {
+        return $this->hasOne(EmergencyContact::class, 'EmergencyContactID', 'EmergencyContactID');
+    }
+
+    public function feedbackforms()
+    {
+        return $this->hasMany(Feedback::class, 'ParentID', 'id');
     }
 }

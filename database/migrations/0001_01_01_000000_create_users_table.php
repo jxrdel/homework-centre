@@ -13,13 +13,6 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-<<<<<<< Updated upstream
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-=======
             $table->string('FirstName');
             $table->string('LastName');
             $table->string('Username')->unique();
@@ -42,14 +35,9 @@ return new class extends Migration
             $table->boolean('HasWindowsLogin')->nullable();
             $table->string('RegisteredBy')->nullable();
             $table->unsignedBigInteger('EmergencyContactID')->nullable();
->>>>>>> Stashed changes
             $table->timestamps();
-        });
-
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
+            
+            $table->foreign('EmergencyContactID')->references('EmergencyContactID')->on('emergency_contacts');
         });
 
         Schema::create('sessions', function (Blueprint $table) {
@@ -68,7 +56,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
+        // Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
     }
 };

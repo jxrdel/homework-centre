@@ -17,7 +17,8 @@ class StudentFactory extends Factory
     public function definition(): array
     {
         return [
-            'StudentName' => $this->faker->name,
+            'FirstName' => $this->faker->firstName,
+            'LastName' => $this->faker->lastName,
             'DOB' => $this->faker->date('Y-m-d', '2010-01-01'), // Random date of birth up to 2010
         ];
     }

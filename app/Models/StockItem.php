@@ -20,4 +20,8 @@ class StockItem extends Model
         'Removal',
         'DetailsOfRemoval'
     ];
+
+    public function transactions(){
+        return $this->hasMany(StockTransaction::class, 'StockItemID');
+    }
 }

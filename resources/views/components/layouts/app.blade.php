@@ -105,6 +105,15 @@
                 </li>
             @endif
 
+            @if (Auth::user()->IsParent)
+            <!-- Nav Item - Dashboard -->
+                <li @class(['nav-item', 'active' => request()->routeIs('complaint')]) id="dashboardlink">
+                    <a class="nav-link" href="{{ route('complaint') }}">
+                        <i class="fa-solid fa-file-pen"></i>
+                        &nbsp;<span>Complaint</span></a>
+                </li>
+            @endif
+
             @if (Auth::user()->IsAdmin || Auth::user()->IsSuperAdmin)
                 <li @class(['nav-item', 'active' => request()->routeIs('admin.*')])>
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#adminCollapse"
@@ -128,7 +137,7 @@
                             <a @class(['collapse-item', 'active' => request()->routeIs('admin.feedback')]) href="{{ route('admin.feedback') }}">Feedback</a>
                             <a @class(['collapse-item', 'active' => request()->routeIs('admin.weeklyreports')]) href="{{ route('admin.weeklyreports') }}">Weekly Reports</a>
                             <a @class(['collapse-item', 'active' => request()->routeIs('admin.forms') || request()->routeIs('admin.forms.*')]) href="{{ route('admin.forms') }}">Forms</a>
-                            <a @class(['collapse-item', 'active' => request()->routeIs('admin.stock')]) href="{{ route('admin.stock') }}">Stock</a>
+                            <a @class(['collapse-item', 'active' => request()->routeIs('admin.stock') || request()->routeIs('admin.stock.*')]) href="{{ route('admin.stock') }}">Stock</a>
                         </div>
                     </div>
                 </li>
