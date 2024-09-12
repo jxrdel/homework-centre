@@ -5,7 +5,7 @@
 <p>A complaint has been submitted to the Vacation and Out of School Centre (VOSC) Committee on {{ \Carbon\Carbon::parse($complaint->DateOfComplaint)->format('F jS, Y') }}.</p>
 
 <p>
-    Please see the attached complaint below.
+    Please see the attached report below.
 </p>
 
 </x-mail::message>

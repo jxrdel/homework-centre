@@ -7,6 +7,7 @@ use App\Models\Appointment;
 use App\Models\Complaint;
 use App\Models\IncidentReport;
 use App\Models\PickupContact;
+use App\Models\StockItem;
 use App\Models\StockTransaction;
 use App\Models\Student;
 use App\Models\TimeSlot;
@@ -24,13 +25,7 @@ class Controller
 {
     public function index()
     {
-
         return view('home');
-    }
-    public function appointments()
-    {
-
-        return view('appointments');
     }
 
     public function login(){
@@ -47,13 +42,14 @@ class Controller
         return view('register');
     }
 
-    public function generatePDF(){
-        // $pdf = App::make('dompdf.wrapper');
-        $incident = IncidentReport::find(1);
-        $pdf = Pdf::loadView('PDF.incident', compact('incident'));
-        return $pdf->stream();
-    }
+    // public function generatePDF(){ Testing purposes
+    //     // $pdf = App::make('dompdf.wrapper');
+    //     $incident = IncidentReport::find(1);
+    //     $pdf = Pdf::loadView('PDF.incident', compact('incident'));
+    //     return $pdf->stream();
+    // }
     
+    //Generate PDF for stock report
     public function generateStockReport($startdate, $enddate){
         $startdate = Carbon::parse($startdate)->startOfDay();
         $enddate = Carbon::parse($enddate)->endOfDay();

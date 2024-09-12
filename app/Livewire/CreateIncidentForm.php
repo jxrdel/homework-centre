@@ -50,8 +50,22 @@ class CreateIncidentForm extends Component
             'ReportPath' => 'incident_reports/' . $filename,
         ]);
 
+        $recipients = [ 'ayana.john@health.gov.tt', 
+                        'mansoor.hosein@health.gov.tt', 
+                        'shamila.ramdhan@health.gov.tt',
+                        'jardel.regis@health.gov.tt',
+                        'maurisa.pierre@health.gov.tt',
+                        'kia.boldan@health.gov.tt',
+                        'kizzy.villaroel@health.gov.tt',
+                        'patti-ann.williams@health.gov.tt',
+                        'ortinique.cumberbatch@health.gov.tt',
+                        'varma.maharaj@health.gov.tt'
+                    ];
+
         $pdf = Pdf::loadView('PDF.incident', compact('incident'))->save(public_path('storage/incident_reports/' . $filename));
-        Mail::to('jardel.regis@health.gov.tt')->queue(new IncidentEmail($incident));
+        Mail::to('ohu@health.gov.tt')->cc($recipients)->queue(new IncidentEmail($incident));
+
+
 
         return redirect()->route('admin.forms')->with('success', 'Incident Report Created Successfully');
     }

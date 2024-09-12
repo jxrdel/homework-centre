@@ -33,6 +33,8 @@ return new class extends Migration
             $table->string('BloodType')->nullable();
             $table->string('AdditionalInfo')->nullable();
             $table->string('ImmunizationPath')->nullable();
+            $table->boolean('IsBanned')->default(false);
+            $table->date('BanExpiry')->nullable();
 
             $table->timestamps(); // Created_at and updated_at timestamps
         });

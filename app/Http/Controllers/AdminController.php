@@ -21,6 +21,7 @@ use Yajra\DataTables\DataTables;
 
 class AdminController extends Controller
 {
+    //Superadmin user control
     public function userControl(){
 
         if (Gate::denies('view-admin-pages')) {
@@ -30,6 +31,7 @@ class AdminController extends Controller
         return view('superadmin-users');
     }
     
+    //Get all admin users
     public function getAdminUsers(){
 
         $users = User::where('IsAdmin', true)
@@ -39,6 +41,7 @@ class AdminController extends Controller
         return DataTables::of($users)->make(true);
     }
 
+    //Admin classes page
     public function admin(){
         
         if (Gate::denies('view-admin-pages')) {
@@ -48,6 +51,7 @@ class AdminController extends Controller
         return view('admin');
     }
     
+    //Admin registration page
     public function adminRegistration(){
         
         if (Gate::denies('view-admin-pages')) {
@@ -57,6 +61,7 @@ class AdminController extends Controller
         return view('admin-registration');
     }
 
+    //Admin all students page
     public function allStudents(){
         // Gate::authorize('view-all-students'); //Only allows parents and admins to edit children
 
@@ -67,7 +72,7 @@ class AdminController extends Controller
         return view('students-all');
     }
 
-    
+    //Get all students
     public function getAllStudents(){
 
         $students = Student::all();
@@ -75,6 +80,7 @@ class AdminController extends Controller
         return DataTables::of($students)->make(true);
     }
 
+    //All parents page
     public function allParents(){
         // Gate::authorize('view-all-students'); //Only allows parents and admins to edit children
 
@@ -85,6 +91,7 @@ class AdminController extends Controller
         return view('parents-all');
     }
     
+    //Get all parents
     public function getAllParents(){
 
         $parents = User::where('IsParent', 1)->get();
@@ -92,6 +99,7 @@ class AdminController extends Controller
         return DataTables::of($parents)->make(true);
     }
 
+    //View parent page
     public function viewParent($id){
         $parent = User::find($id);
 
@@ -108,6 +116,7 @@ class AdminController extends Controller
         return view('parent-view', compact('parent', 'emergencycontact', 'pickupcontacts', 'children'));
     }
 
+    //Edit parent page
     public function editParent($id){
         $parent = User::find($id);
 
@@ -118,6 +127,7 @@ class AdminController extends Controller
         return view('parent-edit', compact('parent'));
     }
 
+    //Admin appointments page
     public function adminAppointments(){
         
         if (Gate::denies('view-admin-pages')) {
@@ -127,6 +137,7 @@ class AdminController extends Controller
         return view('admin-appointments');
     }
     
+    //Admin book appointment page
     public function bookAppointmentAdmin($date){
         
         if (Gate::denies('view-admin-pages')) {
@@ -136,6 +147,7 @@ class AdminController extends Controller
         return view('admin-bookappointment', compact('date'));
     }
     
+    //View student page
     public function viewStudent($id){
         
         $student = Student::find($id);
@@ -147,7 +159,7 @@ class AdminController extends Controller
         return view('admin-student-view', compact('student'));
 
     }
-    
+    //Edit student page
     public function editStudent($id){
         $student = Student::find($id);
 
@@ -159,6 +171,7 @@ class AdminController extends Controller
         return view('admin-student-edit', compact('student'));
     }
 
+    //Admin feedback page
     public function adminFeedback(){
         
         if (Gate::denies('view-admin-pages')) {
@@ -168,6 +181,7 @@ class AdminController extends Controller
         return view('admin-feedback');
     }
 
+    //Get all feedback forms
     public function getAllFeedbackForms(){
 
         $feedbackforms = Feedback::all();
@@ -179,6 +193,7 @@ class AdminController extends Controller
         return DataTables::of($query)->make(true);
     }
 
+    //Admin weekly reports page
     public function weeklyReports(){
         
         if (Gate::denies('view-admin-pages')) {
@@ -188,6 +203,7 @@ class AdminController extends Controller
         return view('admin-weeklyreports');
     }
 
+    //Get all weekly reports
     public function getWeeklyReports(){
 
         $reports = WeeklyReport::all();
@@ -195,6 +211,7 @@ class AdminController extends Controller
         return DataTables::of($reports)->make(true);
     }
 
+    //Admin stock page
     public function stock(){
         
         if (Gate::denies('view-admin-pages')) {
@@ -204,6 +221,7 @@ class AdminController extends Controller
         return view('admin-stock');
     }
 
+    //Get all stock items
     public function getStock(){
 
         $stock = StockItem::all();
@@ -211,6 +229,7 @@ class AdminController extends Controller
         return DataTables::of($stock)->make(true);
     }
 
+    //Admin attendance page
     public function attendance(){
         
         if (Gate::denies('view-admin-pages')) {
@@ -224,6 +243,7 @@ class AdminController extends Controller
         return view('admin-attendance', compact('classes', 'today'));
     }
 
+    //Admin class attendance page
     public function classAttendance($id){
         
         if (Gate::denies('view-admin-pages')) {
@@ -237,10 +257,12 @@ class AdminController extends Controller
         return view('admin-attendance-class', compact('class', 'today', 'starttime', 'endtime'));
     }
 
+    //Admin forms page (Accident, Incident, Complaint)
     public function forms(){
         return view('admin-forms');
     }
 
+    //Get all accident reports
     public function getAccidentReports(){
 
         $reports = AccidentReport::all();
@@ -248,6 +270,7 @@ class AdminController extends Controller
         return DataTables::of($reports)->make(true);
     }
 
+    //Get all incident reports
     public function getIncidentReports(){
 
         $reports = IncidentReport::all();
@@ -255,6 +278,7 @@ class AdminController extends Controller
         return DataTables::of($reports)->make(true);
     }
 
+    //Get all complaints
     public function getComplaints(){
 
         $complaints = Complaint::all();

@@ -49,8 +49,8 @@
                         <thead>
                             <tr>
                                 <th>Item Name</th>
-                                <th>Description</th>
-                                <th style="width: 20%">Quantity</th>
+                                <th style="width: 50%">Description</th>
+                                <th style="width: 10%">Quantity</th>
                                 <th style="text-align: center">Actions</th>
                             </tr>
                         </thead>

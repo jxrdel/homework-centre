@@ -14,12 +14,19 @@ use Illuminate\Support\Facades\DB;
 class AppointmentController extends Controller
 {
 
+    //Parent appointments page
+    public function appointments()
+    {
+        return view('appointments');
+    }
+
+    //Parent book appointment page for a given date
     public function bookAppointment($date){
         $today = Carbon::now('AST')->startOfDay();
         $requestDate = Carbon::parse($date);
         $latestDate = Carbon::now('AST')->startOfDay()->addDays(7);
 
-        if($requestDate->greaterThan($latestDate)){
+        if($requestDate->greaterThan($latestDate)){//Redirect if the date is more than 7 days in advance
             return redirect()->route('appointments')->with('error', 'Parents are not authorized to book more than 7 days in advance');
         }
         else{
@@ -37,7 +44,7 @@ class AppointmentController extends Controller
                     $query->where('UserID', $user->id);
                 });
             })
-            ->with(['student', 'timeslot'])
+            ->with(['student', 'timeslot'])//Eager load the student and timeslot
             ->get()
             ->map(function ($appointment) {
                 $appointment->date = substr($appointment->timeslot->StartTime, 0, 10); // Extract date part from datetime

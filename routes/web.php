@@ -21,7 +21,6 @@ Route::get('/Register', [Controller::class, 'register'])->name('register');
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [Controller::class, 'index'])->name('/');
     // Route::get('/Home', [Controller::class, 'index'])->name('home');
-    Route::get('/Appointments', [Controller::class, 'appointments'])->name('appointments');
     
     Route::get('/SuperAdmin/Users', [AdminController::class, 'userControl'])->name('superadmin.users');
     Route::get('/getadminusers', [AdminController::class, 'getAdminUsers'])->name('admin.getadminusers');
@@ -73,6 +72,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/Complaint', CreateComplaintForm::class)->name('complaint');
 
     // Appointments
+    Route::get('/Appointments', [AppointmentController::class, 'appointments'])->name('appointments');
     Route::get('/myappointments', [AppointmentController::class, 'getMyAppointments'])->name('myappointments');
     Route::get('/BookAppointment/{date}', [AppointmentController::class, 'bookAppointment'])->name('bookappointment');
     Route::get('/gettimeslots', [AppointmentController::class, 'getTimeSlots'])->name('gettimeslots');
